@@ -14,7 +14,7 @@ module.exports = {
       colors: {
         "tts-black": "#1f2733",
         "tts-red": "#ac3e3f",
-        "tts-bg": "#f0f2f5",
+        "tts-background": "#f0f2f5",
       },
     },
   },
