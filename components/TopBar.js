@@ -7,7 +7,7 @@ export default function TopBar() {
   return (
     <div className="flex flex-row items-center justify-between py-5 pl-5 pr-10 bg-white">
       <Image src={Logo} alt="logo" width={100} height={30} />
-      <div className="relative flex flex-row items-center w-1/2">
+      <div className="relative flex-row items-center hidden w-1/2 sm:flex">
         <input
           type="text"
           placeholder="Search by Serial Number"
