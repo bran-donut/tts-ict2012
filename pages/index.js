@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 
 import Logo from "../assets/logo.png";
 
@@ -24,7 +23,7 @@ export default function Home() {
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] == true) {
-          router.push("/app");
+          router.push("/main");
         } else {
           alert("Incorrect username or password!");
         }

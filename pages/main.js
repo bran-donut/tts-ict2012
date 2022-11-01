@@ -1,5 +1,5 @@
 import Layout from "../layouts/Layout";
-import Navbar from "../components/Navbar";
+import NavBar from "../components/NavBar";
 
 export default function Main() {
   return (
@@ -12,7 +12,7 @@ export default function Main() {
           <p className="text-[#BDBDBD]">Senior Nurse</p>
         </div>
       </section>
-      <Navbar />
+      <NavBar />
     </Layout>
   );
 }
