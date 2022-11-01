@@ -88,7 +88,7 @@ export default function NavBar() {
           </React.Fragment>
         ))}
       </div>
-      <button className="expand-button text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-24px]" onClick={toggleOpen}>
+      <button className="expand-button text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-22px] px-0.5" onClick={toggleOpen}>
         {open ? <LeftOutlined /> : <RightOutlined />}
       </button>
     </div>
