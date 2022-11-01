@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.expand-button {
+    transform: perspective(7px) rotateY(7deg);
+}

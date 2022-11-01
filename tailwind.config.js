@@ -12,7 +12,8 @@ module.exports = {
         roboto: ["'Roboto', sans-serif", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        "tts-black": "#1f2733",
+        "tts-darkblue": "#1f2733",
+        "tts-black": "#171D26",
         "tts-red": "#ac3e3f",
         "tts-background": "#f0f2f5",
       },
