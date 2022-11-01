@@ -1,6 +1,10 @@
 export default function Footer(props) {
   return (
-    <div className={`w-full py-5 text-sm text-center text-gray-400 ${props.isLogin ? `bg-inherit absolute bottom-0 left-0` : `bg-tts-black`}`}>
+    <div
+      className={`w-full py-5 text-sm text-center text-gray-400 ${
+        props.isLogin ? `bg-inherit absolute bottom-0 left-0` : `from-[#10141A] to-[#171D26] bg-gradient-to-br`
+      }`}
+    >
       <div className="flex flex-row justify-center gap-5 mb-2">
         <div>Tan Tock Seng Hospital</div>
         <div>National Health Group</div>
