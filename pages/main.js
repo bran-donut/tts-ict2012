@@ -9,7 +9,7 @@ export default function Main() {
         <div className="p-5 text-white">
           <h2 className="text-5xl font-semibold">Welcome back, Janice Ng</h2>
           <p className="text-[#BDBDBD] mt-3">What would you like to do today?</p>
-          <div className="flex flex-col gap-20 mt-12 sm:flex-row">
+          <div className="flex flex-col gap-10 mt-12 sm:gap-20 sm:flex-row">
             <div>
               <p className="text-[#E0E0E0]">Staff ID</p>
               <p className="mt-3 text-[#BDBDBD]">210228491</p>
@@ -23,7 +23,7 @@ export default function Main() {
       </section>
       <section className="px-10 py-5 text-black bg-white">
         <h1 className="text-3xl">Dashboard</h1>
-        <p className="mt-5 text-lg text-[#828282] flex items-center gap-2">
+        <p className="mt-5 text-sm sm:text-lg text-[#828282] flex items-center gap-2">
           <InfoCircleOutlined />
           This area displays all the essential information relating to the equipment under tracking.
         </p>
