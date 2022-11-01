@@ -80,7 +80,7 @@ const navItems = [
 export default function NavBar() {
   const [open, toggleOpen] = useReducer((open) => !open, false);
   return (
-    <div className={`bg-tts-darkblue fixed top-0 left-0 h-full transition-[width] ease-in-out duration-300 ${open ? "w-[230px]" : "w-[50px]"}`}>
+    <div className={`bg-tts-darkblue fixed top-10 left-0 h-full transition-[width] ease-in-out duration-300 ${open ? "w-[230px]" : "w-[50px]"}`}>
       <div className="pt-14">
         {navItems.map((item, i) => (
           <React.Fragment key={i}>

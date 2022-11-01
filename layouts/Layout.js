@@ -1,12 +1,16 @@
+import NavBar from "../components/NavBar";
 import TopBar from "../components/TopBar";
 
 export default function Layout(props) {
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <TopBar />
       </header>
-      <main>{props.children}</main>
+      <aside>
+        <NavBar />
+      </aside>
+      <main className="pl-12">{props.children}</main>
       <footer></footer>
     </>
   );

@@ -1,5 +1,4 @@
 import Layout from "../layouts/Layout";
-import NavBar from "../components/NavBar";
 
 import { InfoCircleOutlined } from "@ant-design/icons";
 
@@ -29,10 +28,10 @@ export default function Main() {
           This area displays all the essential information relating to the equipment under tracking.
         </p>
       </section>
-      <section className="grid grid-cols-2 gap-5 px-10 py-5">
+      <section className="grid min-h-screen grid-cols-1 gap-5 px-10 py-5 md:grid-cols-2">
         <div className="p-5 bg-white">to samp</div>
         <div className="p-5 bg-white">pend res</div>
-        <div className="col-span-2 p-5 bg-white">sample res</div>
+        <div className="p-5 bg-white md:col-span-2">sample res</div>
         <div className="p-5 bg-white">on quaran</div>
         <div className="p-5 bg-white">on repair</div>
       </section>
