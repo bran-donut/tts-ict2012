@@ -1,8 +1,7 @@
 import Layout from "../layouts/Layout";
 import { useState } from "react";
-import NavBar from "../components/NavBar";
-import SubHeader from "../components/SubHeader";
 import EquipmentCard from "../components/EquipmentCard";
+import Breadcrumb from "../components/Breadcrumb";
 
 
 export default function Inventory() {
@@ -20,8 +19,10 @@ export default function Inventory() {
   ]
   );
   
-  const [tab, setTab] = useState(['Scope', 'Washer (AER)', 'Miscellaneous']);
-  const [tabIndex, setTabIndex] = useState(0);
+  const [header, setHeader] = useState(['Scope', 'Washer (AER)']);
+  const [tab, setTab] = useState(['Scope', 'Washer (AER)']);
+  const [index, setIndex] = useState(0);
+  
   return (
     <Layout>
       <section className="p-5 text-white from-[#10141A] to-[#171D26] bg-gradient-to-br">
@@ -32,14 +33,20 @@ export default function Inventory() {
           <p className="text-[#BDBDBD]">36</p>
         </div>
       </section>
-      <SubHeader
-        breadCrumbItems={['Home', 'Inventory']}
-        headerContent= {['Scope', 'Washer (AER)', 'Miscellaneous']}
-        description='Displays all the equipment inside the system'
-        tabContent= {['Scope', 'Washer (AER)', 'Miscellaneous']}
-      />
-      {/* <NavBar /> */}
-      <section className={`${ tab[tabIndex] == "Scope" ? "visible" : "invisible"} grid grid-cols-1 md:grid-cols-2 bg-#f0f2f5 py-14 px-48`}>
+
+      <div className="flex flex-col items-start justify-start w-full px-10 pt-5 bg-white">
+        <Breadcrumb
+        breadCrumbItems = {["Home", "Inventory"]}
+        />
+        <h2 className="pb-3 text-3xl font-medium">{`${header ? header[index] : "" }`}</h2>
+        <p className="mt-2 text-sm text-gray-500 md:text-base">Displays all equipment inside the system</p>
+        <div className="py-3">
+            <button onClick={() => setIndex(0)} className={`${tab[index] == tab[0] ? "text-blue-600 font-bold border-b-2 border-indigo-500" : "text-black" } text-md md:text-base`}>{`${tab == 'null' ? "" : tab[0] }`}</button>
+            <button onClick={() => setIndex(1)} className={`${tab[index] == tab[1] ? "text-blue-600 font-bold border-b-2 border-indigo-500" : "text-black" } mx-10 text-md md:text-base`}>{`${tab == 'null' ? "" : tab[1] }`}</button>
+        </div>
+      </div>
+
+      <section className={`${ tab[index] == "Scope" ? "visible" : "invisible"} grid grid-cols-1 md:grid-cols-2 bg-#f0f2f5 py-14 px-48`}>
         {[...Array(equipmentData.length)].map((e, i) => <EquipmentCard equipmentData={equipmentData[i]} key={i}/>)}
       </section>
 
