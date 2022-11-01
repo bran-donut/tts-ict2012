@@ -64,7 +64,7 @@ export default function Home() {
         </form>
       </div>
       <div className="absolute bottom-5 right-5">qns-icon HERE</div>
-      <Footer />
+      <Footer isLogin={true} />
     </div>
   );
 }
