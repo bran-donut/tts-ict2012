@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Home, ChevronRight, ChevronLeft, ChevronUp, ChevronDown, Adjustments } from "heroicons-react";
 import Link from "next/link";
 import { useRouter } from 'next/router';
@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className={`bg-tts-darkblue fixed top-0 left-0 h-full transition-[width] ease-in-out duration-300 ${open ? 'w-[230px]' : 'w-[50px]'}`}>
             <div className="pt-14">
                 {navItems.map((item, i) => (
-                    <>
+                    <React.Fragment key={i}>
                         <NavItem
                             index={i}
                             link={item.link}
@@ -63,8 +63,7 @@ export default function Navbar() {
                             subItems={item.subItems}
                             expandAll={open}
                         />
-
-                    </>
+                    </React.Fragment>
                 ))}
             </div>
             <button className="expand-button text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-24px]" onClick={toggleOpen}>
@@ -96,18 +95,20 @@ export function NavItem({ index, link, icon, text, main = true, subItems = false
                     )}
                 </a>
             </Link>
-            {subItems && expand && 
+            {subItems && expand &&
                 <div className="px-4 bg-tts-black">
                     {
                         subItems.map((subItem, i) => (
-                            <NavItem
-                                index={i}
-                                link={subItem.link}
-                                active={router.pathname == subItem.link}
-                                icon={subItem.icon}
-                                text={subItem.text}
-                                main={false}
-                            />
+                            <React.Fragment key={i}>
+                                <NavItem
+                                    index={i}
+                                    link={subItem.link}
+                                    active={router.pathname == subItem.link}
+                                    icon={subItem.icon}
+                                    text={subItem.text}
+                                    main={false}
+                                />
+                            </React.Fragment>
                         ))
                     }
                 </div>
