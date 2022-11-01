@@ -5,12 +5,21 @@ import { useRouter } from "next/router";
 
 const navItems = [
   {
-    icon: <HomeFilled />,
+    //<HomeFilled className="w-6 h-6" />
+    icon: (
+      <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+      </svg>
+    ),
     text: "Home",
-    link: "/",
+    link: "/main",
   },
   {
-    icon: <HomeFilled />,
+    icon: (
+      <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+      </svg>
+    ),
     text: "Inventory",
     link: "/inventory",
     subItems: [
@@ -43,7 +52,11 @@ const navItems = [
     ],
   },
   {
-    icon: <HomeFilled />,
+    icon: (
+      <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+      </svg>
+    ),
     text: "Schedule",
     link: "/schedule",
     subItems: [
@@ -88,7 +101,7 @@ export default function NavBar() {
           </React.Fragment>
         ))}
       </div>
-      <button className="expand-button text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-22px] px-0.5" onClick={toggleOpen}>
+      <button className="expand-button text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-21px] px-0.5" onClick={toggleOpen}>
         {open ? <LeftOutlined /> : <RightOutlined />}
       </button>
     </div>
@@ -109,19 +122,18 @@ export function NavItem({ index, link, icon, text, main = true, subItems = false
     <>
       <Link key={index} href={link} className="">
         <a
-          className={`flex items-center overflow-hidden py-3 px-4 hover:text-white ${
-            router.pathname == link ? "bg-tts-red text-white" : "text-gray-400"
-          }`}
+          className={`flex items-center overflow-hidden p-3 hover:text-white ${router.pathname == link ? "bg-tts-red text-white" : "text-gray-400"
+            }`}
         >
           <div>{icon}</div>
-          <span className={"pl-3 truncate " + (main ? "uppercase font-bold" : "")}>{text}</span>
+          <span className={"pl-4 truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
           {subItems &&
             (expand ? (
-              <button className="ml-auto" onClick={toggleExpand}>
+              <button className="ml-auto flex" onClick={toggleExpand}>
                 <DownOutlined />
               </button>
             ) : (
-              <button className="ml-auto" onClick={toggleExpand}>
+              <button className="ml-auto flex" onClick={toggleExpand}>
                 <UpOutlined />
               </button>
             ))}
