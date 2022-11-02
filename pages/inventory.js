@@ -2,6 +2,7 @@ import Layout from "../layouts/Layout";
 import { useState } from "react";
 import EquipmentCard from "../components/EquipmentCard";
 import Breadcrumb from "../components/Breadcrumb";
+import MainHeader from "../components/MainHeader";
 
 
 export default function Inventory() {
@@ -25,14 +26,7 @@ export default function Inventory() {
   
   return (
     <Layout>
-      <section className="p-5 text-white from-[#10141A] to-[#171D26] bg-gradient-to-br">
-        <div className="p-5 text-white">
-          <h2 className="text-5xl font-semibold">Inventory</h2>
-          <p className="text-[#BDBDBD] mt-2">View all the equipment and miscellaneous inside the system</p>
-          <p className="mt-10 text-[#E0E0E0]">Total Equipment in Inventory</p>
-          <p className="text-[#BDBDBD]">36</p>
-        </div>
-      </section>
+      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]} />
 
       <div className="flex flex-col items-start justify-start w-full px-10 pt-5 bg-white">
         <Breadcrumb
