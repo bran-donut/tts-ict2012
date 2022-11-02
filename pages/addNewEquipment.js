@@ -1,17 +1,17 @@
 import Layout from "../layouts/Layout";
 import { useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
+import Dropdown from "../components/Dropdown";
 
 
 export default function addNewEquipment() {
 
+  const [equipmentType, setEquipmentType] = useState("Scope");
   const [equipmentData, setEquipmentData] = useState(
   [
     [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"}]
   ]
   );
-
-  const [charCount, setCharCount] = useState(0);
   
   return (
     <Layout>
@@ -32,53 +32,51 @@ export default function addNewEquipment() {
         <p className="pb-3 mt-2 text-sm text-gray-500 md:text-base">Adding a new equipment into the system</p>
       </div>
 
-      <section className="grid grid-flow-row bg-gray-100 edit-trip-grid-wrapper">
+      <section className="grid grid-flow-row bg-#f0f2f5">
           <div className="px-20 py-10">
-            <form className="flex flex-col justify-center h-full min-w-full text-justify bg-white border-2 rounded-md shadow-lg bs-gray-150">
-              <div className="p-5 bg-gray-50">
-                <h3 className="font-medium">Equipment Type</h3>
+            <form className="flex flex-col justify-center h-full min-w-full text-justify bg-white border-2 rounded-md">
+              <div className="p-5 bg-white">
+                <h3 className="pb-3 font-medium">Equipment Type</h3>
+                  <span>
+                    <input onClick={() => setEquipmentData("Scope")} type="radio" name="equipment" value="Scope" checked></input>
+                    <label for="equipment"> Scope </label>
+                  </span>
+                  <span className="ml-2">
+                    <input onClick={() => setEquipmentData("Washer")} type="radio"name="equipment" value="Washer"></input>
+                    <label for="equipment"> Washer (AER) </label>
+                  </span>
               </div>
-              <div className="flex-grow px-5 py-1">
-                <div className="py-4 input-group">
+              <div className="grid grid-cols-2 gap-4 px-5 py-1">
+              <Dropdown
+              menuHeader="Brand"
+              menuItems={["Olympus"]}
+              />
+              <Dropdown
+              menuHeader="Scope Type"
+              menuItems={["tracheal intubation"]}
+              />
+              <Dropdown
+              menuHeader="Model Number"
+              menuItems={["TJF423"]}
+              />
+              <div className="py-1 input-group">
                   <div className="flex flex-row pb-1">
-                    <h4 className="w-1/2">Brand</h4>
-                    <h4 className="w-1/2 pl-2">Scope Type</h4>
+                      <h4 className="w-2/3">Frequency</h4>
                   </div>
-                  <div className="flex flex-row gap-4 ">
-                    <input type="text" placeholder="Select" className="w-1/2 p-2 border-2 rounded-md focus:outline-sgg-blue" required />
-                    <div className="flex w-1/2 p-2 border-2 rounded-md input-group">
-                      <input type="text" placeholder="Select" className="w-full focus:outline-sgg-blue" required />
-                    </div>
-                  </div>
+                <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
+                  <input type="text" placeholder="Input" className="w-full outline-none" required />
                 </div>
-
-                <div className="py-4 input-group">
-                  <div className="flex flex-row pb-1">
-                    <h4 className="w-1/2">Model Number</h4>
-                    <h4 className="w-1/2 pl-2">Frequency</h4>
-                  </div>
-                  <div className="flex flex-row gap-4 ">
-                    <input type="text" placeholder="Select" className="w-1/2 p-2 border-2 rounded-md focus:outline-sgg-blue" required />
-                    <div className="flex w-1/2 p-2 border-2 rounded-md input-group">
-                      <input type="text" placeholder="Input" className="w-full focus:outline-sgg-blue" required />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="py-4 input-group">
-                  <div className="flex flex-row pb-1">
-                    <h4 className="w-1/2">Serial Number</h4>
-                  </div>
-                  <div className="flex flex-row gap-4 ">
-                    <input type="text" placeholder="Input" className="w-1/2 p-2 border-2 rounded-md focus:outline-sgg-blue" required />
-                  </div>
-                </div>
+              </div>
+              <Dropdown
+              menuHeader="Serial Number"
+              menuItems={["21904890"]}
+              />
               </div>
                 <div className="flex flex-col items-center justify-end gap-0 px-5 py-5 bg-gray-50 md:flex-row md:gap-3">
-                  <a href="/trip" className="text-sgg-blue hover:text-sgg-blue/80 hover:cursor-pointer">
+                  <a href="/trip" className="text-black hover:text-black/80 hover:cursor-pointer">
                     Back
                   </a>
-                  <button type="submit" className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
+                  <button type="submit" className="px-10 py-2 ml-4 transition-colors duration-150 bg-white rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                     Add new
                   </button>
                   <button type="submit" onClick={() => setStatus("edit")} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
@@ -88,7 +86,6 @@ export default function addNewEquipment() {
               </form>
             </div>
           </section>
-
     </Layout>
   );
 }
