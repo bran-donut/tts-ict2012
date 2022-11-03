@@ -101,14 +101,14 @@ export default function NavBar() {
           </React.Fragment>
         ))}
       </div>
-      <button className="expand-button text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-21px] px-0.5" onClick={toggleOpen}>
+      <button className="expand-button flex items-center text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-21px] px-0.5" onClick={toggleOpen}>
         {open ? <LeftOutlined /> : <RightOutlined />}
       </button>
     </div>
   );
 }
 
-export function NavItem({ index, link, icon, text, main = true, subItems = false, expandAll }) {
+export function NavItem({ link, icon, text, main = true, subItems = false, expandAll }) {
   const router = useRouter();
 
   const [expand, setExpand] = useState(false);
@@ -120,30 +120,30 @@ export function NavItem({ index, link, icon, text, main = true, subItems = false
 
   return (
     <>
-      <Link key={index} href={link} className="">
-        <a
-          className={`flex items-center overflow-hidden p-3 hover:text-white ${router.pathname == link ? "bg-tts-red text-white" : "text-gray-400"
-            }`}
-        >
-          <div>{icon}</div>
-          <span className={"pl-4 truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
-          {subItems &&
-            (expand ? (
-              <button className="ml-auto flex" onClick={toggleExpand}>
-                <DownOutlined />
-              </button>
-            ) : (
-              <button className="ml-auto flex" onClick={toggleExpand}>
-                <UpOutlined />
-              </button>
-            ))}
-        </a>
-      </Link>
+      <li
+        className={`flex items-center overflow-hidden hover:text-white ${router.pathname == link ? "bg-tts-red text-white" : "text-gray-400"
+          }`}
+      >
+        <Link href={link}>
+          <a className="flex items-center p-3 flex-grow">
+            <div>{icon}</div>
+            <span className={"pl-4 truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
+          </a>
+        </Link>
+        {subItems &&
+          (
+            <button className="ml-auto flex p-3" onClick={toggleExpand}>
+              {expand ? <DownOutlined /> : <UpOutlined />}
+            </button>
+          )
+        }
+      </li>
+
       {subItems && expand && (
         <div className="px-4 bg-tts-black">
           {subItems.map((subItem, i) => (
             <React.Fragment key={i}>
-              <NavItem index={i} link={subItem.link} active={router.pathname == subItem.link} icon={subItem.icon} text={subItem.text} main={false} />
+              <NavItem link={subItem.link} active={router.pathname == subItem.link} icon={subItem.icon} text={subItem.text} main={false} />
             </React.Fragment>
           ))}
         </div>
