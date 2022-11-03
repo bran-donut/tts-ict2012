@@ -33,8 +33,8 @@ const navItems = [
             />
           </svg>
         ),
-        text: "Equipment",
-        link: "/inventory/eq",
+        text: "Scope",
+        link: "/inventory/scope",
       },
       {
         icon: (
@@ -46,8 +46,8 @@ const navItems = [
             />
           </svg>
         ),
-        text: "Micellaneous",
-        link: "/inventory/misc",
+        text: "Washer(AER)",
+        link: "/inventory/washer",
       },
     ],
   },
