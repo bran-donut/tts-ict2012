@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { DownOutlined, UpOutlined, ExclamationCircleOutlined, CloseOutlined } from "@ant-design/icons";
+import { DownOutlined, UpOutlined, ExclamationCircleOutlined, InfoCircleOutlined, CloseOutlined } from "@ant-design/icons";
 
 
 export default function Dropdown({ menuHeader, menuItems }) {
@@ -15,14 +15,15 @@ const [dropItem, setDropItem] = useState([menuItems]);
   return (
     <>
     <div className="py-1 input-group">
-        <div className="flex flex-row pb-1">
-            <h4 className="w-2/3">{menuHeader}</h4>
+        <div className="flex flex-row items-center justify-start pb-1">
+            <h4 className="mr-2">{menuHeader}</h4>
+            <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
             <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder="Select" className="w-full outline-none" value={text.item} required />
-            <UpOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "visible" : "hidden"}`} style={{fontSize: '13px', color: 'gray-100' }}/>
-            <DownOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "hidden" : "visible"}`} style={{fontSize: '13px', color: 'gray-100' }}/>
+            <UpOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "visible" : "hidden"}`} style={{fontSize: '13px', color: 'rgb(107 114 128)' }}/>
+            <DownOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "hidden" : "visible"}`} style={{fontSize: '13px', color: 'rgb(107 114 128)' }}/>
             <div className={`${selected === true ? "visible" : "hidden"} absolute right-0 z-10 w-full bg-white divide-y divide-gray-100 rounded shado top-11 border-2 border-gray-100`}>
                 <ul className="py-2 text-sm text-gray-700 rounded-t-sm">
 

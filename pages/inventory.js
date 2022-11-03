@@ -34,8 +34,10 @@ export default function Inventory() {
         </div>
       </div> */}
 
-      <section className={`${tab[index] == "Scope" ? "visible" : "invisible"} grid grid-cols-1 md:grid-cols-2 bg-#f0f2f5 py-14 px-48`}>
-        {equipmentData.map((e, i) => <EquipmentCard equipmentData={equipmentData[i]} key={i} />)}
+      <section className={`${tab[index] == "Scope" ? "visible" : "invisible"} bg-[#C1C1C1] px-20`}>
+        <div className="grid grid-cols-1 overflow-y-scroll bg-[#F0F2F5] xl:grid-cols-2 max-h-96 px-10">
+          {equipmentData.map((e, i) => <EquipmentCard equipmentData={equipmentData[i]} key={i} />)}
+        </div>
       </section>
 
     </Layout >

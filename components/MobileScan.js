@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { MobileOutlined, LoadingOutlined, ScanOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { MobileOutlined, LoadingOutlined, ScanOutlined, InfoCircleOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 
 
 export default function MobileScan({ menuHeader, menuItems }) {
@@ -13,13 +13,14 @@ const [showModal, setShowModal] = useState(false);
   return (
     <>
     <div className="py-1 input-group">
-        <div className="flex flex-row pb-1">
-            <h4 className="w-2/3">{menuHeader}</h4>
+        <div className="flex flex-row items-center justify-start pb-1">
+            <h4 className="mr-2">{menuHeader}</h4>
+            <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
             <input onClick={() => showModal === true ? setShowModal(false) : setShowModal(true)} type="text" placeholder="Input" className="w-full outline-none" value={text} required />
-            <ScanOutlined onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
+            <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
         </div>
     </div>
         {showModal ? (
