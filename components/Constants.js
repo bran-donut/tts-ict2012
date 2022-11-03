@@ -79,7 +79,7 @@ export const navItems = [
                     </svg>
                 ),
                 text: "Edit Schedule",
-                link: "/schedule/edit",
+                link: "/schedule?action=Edit",
             },
         ],
     },
