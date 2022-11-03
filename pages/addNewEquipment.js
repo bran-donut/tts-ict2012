@@ -68,7 +68,10 @@ export default function addNewEquipment() {
                 menuHeader="Serial Number"
                 />
 
-                <div></div>
+                <Dropdown
+                menuHeader="Status"
+                menuItems={["Regular", "Loan", "Post Repair", "Repeat", "New"]}
+                />
 
                     <div className="py-1 input-group">
                         <div className="flex flex-row items-center justify-start pb-1">

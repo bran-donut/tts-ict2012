@@ -17,7 +17,7 @@ export default function Inventory() {
     <Layout>
       <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]} />
       <SubHeader heading={header[index]} description="Displays all equipment inside the system" breadCrumbItems={["Home", "Inventory"]}>
-        <div className="pt-3">
+        <div className="py-2">
           <button onClick={() => setIndex(0)} className={`${tab[index] == tab[0] ? "text-blue-600 font-bold border-b-2 border-indigo-500" : "text-black"} text-md md:text-base`}>{`${tab == 'null' ? "" : tab[0]}`}</button>
           <button onClick={() => setIndex(1)} className={`${tab[index] == tab[1] ? "text-blue-600 font-bold border-b-2 border-indigo-500" : "text-black"} mx-10 text-md md:text-base`}>{`${tab == 'null' ? "" : tab[1]}`}</button>
         </div>
@@ -34,8 +34,10 @@ export default function Inventory() {
         </div>
       </div> */}
 
-      <section className={`${tab[index] == "Scope" ? "visible" : "invisible"} grid grid-cols-1 md:grid-cols-2 bg-#f0f2f5 py-14 px-48`}>
-        {equipmentData.map((e, i) => <EquipmentCard equipmentData={equipmentData[i]} key={i} />)}
+      <section className={`${tab[index] == "Scope" ? "visible" : "invisible"} bg-[#C1C1C1] px-20`}>
+        <div className="grid grid-cols-1 overflow-y-scroll bg-[#F0F2F5] xl:grid-cols-2 max-h-96 px-10">
+          {equipmentData.map((e, i) => <EquipmentCard equipmentData={equipmentData[i]} key={i} />)}
+        </div>
       </section>
 
     </Layout >
