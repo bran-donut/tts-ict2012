@@ -3,22 +3,11 @@ import { useState } from "react";
 import EquipmentCard from "../components/EquipmentCard";
 import Breadcrumb from "../components/Breadcrumb";
 import MainHeader from "../components/MainHeader";
-
+import { equipments } from "../components/Constants";
 
 export default function Inventory() {
 
-  const [equipmentData, setEquipmentData] = useState(
-  [
-    [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"}],
-    [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF423", serialNumber: "12345231", status: "New"}],
-    [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF423", serialNumber: "12345231", status: "Repeat"}],
-    [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF423", serialNumber: "12345231", status: "Regular"}],
-    [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF423", serialNumber: "12345231", status: "Regular"}],
-    [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF423", serialNumber: "12345231", status: "Regular"}],
-    [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF423", serialNumber: "12345231", status: "Post Repair"}],
-    [{brand: "OLYMPUS", scopeType: "tracheal intubation", modelNumber: "TJF423", serialNumber: "12345231", status: "Repeat"}]
-  ]
-  );
+  const [equipmentData, setEquipmentData] = useState(equipments);
   
   const [header, setHeader] = useState(['Scope', 'Washer (AER)']);
   const [tab, setTab] = useState(['Scope', 'Washer (AER)']);
@@ -41,7 +30,7 @@ export default function Inventory() {
       </div>
 
       <section className={`${ tab[index] == "Scope" ? "visible" : "invisible"} grid grid-cols-1 md:grid-cols-2 bg-#f0f2f5 py-14 px-48`}>
-        {[...Array(equipmentData.length)].map((e, i) => <EquipmentCard equipmentData={equipmentData[i]} key={i}/>)}
+        {equipmentData.map((e, i) => <EquipmentCard equipmentData={equipmentData[i]} key={i}/>)}
       </section>
 
     </Layout>
