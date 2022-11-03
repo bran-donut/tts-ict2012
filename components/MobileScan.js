@@ -19,7 +19,7 @@ const [showModal, setShowModal] = useState(false);
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
             <input onClick={() => showModal === true ? setShowModal(false) : setShowModal(true)} type="text" placeholder="Input" className="w-full outline-none" value={text} required />
-            <ScanOutlined onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
+            <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
         </div>
     </div>
         {showModal ? (

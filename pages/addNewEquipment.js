@@ -1,4 +1,5 @@
 import Layout from "../layouts/Layout";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown";
@@ -54,8 +55,9 @@ export default function addNewEquipment() {
               menuItems={["TJF423"]}
               />
               <div className="py-1 input-group">
-                  <div className="flex flex-row pb-1">
-                      <h4 className="w-2/3">Frequency</h4>
+                  <div className="flex flex-row items-center justify-start pb-1">
+                      <h4 className="mr-2">Frequency</h4>
+                      <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
                   </div>
                 <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
                   <input type="text" placeholder="Input" className="w-full outline-none" required />
@@ -64,6 +66,20 @@ export default function addNewEquipment() {
               <MobileScan
               menuHeader="Serial Number"
               />
+
+              <div></div>
+
+              <div className="py-1 input-group">
+                  <div className="flex flex-row items-center justify-start pb-1">
+                      <h4 className="mr-2">Scheduling Option</h4>
+                      <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
+                  </div>
+                <div className="relative flex items-center w-full p-2 align-middle rounded-md input-group">
+                  <input type="checkbox" className="float-left outline-none" required />
+                  <p className="ml-2">Include in schedule</p>
+                </div>
+              </div>
+
               </div>
                 <div className="flex flex-col items-center justify-end gap-0 px-5 py-5 bg-gray-50 md:flex-row md:gap-3">
                   <a href="/trip" className="text-black hover:text-black/80 hover:cursor-pointer">
