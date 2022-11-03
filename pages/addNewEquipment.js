@@ -3,7 +3,7 @@ import { useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown";
 import MainHeader from "../components/MainHeader";
-import MobileScan from "../components/mobileScan";
+import MobileScan from "../components/MobileScan";
 
 export default function addNewEquipment() {
 
