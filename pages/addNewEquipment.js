@@ -1,12 +1,9 @@
 import Layout from "../layouts/Layout";
 import { useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
-<<<<<<< HEAD
 import Dropdown from "../components/Dropdown";
-=======
 import MainHeader from "../components/MainHeader";
->>>>>>> 3125e8de0af0a38774d69a89e3d9efaa9caa73ca
-
+import MobileScan from "../components/mobileScan";
 
 export default function addNewEquipment() {
 
@@ -64,9 +61,8 @@ export default function addNewEquipment() {
                   <input type="text" placeholder="Input" className="w-full outline-none" required />
                 </div>
               </div>
-              <Dropdown
+              <MobileScan
               menuHeader="Serial Number"
-              menuItems={["21904890"]}
               />
               </div>
                 <div className="flex flex-col items-center justify-end gap-0 px-5 py-5 bg-gray-50 md:flex-row md:gap-3">
