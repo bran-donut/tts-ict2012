@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { HomeFilled, LeftOutlined, RightOutlined, UpOutlined, DownOutlined } from "@ant-design/icons";
+import { LeftOutlined, RightOutlined, UpOutlined, DownOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { navItems } from "./Constants";
@@ -9,11 +9,9 @@ export default function NavBar() {
   return (
     <div className={`bg-tts-darkblue fixed top-10 z-40 left-0 h-full transition-[width] ease-in-out duration-300 ${open ? "w-[230px]" : "w-[50px]"}`}>
       <div className="pt-14">
-        {navItems.map((item, i) => (
-          <React.Fragment key={i}>
-            <NavItem index={i} link={item.link} icon={item.icon} text={item.text} subItems={item.subItems} expandAll={open} />
-          </React.Fragment>
-        ))}
+        {navItems.map((item, i) =>
+          <NavItem key={i} index={i} link={item.link} icon={item.icon} text={item.text} subItems={item.subItems} expandAll={open} />
+        )}
       </div>
       <button className="expand-button flex items-center text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-21px] px-0.5" onClick={toggleOpen}>
         {open ? <LeftOutlined /> : <RightOutlined />}
@@ -56,9 +54,7 @@ export function NavItem({ link, icon, text, main = true, subItems = false, expan
       {subItems && expand && (
         <div className="px-4 bg-tts-black">
           {subItems.map((subItem, i) => (
-            <React.Fragment key={i}>
-              <NavItem link={subItem.link} active={router.pathname == subItem.link} icon={subItem.icon} text={subItem.text} main={false} />
-            </React.Fragment>
+            <NavItem key={i} link={subItem.link} active={router.pathname == subItem.link} icon={subItem.icon} text={subItem.text} main={false} />
           ))}
         </div>
       )}
