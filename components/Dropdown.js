@@ -9,8 +9,7 @@ const [selected, setSelected] = useState(false);
 const [text, setText] = useState("");
 const [addText, setAddText] = useState("");
 const [showModal, setShowModal] = useState(false);
-const [dropItem, setDropItem] = useState([menuItems]);
-
+const [dropItem, setDropItem] = useState(menuItems);
 
   return (
     <>
@@ -77,7 +76,7 @@ const [dropItem, setDropItem] = useState([menuItems]);
                     <button
                       className="py-2 mb-1 ml-2 mr-1 text-sm text-white transition-all duration-150 ease-linear border-2 rounded-sm shadow outline-none px-7 border-tts-red bg-tts-red hover:bg-tts-red/80 border-tts-re hover:shadow-lg focus:outline-none"
                       type="button"
-                      onClick={() => (setShowModal(false),setDropItem([...dropItem, addText]))}
+                      onClick={() => (setShowModal(false),setDropItem(dropItem => [...dropItem, addText]))}
                     >
                       Add
                     </button>

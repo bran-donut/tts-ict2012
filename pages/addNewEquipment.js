@@ -1,10 +1,11 @@
 import Layout from "../layouts/Layout";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import Breadcrumb from "../components/Breadcrumb";
 import Dropdown from "../components/Dropdown";
 import MainHeader from "../components/MainHeader";
+import SubHeader from "../components/SubHeader";
 import MobileScan from "../components/MobileScan";
+import Input from "../components/Input";
 
 export default function addNewEquipment() {
 
@@ -17,15 +18,16 @@ export default function addNewEquipment() {
   
   return (
     <Layout>
-      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]} />
-
-      <div className="flex flex-col items-start justify-start w-full px-10 pt-5 bg-white">
-        <Breadcrumb
-        breadCrumbItems = {["Home", "Inventory", "Add New"]}
-        />
-        <h2 className="pb-3 text-3xl font-medium">Add / Edit Equipment</h2>
-        <p className="pb-3 mt-2 text-sm text-gray-500 md:text-base">Adding a new equipment into the system</p>
-      </div>
+      <MainHeader
+      heading="Inventory"
+      description="View all the equipment and miscellaneous inside the system"
+      details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]}
+      />
+      <SubHeader
+      heading="Add / Edit Equipment"
+      description="Adding a new equipment into the system"
+      breadCrumbItems={["Home", "Inventory", "Add New"]}
+      />
     {equipmentType == "Scope" ? (
       <section className="grid grid-flow-row bg-#f0f2f5">
           <form>
@@ -55,22 +57,18 @@ export default function addNewEquipment() {
                 menuHeader="Model Number"
                 menuItems={["TJF423"]}
                 />
-                <div className="py-1 input-group">
-                    <div className="flex flex-row items-center justify-start pb-1">
-                        <h4 className="mr-2">Frequency</h4>
-                        <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
-                    </div>
-                  <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-                    <input type="text" placeholder="Input" className="w-full outline-none" required />
-                  </div>
-                </div>
+                
+                <Input
+                menuHeader="Frequency"
+                />
+
                 <MobileScan
                 menuHeader="Serial Number"
                 />
 
                 <Dropdown
                 menuHeader="Status"
-                menuItems={["Regular", "Loan", "Post Repair", "Repeat", "New"]}
+                menuItems={["Regular", "Loan"]}
                 />
 
                     <div className="py-1 input-group">
@@ -123,10 +121,19 @@ export default function addNewEquipment() {
                 menuHeader="AER Model Number"
                 menuItems={["Olympus"]}
                 />
+                <div className="py-1 input-group">
+                    <div className="flex flex-row items-center justify-start pb-1">
+                        <h4 className="mr-2">Frequency</h4>
+                        <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
+                    </div>
+                  <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
+                    <input type="text" placeholder="Input" className="w-full outline-none" required />
+                  </div>
+                </div>
                 <MobileScan
                 menuHeader="AER Serial Number"
                 />
-
+                <div></div>
                     <div className="py-1 input-group">
                         <div className="flex flex-row items-center justify-start pb-1">
                             <h4 className="mr-2">Scheduling Option</h4>
