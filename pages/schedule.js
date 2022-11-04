@@ -23,6 +23,7 @@ export default function Schedule() {
     const [removeItem, setRemoveItem] = useState([])
     const [showModal, setShowModal] = useState(false);
     const [showConfirmEditModal, setShowConfirmEditModal] = useState(false);
+    const [selectedDate, setSelectedDate] = useState();
 
     const handleClickAction = (i) => {
         const value = actions[i];
@@ -87,6 +88,12 @@ export default function Schedule() {
         const { value, checked } = e.target;
         if (checked) setRemoveItem(prev => prev.concat(value))
         else setRemoveItem(prev => prev.filter(val => val !== value))
+    }
+
+    const convertDate = (date) => {
+        const [day, month, year] = date.split('/');
+        const formattedDate = year + '-' + month + '-' + day;
+        return formattedDate;
     }
 
     useEffect(() => {
@@ -233,7 +240,14 @@ export default function Schedule() {
                                     </tr>
                                     <tr className="border-b border-gray-200">
                                         <td className="bg-gray-100">Next Sample Date</td>
-                                        <td>{editItem.sampleDate}</td>
+                                        <td className="flex items-center">
+                                            <input
+                                                type="date"
+                                                value={ selectedDate || convertDate(editItem.sampleDate)}
+                                                className="relative flex items-center w-full p-2 border-2 border-gray-300 rounded-md input-group"
+                                                onChange={(e) => setSelectedDate(e.target.value)}
+                                            />
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
