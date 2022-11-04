@@ -1,19 +1,18 @@
 import Layout from "../layouts/Layout";
 
-import { InfoCircleOutlined } from "@ant-design/icons";
 import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
 
 const headerDetails = [
   {
-    title: 'Staff ID',
-    subtitle: '210228491'
+    title: "Staff ID",
+    subtitle: "210228491",
   },
   {
-    title: 'Title',
-    subtitle: 'Senior Nurse'
-  }
-]
+    title: "Title",
+    subtitle: "Senior Nurse",
+  },
+];
 
 export default function Main() {
   return (

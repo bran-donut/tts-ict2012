@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { LeftOutlined, RightOutlined, UpOutlined, DownOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { navItems } from "./Constants";
+import { navItems } from "../Constants";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen(open => !open);
-
   return (
     <div
       className={`
@@ -22,7 +21,10 @@ export default function NavBar() {
         )}
         <div className="flex-grow" onClick={toggleOpen} />
       </div>
-      <button className="expand-button flex items-center text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-21px] px-0.5" onClick={toggleOpen}>
+      <button
+        className="expand-button flex items-center text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-21px] px-0.5"
+        onClick={toggleOpen}
+      >
         {open ? <LeftOutlined /> : <RightOutlined />}
       </button>
     </div>

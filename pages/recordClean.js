@@ -4,11 +4,10 @@ import { useState } from "react";
 import Dropdown from "../components/Dropdown";
 import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
-import MobileScan from "../components/MobileScan";
+import DateInput from "../components/DateInput";
 
-export default function Record() {
+export default function RecordClean() {
 
-  const [equipmentType, setEquipmentType] = useState("Scope");
   const [equipmentData, setEquipmentData] = useState(
     {
         brand: "Olympus", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"
@@ -23,6 +22,52 @@ export default function Record() {
       description="Record the details of equipment sampling"
       breadCrumbItems={["Home", "Inventory", "View", "Record"]}
       />
+
+        <div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
+          <ol className="items-center sm:flex ">
+              <li className="relative w-64 mb-6 ml-36 sm:mb-0">
+                  <div className="flex items-center">
+                      <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                      </div>
+                      <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
+                  </div>
+                  <div className="mt-3 sm:pr-8">
+                  <h3 className="text-lg font-semibold text-gray-900">Manual Cleaning</h3>                    
+                  </div>
+              </li>
+              <li className="relative w-64 mb-6 sm:mb-0">
+                  <div className="flex items-center">
+                   <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                      </div>
+                      <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
+                  </div>
+                  <div className="mt-3 sm:pr-8">
+                  <h3 className="text-lg text-gray-300">Washing</h3>                    
+                  </div>
+              </li>
+              <li className="relative w-64 mb-6 sm:mb-0">
+                  <div className="flex items-center">
+                    <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                      </div>
+                      <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
+                  </div>
+                  <div className="mt-3 sm:pr-8">
+                  <h3 className="text-lg text-gray-300">Drying</h3>                
+                  </div>
+              </li>
+              <li className="relative w-64 mb-6 sm:mb-0">
+                  <div className="flex items-center">
+                  <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                      </div>
+                      <div></div>
+                  </div>
+                  <div className="mt-3">
+                      <h3 className="text-lg text-gray-300">Sampling</h3>                
+                  </div>
+              </li>
+          </ol>
+      </div>
+
       <section className="grid grid-flow-row bg-#f0f2f5">
           <form>
             <div className="px-20 py-10">
@@ -36,14 +81,9 @@ export default function Record() {
                 menuHeader="Month"
                 menuItems={["Jan", "Feb"]}
                 />
-                <div className="py-1 input-group">
-                    <div className="flex flex-row items-center justify-start pb-1">
-                        <h4 className="mr-2">Date of Collection</h4>
-                        <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
-                    </div>
-                  <input className="relative flex items-center w-full p-2 border-2 border-gray-300 rounded-md input-group" type="date" placeholder="Select"/>   
-                </div>
-
+                <DateInput
+                menuHeader="Date of Collection"
+                />
                 <div className="py-1 input-group">
                     <div className="flex flex-row items-center justify-start pb-1">
                         <h4 className="mr-2">Accession Number</h4>
@@ -56,8 +96,8 @@ export default function Record() {
 
                 <div></div>
 
-                <div className="flex flex-row items-center justify-start pb-1">
-                    <h3 className="pb-2 mr-2 font-medium">Scope Details</h3>
+                <div className="flex flex-row items-center justify-start pt-1">
+                    <h3 className="pt-4 mr-2 font-medium">Scope Details</h3>
                 </div>
                 <div></div>
                 <Dropdown
@@ -65,8 +105,8 @@ export default function Record() {
                 menuItems={["1", "2"]}
                 />
                 <div></div>
-                <div className="flex flex-row items-center justify-start pb-1">
-                    <h3 className="pb-2 mr-2 font-medium">Personnel Performed</h3>
+                <div className="flex flex-row items-center justify-start pt-1">
+                    <h3 className="pt-4 mr-2 font-medium">Personnel Performed</h3>
                 </div>
                 <div></div>
                 <Dropdown
