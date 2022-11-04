@@ -5,6 +5,7 @@ import Dropdown from "../components/Dropdown";
 import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
 import MobileScan from "../components/MobileScan";
+import Input from "../components/Input";
 
 export default function addNewEquipment() {
 
@@ -57,15 +58,9 @@ export default function addNewEquipment() {
                 menuItems={["TJF423"]}
                 />
                 
-                <div className="py-1 input-group">
-                    <div className="flex flex-row items-center justify-start pb-1">
-                        <h4 className="mr-2">Frequency</h4>
-                        <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
-                    </div>
-                  <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-                    <input type="text" placeholder="Input" className="w-full outline-none" required />
-                  </div>
-                </div>
+                <Input
+                menuHeader="Frequency"
+                />
 
                 <MobileScan
                 menuHeader="Serial Number"

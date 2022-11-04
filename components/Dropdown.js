@@ -11,8 +11,6 @@ const [addText, setAddText] = useState("");
 const [showModal, setShowModal] = useState(false);
 const [dropItem, setDropItem] = useState(menuItems);
 
-console.log(dropItem);
-
   return (
     <>
     <div className="py-1 input-group">
