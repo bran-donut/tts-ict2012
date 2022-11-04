@@ -18,3 +18,13 @@ export default function Layout(props) {
     </>
   );
 }
+
+export function ContainerWrapper({ children }) {
+  return (
+    <div className="bg-gray-300 px-32">
+      <div className="py-4 px-8 bg-tts-background">
+        {children}
+      </div>
+    </div>
+  )
+}
