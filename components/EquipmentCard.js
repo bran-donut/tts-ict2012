@@ -1,5 +1,4 @@
 import { EditOutlined } from "@ant-design/icons";
-import { equipments } from "./Constants";
 
 export default function EquipmentCard(props) {
   return (

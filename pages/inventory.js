@@ -2,7 +2,7 @@ import Layout from "../layouts/Layout";
 import { useState } from "react";
 import EquipmentCard from "../components/EquipmentCard";
 import MainHeader from "../components/MainHeader";
-import { equipments } from "../components/Constants";
+import { equipments } from "../Constants";
 import SubHeader from "../components/SubHeader";
 
 export default function Inventory() {

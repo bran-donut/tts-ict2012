@@ -41,7 +41,7 @@ export const navItems = [
             />
           </svg>
         ),
-        text: "Washer(AER)",
+        text: "Washer (AER)",
         link: "/inventory/washer",
       },
     ],
