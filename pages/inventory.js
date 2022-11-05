@@ -1,4 +1,4 @@
-import Layout, { ContainerWrapper } from "../layouts/Layout";
+import Layout from "../layouts/Layout";
 import { useEffect, useState } from "react";
 import EquipmentCard from "../components/EquipmentCard";
 import MainHeader from "../components/MainHeader";
@@ -8,6 +8,7 @@ import { ActionButton } from "./schedule";
 import { AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
 import { exportCSVFile } from "../Helpers";
 import { useRouter } from "next/router";
+import ContainerWrapper from "../components/ContainerWrapper";
 
 const tabs = ["Scope", "Washer (AER)"];
 const actions = ["Filter By", "Sort By"];

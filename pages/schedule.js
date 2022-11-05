@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
-import Layout, { ContainerWrapper } from "../layouts/Layout";
+import Layout from "../layouts/Layout";
 import { useRouter } from "next/router";
 import { FilterOutlined, AlignLeftOutlined } from "@ant-design/icons";
 import React from "react";
@@ -10,6 +10,7 @@ import PopupMessage from "../components/Modal";
 import Link from "next/link";
 import { equipments } from "../Constants";
 import { convertDate } from "../Helpers";
+import ContainerWrapper from "../components/ContainerWrapper";
 
 const tabs = ["Edit", "Add", "Remove"];
 const actions = ["Scope", "Washer", "Filter By", "Sort By"];
