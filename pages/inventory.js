@@ -1,5 +1,5 @@
 import Layout, { ContainerWrapper } from "../layouts/Layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EquipmentCard from "../components/EquipmentCard";
 import MainHeader from "../components/MainHeader";
 import { equipments } from "../Constants";
@@ -7,11 +7,14 @@ import SubHeader, { SubHeaderButton } from "../components/SubHeader";
 import { ActionButton } from "./schedule";
 import { AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
 import { exportCSVFile } from "../Helpers";
+import { useRouter } from "next/router";
 
 const tabs = ["Scope", "Washer (AER)"];
 const actions = ["Filter By", "Sort By"];
 
 export default function Inventory() {
+  const router = useRouter();
+
   const [equipmentData, setEquipmentData] = useState(equipments);
   const [index, setIndex] = useState(0);
   const [actionValues, setActionValues] = useState([]);
@@ -34,6 +37,14 @@ export default function Inventory() {
     };
     exportCSVFile(headers, equipments, '');
   }
+
+  useEffect(() => {
+    setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
+  }, [router.query.view]);
+
+  useEffect(() => {
+    router.push("/inventory?view=" + tabs[index], undefined, { shallow: true });
+  }, [index]);
 
   return (
     <Layout>

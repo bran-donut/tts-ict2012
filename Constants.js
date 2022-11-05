@@ -31,7 +31,7 @@ export const navItems = [
       {
         icon: <Image src={icons['Washer.svg']} width={24} height={24} alt="washer" />,
         text: "Washer (AER)",
-        link: "/inventory?view=Washer",
+        link: "/inventory?view=Washer%20(AER)",
       },
     ],
   },
