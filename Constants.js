@@ -14,12 +14,12 @@ export const navItems = [
       {
         icon: <GoldFilled className="text-xl leading-5" />,
         text: "Scope",
-        link: "/inventory/scope",
+        link: "/inventory?view=Scope",
       },
       {
         icon: <ExperimentFilled className="text-xl leading-5" />,
-        text: "Washer(AER)",
-        link: "/inventory/washer",
+        text: "Washer (AER)",
+        link: "/inventory?view=Washer",
       },
     ],
   },
