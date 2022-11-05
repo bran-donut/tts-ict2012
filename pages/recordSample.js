@@ -5,7 +5,8 @@ import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
 import DateInput from "../components/DateInput";
 import Input from "../components/Input";
-import Modal from "../components/Modal";
+import PopupMessage from "../components/Modal";
+import Link from "next/link";
 
 export default function RecordSample() {
 
@@ -140,6 +141,7 @@ export default function RecordSample() {
                 <div className="flex flex-row items-center justify-start pt-1">
                     <h3 className="pt-4 mr-2 font-medium">Repeat of MS</h3>
                 </div>
+                <div></div>
                 <Dropdown
                 menuHeader="Quarantine Required"
                 menuItems={["Yes", "No"]}   
@@ -151,7 +153,7 @@ export default function RecordSample() {
                 menuHeader="Borescope"
                 menuItems={["1", "2"]}   
                 />
-
+                <div></div>
                 <div className="flex flex-row items-center justify-start pt-1">
                     <h3 className="pt-4 mr-2 font-medium">After Action</h3>
                 </div>
@@ -168,9 +170,11 @@ export default function RecordSample() {
               </div>
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
+                    <Link href="/recordDry">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
+                    </Link>
                     <button type="submit" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                       Save & Exit
                     </button>
@@ -182,22 +186,24 @@ export default function RecordSample() {
           </section>
 
           {(showExitModal ?
-            <Modal
+            <PopupMessage
               heading="Save & Exit ?"
               description="Are you sure you want to save and Exit?"
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
+              link="/view"
             />
           : null)}
 
           {(showModal ?
-            <Modal
+            <PopupMessage
               heading="Submit"
               description="Are you sure you want to submit?"
               leftText="Cancel"
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
+              link="/view"
             />
           : null)}
 

@@ -1,7 +1,9 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons"
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
+import Link from "next/link"
 
-export default function PopupMessage({ heading, description, leftText, rightText, onClickClose, children }) {
+
+export default function PopupMessage({ heading, description, leftText, rightText, onClickClose, children, link }) {
     const [showModal, toggleModal] = useReducer(
         showModal => !showModal,
         true
@@ -20,7 +22,7 @@ export default function PopupMessage({ heading, description, leftText, rightText
                                 {/*body*/}
                                 <div className="relative flex-auto py-6 px-7">
                                     <div className="flex items-start">
-                                        <ExclamationCircleOutlined className="pr-4 align-center text-xl text-tts-orange" />
+                                        <ExclamationCircleOutlined className="pr-4 text-xl align-center text-tts-orange" />
                                         <div className="flex flex-col gap-2.5">
                                             <p className="inline text-lg font-medium leading-relaxed text-black">{heading}</p>
                                             <div>{description}</div>
@@ -40,14 +42,26 @@ export default function PopupMessage({ heading, description, leftText, rightText
                                     >
                                         {leftText}
                                     </button>
-                                    <button
+
+                                    {link == undefined ? 
+                                    (<button
                                         className="py-2 mb-1 ml-2 mr-1 text-sm text-white transition-all duration-150 ease-linear border-2 rounded-sm shadow outline-none px-7 border-tts-red bg-tts-red hover:bg-tts-red/80 border-tts-re hover:shadow-lg focus:outline-none"
                                         type="button"
-                                        // onClick={() => (setShowModal(false),setDropItem([...dropItem, addText]))}
                                         onClick={() => {onClickClose(1); toggleModal()}}
                                     >
                                         {rightText}
-                                    </button>
+                                    </button>)
+                                    :
+                                    (<Link href={link}>
+                                        <button
+                                            className="py-2 mb-1 ml-2 mr-1 text-sm text-white transition-all duration-150 ease-linear border-2 rounded-sm shadow outline-none px-7 border-tts-red bg-tts-red hover:bg-tts-red/80 border-tts-re hover:shadow-lg focus:outline-none"
+                                            type="button"
+                                            onClick={() => {onClickClose(1); toggleModal()}}
+                                        >
+                                            {rightText}
+                                        </button>
+                                        </Link>)}
+
                                 </div>
                             </div>
                         </div>
