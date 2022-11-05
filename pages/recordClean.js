@@ -6,12 +6,12 @@ import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
 import DateInput from "../components/DateInput";
 import Modal from "../components/Modal";
+import Link from "next/link";
 
 export default function RecordClean() {
   
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
-
   const [equipmentData, setEquipmentData] = useState(
     {
         brand: "Olympus", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"
@@ -127,14 +127,16 @@ export default function RecordClean() {
               </div>
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
+                    <Link href="/schedule">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Back
                     </a>
-                    <button type="submit" className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
-                      Add new
+                    </Link>
+                    <button type="submit" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
+                      Save & Exit
                     </button>
-                    <button type="submit" onClick={() => setStatus("edit")} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                      Submit
+                    <button type="submit" onClick={() => setShowContinueModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
+                      Save & Continue
                     </button>
                   </div>
             </form>
@@ -147,6 +149,7 @@ export default function RecordClean() {
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
+              link="/schedule"
             />
           : null)}
 
@@ -157,6 +160,7 @@ export default function RecordClean() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
+              link="/recordWash"
             />
           : null)}
     </Layout>
