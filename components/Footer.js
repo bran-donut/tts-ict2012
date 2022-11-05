@@ -1,7 +1,7 @@
 export default function Footer(props) {
   return (
     <div
-      className={`w-full py-5 text-sm text-center text-gray-400 ${
+      className={`w-full py-8 text-sm text-center text-gray-400 ${
         props.isLogin ? `bg-inherit absolute bottom-0 left-0` : `from-[#10141A] to-[#171D26] bg-gradient-to-br`
       }`}
     >

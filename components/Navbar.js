@@ -7,13 +7,18 @@ import { navItems } from "../Constants";
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen(open => !open);
+
+  const handleMouseLeave = () => {
+    if (open) setTimeout(() => setOpen(false), 300);
+  }
+
   return (
     <div
       className={`
         bg-tts-darkblue fixed cursor-pointer top-16 z-40 left-0 h-full transition-[width] ease-in-out duration-300 
         ${open ? "w-[260px]" : "w-[60px]"}
       `}
-      onMouseLeave={() => setOpen(false)}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="pt-14 flex flex-col h-full">
         {navItems.map((item, i) =>
@@ -47,18 +52,23 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
         className={`flex items-center overflow-hidden hover:text-white ${className} ${router.pathname == link ? "bg-tts-red text-white" : "text-gray-400"
           }`}
       >
-        <Link href={link}>
-          <a className="flex items-center p-5 gap-5 flex-grow">
-            <div className="inline-flex">{icon}</div>
-            <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
-          </a>
-        </Link>
-        {subItems &&
-          (
-            <button className="flex p-3 pr-5" onClick={toggleExpand}>
+        {subItems ?
+          <>
+            <button className="flex items-center p-5 gap-5 flex-grow" onClick={!closeAll ? toggleExpand : null}>
+              <div className="inline-flex">{icon}</div>
+              <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
+            </button>
+            <button className="flex p-3 pr-5">
               {expand ? <DownOutlined /> : <UpOutlined />}
             </button>
-          )
+          </>
+          :
+          <Link href={link}>
+            <a className="flex items-center p-5 gap-5 flex-grow">
+              <div className="inline-flex">{icon}</div>
+              <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
+            </a>
+          </Link>
         }
       </li>
 

@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 import { FilterOutlined, AlignLeftOutlined } from "@ant-design/icons";
 import React from "react";
 import { ItemCard, ItemWrapper } from "../components/EquipmentCard";
-import Modal from "../components/Modal";
+import PopupMessage from "../components/Modal";
 import Link from "next/link";
 import { equipments } from "../Constants";
+import { convertDate } from "../Helpers";
 
 const tabs = ["Edit", "Add", "Remove"];
 const actions = ["Scope", "Washer", "Filter By", "Sort By"];
@@ -83,12 +84,6 @@ export default function Schedule() {
     const { value, checked } = e.target;
     if (checked) setRemoveItem((prev) => prev.concat(value));
     else setRemoveItem((prev) => prev.filter((val) => val !== value));
-  };
-
-  const convertDate = (date) => {
-    const [day, month, year] = date.split("/");
-    const formattedDate = year + "-" + month + "-" + day;
-    return formattedDate;
   };
 
   useEffect(() => {
@@ -192,9 +187,8 @@ export default function Schedule() {
           <button
             type="submit"
             onClick={() => (addItem.length ? setShowModal(true) : null)}
-            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${
-              addItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
-            }`}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${addItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+              }`}
           >
             Add
           </button>
@@ -205,9 +199,8 @@ export default function Schedule() {
           <button
             type="submit"
             onClick={() => (removeItem.length ? setShowModal(true) : null)}
-            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${
-              removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
-            }`}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+              }`}
           >
             Remove
           </button>
@@ -217,7 +210,7 @@ export default function Schedule() {
       {showModal && (
         <>
           {index == 0 && (
-            <Modal heading="Edit Next Sample Date" description="" leftText="Cancel" rightText="Done" onClickClose={handleCloseEditModal}>
+            <PopupMessage heading="Edit Next Sample Date" description="" leftText="Cancel" rightText="Done" onClickClose={handleCloseEditModal}>
               <table cellPadding="9" className="mx-8 mb-10 table-fixed">
                 <tbody>
                   <tr className="border-b border-gray-200">
@@ -241,7 +234,7 @@ export default function Schedule() {
                     <td className="flex items-center">
                       <input
                         type="date"
-                        value={selectedDate || convertDate(editItem.sampleDate)}
+                        value={selectedDate || convertDate(editItem.sampleDate, true)}
                         className="relative flex items-center w-full p-2 border-2 border-gray-300 rounded-md input-group"
                         onChange={(e) => setSelectedDate(e.target.value)}
                       />
@@ -249,10 +242,10 @@ export default function Schedule() {
                   </tr>
                 </tbody>
               </table>
-            </Modal>
+            </PopupMessage>
           )}
           {index == 1 && (
-            <Modal
+            <PopupMessage
               heading="Add to Sample Schedule"
               description="Are you sure you want to add the equipments to sample schedule?"
               leftText="Cancel"
@@ -261,7 +254,7 @@ export default function Schedule() {
             />
           )}
           {index == 2 && (
-            <Modal
+            <PopupMessage
               heading="Remove from Sample Schedule"
               description="Are you sure you want to remove the equipments from Sample Schedule?"
               leftText="Cancel"
@@ -274,7 +267,7 @@ export default function Schedule() {
 
       {/* confirm edit changes modal */}
       {showConfirmEditModal && (
-        <Modal
+        <PopupMessage
           heading="Edit Sample Schedule"
           description="Do you want to save the changes to Sample Schedule?"
           leftText="Cancel"

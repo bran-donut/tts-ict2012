@@ -2,7 +2,8 @@ import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { useEffect, useReducer } from "react"
 import Link from "next/link"
 
-export default function Modal({ heading, description, leftText, rightText, onClickClose, children, link }) {
+
+export default function PopupMessage({ heading, description, leftText, rightText, onClickClose, children, link }) {
     const [showModal, toggleModal] = useReducer(
         showModal => !showModal,
         true
@@ -22,8 +23,8 @@ export default function Modal({ heading, description, leftText, rightText, onCli
                                 <div className="relative flex-auto py-6 px-7">
                                     <div className="flex items-start">
                                         <ExclamationCircleOutlined className="pr-4 text-xl align-center text-tts-orange" />
-                                        <div className="">
-                                            <p className="inline my-2 text-lg font-medium leading-relaxed text-black">{heading}</p>
+                                        <div className="flex flex-col gap-2.5">
+                                            <p className="inline text-lg font-medium leading-relaxed text-black">{heading}</p>
                                             <div>{description}</div>
                                         </div>
                                     </div>

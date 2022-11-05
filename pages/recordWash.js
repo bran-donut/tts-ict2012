@@ -6,7 +6,7 @@ import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
 import MobileScan from "../components/MobileScan";
 import DateInput from "../components/DateInput";
-import Modal from "../components/Modal";
+import PopupMessage from "../components/Modal";
 import Link from "next/link";
 
 export default function RecordWash() {
@@ -147,24 +147,24 @@ export default function RecordWash() {
           </section>
 
           {(showExitModal ?
-            <Modal
+            <PopupMessage
               heading="Save & Exit ?"
               description="Are you sure you want to save and Exit?"
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
-              link="/schedule"
+              link="/view"
             />
           : null)}
 
           {(showContinueModal ?
-            <Modal
+            <PopupMessage
               heading="Save & Continue ?"
               description="Are you sure you want to save and continue?"
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/recordWash"
+              link="/recordDry"
             />
           : null)}
 

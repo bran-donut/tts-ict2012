@@ -9,7 +9,7 @@ export const navItems = [
   {
     icon: <DatabaseFilled className="text-xl leading-5" />,
     text: "Inventory",
-    link: "/inventory",
+    link: "",
     subItems: [
       {
         icon: <GoldFilled className="text-xl leading-5" />,
@@ -26,7 +26,7 @@ export const navItems = [
   {
     icon: <CalendarFilled className="text-xl leading-5" />,
     text: "Schedule",
-    link: "/schedule",
+    link: "",
     subItems: [
       {
         icon: <ScheduleFilled className="text-xl leading-5" />,

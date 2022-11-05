@@ -3,7 +3,7 @@ import { useState } from "react";
 import Dropdown from "../components/Dropdown";
 import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
-import Modal from "../components/Modal";
+import PopupMessage from "../components/Modal";
 import Link from "next/link";
 
 export default function RecordDry() {
@@ -116,22 +116,24 @@ export default function RecordDry() {
           </section>
 
           {(showExitModal ?
-            <Modal
+            <PopupMessage
               heading="Save & Exit ?"
               description="Are you sure you want to save and Exit?"
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
+              link="/view"
             />
           : null)}
 
           {(showContinueModal ?
-            <Modal
+            <PopupMessage
               heading="Save & Continue ?"
               description="Are you sure you want to save and continue?"
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
+              link="/recordSample"
             />
           : null)}
 
