@@ -1,14 +1,6 @@
 import { HomeFilled } from "@ant-design/icons";
 import Image from "next/image";
-
-function getIcons() {
-  const items = require.context('./assets', false, /\.(svg)$/);
-  let images = {};
-  items.keys().map((item, i) => {
-      return images[item.replace('./', '')] = items(item).default;
-  })
-  return images;
-}
+import { getIcons } from "./Helpers";
 
 const icons = getIcons();
 

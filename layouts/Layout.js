@@ -11,7 +11,7 @@ export default function Layout(props) {
       <aside>
         <NavBar />
       </aside>
-      <main className="pl-12">{props.children}</main>
+      <main className="pl-16">{props.children}</main>
       <footer className="relative">
         <Footer isLogin={false} />
       </footer>

@@ -51,7 +51,7 @@ export default function Inventory() {
       <MainHeader
         heading="Inventory"
         description="View all the equipment and miscellaneous inside the system"
-        details={[{ title: "Total Equipment in Inventory", subtitle: "36" }]}
+        details={[{ title: "Total Equipment in Inventory", subtitle: equipments.length }]}
       />
       <SubHeader
         heading={tabs[index]}

@@ -211,26 +211,26 @@ export default function Schedule() {
         <>
           {index == 0 && (
             <PopupMessage heading="Edit Next Sample Date" description="" leftText="Cancel" rightText="Done" onClickClose={handleCloseEditModal}>
-              <table cellPadding="9" className="mx-8 mb-10 table-fixed">
+              <table cellPadding="9" className="mx-8 mb-10 table-fixed text-left">
                 <tbody>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Brand</td>
+                    <th className="bg-gray-100">Brand</th>
                     <td>{editItem.brand}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Scope Type</td>
+                    <th className="bg-gray-100">Scope Type</th>
                     <td>{editItem.scopeType}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Model Number</td>
+                    <th className="bg-gray-100">Model Number</th>
                     <td>{editItem.modelNumber}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Serial Number</td>
+                    <th className="bg-gray-100">Serial Number</th>
                     <td>{editItem.serialNumber}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Next Sample Date</td>
+                    <th className="bg-gray-100">Next Sample Date</th>
                     <td className="flex items-center">
                       <input
                         type="date"
