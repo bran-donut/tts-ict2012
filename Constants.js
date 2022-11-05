@@ -8,7 +8,7 @@ export const navItems = [
   {
     icon: <HomeFilled style={{fontSize: 24}} />,
     text: "Home",
-    link: "/main",
+    link: "/home",
   },
   {
     icon: <Image src={icons['Inventory.svg']} width={24} height={24} alt="inventory" />,
