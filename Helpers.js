@@ -1,3 +1,12 @@
+export function getIcons() {
+    const items = require.context('./assets', false, /\.(svg)$/);
+    let images = {};
+    items.keys().map((item, i) => {
+        return images[item.replace('./', '')] = items(item).default;
+    })
+    return images;
+}
+
 export function convertDate(date, dataToInput) {
     const slash = '/', dash = '-';
     let formattedDate;

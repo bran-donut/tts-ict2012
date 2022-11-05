@@ -24,7 +24,7 @@ export default function Home() {
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] == true) {
-          router.push("/main");
+          router.push("/home");
         } else {
           alert("Incorrect username or password!");
         }

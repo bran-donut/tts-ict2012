@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
-import Layout, { ContainerWrapper } from "../layouts/Layout";
+import Layout from "../layouts/Layout";
 import { useRouter } from "next/router";
 import { FilterOutlined, AlignLeftOutlined } from "@ant-design/icons";
 import React from "react";
@@ -10,6 +10,7 @@ import PopupMessage from "../components/Modal";
 import Link from "next/link";
 import { equipments } from "../Constants";
 import { convertDate } from "../Helpers";
+import ContainerWrapper from "../components/ContainerWrapper";
 
 const tabs = ["Edit", "Add", "Remove"];
 const actions = ["Scope", "Washer", "Filter By", "Sort By"];
@@ -211,26 +212,26 @@ export default function Schedule() {
         <>
           {index == 0 && (
             <PopupMessage heading="Edit Next Sample Date" description="" leftText="Cancel" rightText="Done" onClickClose={handleCloseEditModal}>
-              <table cellPadding="9" className="mx-8 mb-10 table-fixed">
+              <table cellPadding="9" className="mx-8 mb-10 table-fixed text-left">
                 <tbody>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Brand</td>
+                    <th className="bg-gray-100">Brand</th>
                     <td>{editItem.brand}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Scope Type</td>
+                    <th className="bg-gray-100">Scope Type</th>
                     <td>{editItem.scopeType}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Model Number</td>
+                    <th className="bg-gray-100">Model Number</th>
                     <td>{editItem.modelNumber}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Serial Number</td>
+                    <th className="bg-gray-100">Serial Number</th>
                     <td>{editItem.serialNumber}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Next Sample Date</td>
+                    <th className="bg-gray-100">Next Sample Date</th>
                     <td className="flex items-center">
                       <input
                         type="date"

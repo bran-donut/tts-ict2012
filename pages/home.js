@@ -1,8 +1,7 @@
 import Layout from "../layouts/Layout";
-
 import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
-import { ItemCard, ItemWrapper } from "../components/EquipmentCard";
+import { ItemCard } from "../components/EquipmentCard";
 import { equipments } from "../Constants";
 
 const headerDetails = [

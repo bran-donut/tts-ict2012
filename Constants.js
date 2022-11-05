@@ -1,14 +1,6 @@
 import { HomeFilled } from "@ant-design/icons";
 import Image from "next/image";
-
-function getIcons() {
-  const items = require.context('./assets', false, /\.(svg)$/);
-  let images = {};
-  items.keys().map((item, i) => {
-      return images[item.replace('./', '')] = items(item).default;
-  })
-  return images;
-}
+import { getIcons } from "./Helpers";
 
 const icons = getIcons();
 
@@ -16,7 +8,7 @@ export const navItems = [
   {
     icon: <HomeFilled style={{fontSize: 24}} />,
     text: "Home",
-    link: "/main",
+    link: "/home",
   },
   {
     icon: <Image src={icons['Inventory.svg']} width={24} height={24} alt="inventory" />,

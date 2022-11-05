@@ -7,6 +7,7 @@ import SubHeader from "../components/SubHeader";
 import DateInput from "../components/DateInput";
 import PopupMessage from "../components/Modal";
 import Link from "next/link";
+import { equipments } from "../Constants";
 
 export default function RecordClean() {
   
@@ -20,7 +21,7 @@ export default function RecordClean() {
 
   return (
     <Layout>
-      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]} />
+      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: equipments.length }]} />
       <SubHeader
       heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
       description="Record the details of equipment sampling"
