@@ -54,7 +54,7 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
       >
         {subItems ?
           <>
-            <button className="flex items-center p-5 gap-5 flex-grow" onClick={toggleExpand}>
+            <button className="flex items-center p-5 gap-5 flex-grow" onClick={!closeAll ? toggleExpand : null}>
               <div className="inline-flex">{icon}</div>
               <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
             </button>
