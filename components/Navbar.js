@@ -18,6 +18,7 @@ export default function NavBar() {
         bg-tts-darkblue fixed cursor-pointer top-16 z-40 left-0 h-full transition-[width] ease-in-out duration-300 
         ${open ? "w-[260px]" : "w-[60px]"}
       `}
+      onClick={() => !open ? setOpen(true) : null}
       onMouseLeave={handleMouseLeave}
     >
       <div className="pt-14 flex flex-col h-full">
@@ -49,17 +50,17 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
   return (
     <>
       <li
-        className={`flex items-center overflow-hidden hover:text-white ${className} ${router.pathname == link ? "bg-tts-red text-white" : "text-gray-400"
+        className={`flex items-center overflow-hidden hover:text-white ${className ? className : ''} ${router.pathname == link ? "bg-tts-red text-white" : "text-gray-400"
           }`}
       >
         {subItems ?
           <>
-            <button className="flex items-center p-5 gap-5 flex-grow" onClick={!closeAll ? toggleExpand : null}>
+            <button className="flex items-center p-5 gap-5 flex-grow" onClick={toggleExpand}>
               <div className="inline-flex">{icon}</div>
               <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
-            </button>
-            <button className="flex p-3 pr-5">
-              {expand ? <DownOutlined /> : <UpOutlined />}
+              <div className="flex p-3 pr-5">
+                {expand ? <DownOutlined /> : <UpOutlined />}
+              </div>
             </button>
           </>
           :
