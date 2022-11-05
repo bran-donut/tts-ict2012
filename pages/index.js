@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Footer from "../components/Footer";
 
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo.svg";
+import { GlobalOutlined, QuestionCircleFilled } from "@ant-design/icons";
 
 export default function Home() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen min-w-screen">
-      <div className="mr-5 text-right">global-icon HERE</div>
+      <div className="relative right-8 top-8 text-right"><GlobalOutlined style={{fontSize: 24}} /></div>
       <div className="absolute w-full max-w-lg top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] text-left">
         <Image src={Logo} alt="logo" />
         <form className="flex flex-col gap-5 px-5 mx-auto" onSubmit={handleSubmit}>
@@ -63,7 +64,7 @@ export default function Home() {
           </Link>
         </form>
       </div>
-      <div className="absolute bottom-5 right-5">qns-icon HERE</div>
+      <div className="absolute bottom-8 right-8"><QuestionCircleFilled style={{fontSize: 24}} /></div>
       <Footer isLogin={true} />
     </div>
   );

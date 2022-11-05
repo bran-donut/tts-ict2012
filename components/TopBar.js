@@ -1,4 +1,4 @@
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo.svg";
 import Image from "next/image";
 
 import { SearchOutlined, BellOutlined, UserOutlined } from "@ant-design/icons";

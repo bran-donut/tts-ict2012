@@ -16,7 +16,7 @@ export default function NavBar() {
     <div
       className={`
         bg-tts-darkblue fixed cursor-pointer top-16 z-40 left-0 h-full transition-[width] ease-in-out duration-300 
-        ${open ? "w-[260px]" : "w-[60px]"}
+        ${open ? "w-[260px]" : "w-[64px]"}
       `}
       onClick={() => !open ? setOpen(true) : null}
       onMouseLeave={handleMouseLeave}
@@ -56,9 +56,9 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
         {subItems ?
           <>
             <button className="flex items-center p-5 gap-5 flex-grow" onClick={toggleExpand}>
-              <div className="inline-flex">{icon}</div>
+              <div className="inline-flex shrink-0 text-white">{icon}</div>
               <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
-              <div className="flex p-3 pr-5">
+              <div className="flex ml-auto">
                 {expand ? <DownOutlined /> : <UpOutlined />}
               </div>
             </button>
@@ -66,7 +66,7 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
           :
           <Link href={link}>
             <a className="flex items-center p-5 gap-5 flex-grow">
-              <div className="inline-flex">{icon}</div>
+              <div className="inline-flex shrink-0">{icon}</div>
               <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
             </a>
           </Link>
