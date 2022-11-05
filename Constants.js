@@ -6,39 +6,39 @@ const icons = getIcons();
 
 export const navItems = [
   {
-    icon: <HomeFilled style={{fontSize: 24}} />,
+    icon: <HomeFilled style={{ fontSize: 24 }} />,
     text: "Home",
     link: "/home",
   },
   {
-    icon: <Image src={icons['Inventory.svg']} width={24} height={24} alt="inventory" />,
+    icon: <Image src={icons["Inventory.svg"]} width={24} height={24} alt="inventory" />,
     text: "Inventory",
     link: "",
     subItems: [
       {
-        icon: <Image src={icons['Scope.svg']} width={24} height={24} alt="scope" />,
+        icon: <Image src={icons["Scope.svg"]} width={24} height={24} alt="scope" />,
         text: "Scope",
         link: "/inventory?view=Scope",
       },
       {
-        icon: <Image src={icons['Washer.svg']} width={24} height={24} alt="washer" />,
+        icon: <Image src={icons["Washer.svg"]} width={24} height={24} alt="washer" />,
         text: "Washer (AER)",
         link: "/inventory?view=Washer%20(AER)",
       },
     ],
   },
   {
-    icon: <Image src={icons['Schedule.svg']} width={24} height={24} alt="schedule" />,
+    icon: <Image src={icons["Schedule.svg"]} width={24} height={24} alt="schedule" />,
     text: "Schedule",
     link: "",
     subItems: [
       {
-        icon: <Image src={icons['ViewSchedule.svg']} width={24} height={24} alt="view schedule" />,
+        icon: <Image src={icons["ViewSchedule.svg"]} width={24} height={24} alt="view schedule" />,
         text: "View Schedule",
         link: "/schedule/view",
       },
       {
-        icon: <Image src={icons['EditSchedule.svg']} width={24} height={24} alt="edit schedule" />,
+        icon: <Image src={icons["EditSchedule.svg"]} width={24} height={24} alt="edit schedule" />,
         text: "Edit Schedule",
         link: "/schedule?action=Edit",
       },
@@ -55,6 +55,8 @@ export const equipments = [
     status: "",
     frequency: 5,
     sampleDate: "15/09/2022",
+    fluidResult: "No Growth - 18 Sept 2022",
+    swabResult: "No Growth Including Eleavtor - 19 Sept 2022",
   },
   {
     brand: "OLYMPUS",
@@ -64,6 +66,8 @@ export const equipments = [
     status: "New",
     frequency: 4,
     sampleDate: "14/09/2022",
+    fluidResult: "No Growth - 18 Sept 2022",
+    swabResult: "No Growth Including Eleavtor - 19 Sept 2022",
   },
   {
     brand: "OLYMPUS",

@@ -33,7 +33,17 @@ export default function Home() {
         </Card>
         <Card title="SAMPLED RESULTS" description="Showing the most recent sampled results" big={true}>
           {equipments.slice(0, 2).map((item, i) => {
-            return <ItemCard key={i} index={i} data={item} titles={["Sample by"]} keys={["sampleDate"]} select={false} edit={true} />;
+            return (
+              <ItemCard
+                key={i}
+                index={i}
+                data={item}
+                titles={["Fluid Result", "Swab Result"]}
+                keys={["fluidResult", "swabResult"]}
+                select={false}
+                edit={false}
+              />
+            );
           })}
         </Card>
         <Card title="ON QUARANTINE" description="Equipment that are on quarantine"></Card>
