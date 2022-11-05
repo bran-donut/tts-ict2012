@@ -2,17 +2,38 @@ import { EditOutlined } from "@ant-design/icons";
 
 export default function EquipmentCard(props) {
   return (
-    <div className="flex flex-col items-start justify-center h-20 px-4 m-2 mt-5 bg-white rounded-md shadow-md text-start">
-      <div className="gap-5 px-5 pt-5">
-        <span className="font-bold">{props.equipmentData.brand}</span>
-        <span className="ml-3 font-bold text-sm text-gray-600">{props.equipmentData.scopeType}</span>
-        <div className="gap-5 pb-5">
-          <span className="text-[#BDBDBD] text-xs">{props.equipmentData.modelNumber}</span>
-          <span className="ml-3 text-[#BDBDBD] text-xs">•</span>
-          <span className="ml-3 text-[#BDBDBD] text-xs">{props.equipmentData.serialNumber}</span>
-          <span className="ml-3 text-[#BDBDBD] text-xs">•</span>
-          <span className="ml-3 text-[#BDBDBD] text-xs">{props.equipmentData.status}</span>
-        </div>
+    <div className="flex flex-col items-start justify-center h-20 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start">
+      <div>
+        {/* <span className="font-bold">{props.equipmentData.brand}</span>
+        <span className="ml-3 font-bold text-sm text-gray-600">{props.equipmentData.scopeType}</span> */}
+        {props.equipmentData.scopeType ?
+          <>
+            <div className="font-bold flex items-center gap-5 2xl:gap-5">
+              <span className="inline-flex">{props.equipmentData.brand}</span>
+              <span className="text-sm text-gray-600">{props.equipmentData.scopeType}</span>
+            </div>
+            <div>
+              <span className="text-gray-400 text-xs">{props.equipmentData.modelNumber}</span>
+              <span className="ml-3 text-gray-400 text-xs">•</span>
+              <span className="ml-3 text-gray-400 text-xs">{props.equipmentData.serialNumber}</span>
+              {props.equipmentData.status &&
+                <>
+                  <span className="ml-3 text-gray-400 text-xs">•</span>
+                  <span className="ml-3 text-gray-400 text-xs">{props.equipmentData.status}</span>
+                </>
+              }
+            </div>
+          </>
+          :
+          <>
+            <div className="font-bold">
+              <span className="text-sm inline-flex">{props.equipmentData.modelNumber}</span>
+            </div>
+            <div>
+              <span className="text-xs text-gray-400">{props.equipmentData.serialNumber}</span>
+            </div>
+          </>
+        }
       </div>
     </div>
   );
@@ -21,7 +42,7 @@ export default function EquipmentCard(props) {
 export function ItemWrapper(props) {
   return (
     // <div className="flex flex-wrap items-center justify-start gap-x-4">
-    <div className="grid grid-cols-1 gap-4 gap-y-0 bg-[#F0F2F5] xl:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
       {props.items &&
         props.items.map((item, i) => {
           let display = false;
@@ -50,7 +71,7 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
       <div className="flex-grow">
         {scopeType ? (
           <>
-            <div className="font-bold flex items-center mb-2 gap-5 2xl:gap-5">
+            <div className="font-bold flex items-center gap-5 2xl:gap-5">
               <span className="inline-flex">{brand}</span>
               <span className="text-sm text-gray-600">{scopeType}</span>
             </div>
@@ -63,7 +84,7 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
         ) : (
           <>
             <div className="font-bold">
-              <span className="text-sm inline-flex mb-2">{modelNumber}</span>
+              <span className="text-sm inline-flex">{modelNumber}</span>
             </div>
             <div>
               <span className="text-xs text-gray-400">{serialNumber}</span>

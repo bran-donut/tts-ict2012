@@ -50,13 +50,13 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
   return (
     <>
       <li
-        className={`flex items-center overflow-hidden hover:text-white ${className ? className : ''} ${router.pathname == link ? "bg-tts-red text-white" : "text-gray-400"
+        className={`flex items-center overflow-hidden hover:text-white ${className ? className : ''} ${router.pathname == link || router.pathname.includes(text.toLowerCase()) ? "bg-tts-red text-white" : "text-gray-400"
           }`}
       >
         {subItems ?
           <>
             <button className="flex items-center p-5 gap-5 flex-grow" onClick={toggleExpand}>
-              <div className="inline-flex shrink-0 text-white">{icon}</div>
+              <div className="inline-flex shrink-0">{icon}</div>
               <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
               <div className="flex ml-auto">
                 {expand ? <DownOutlined /> : <UpOutlined />}
