@@ -10,5 +10,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Login details
 
-Username: janice
-Password: 123
+1. Username: janice
+2. Password: 123
