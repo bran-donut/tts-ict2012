@@ -16,14 +16,15 @@ export const navItems = [
     link: "",
     subItems: [
       {
-        icon: <Image src={icons["Scope.svg"]} width={24} height={24} alt="scope" />,
-        text: "Scope",
-        link: "/inventory?view=Scope",
+        icon: <Image src={icons["ViewInventory.svg"]} width={24} height={24} alt="view inventory" />,
+        text: "View Inventory",
+        link: "/inventory",
       },
       {
-        icon: <Image src={icons["Washer.svg"]} width={24} height={24} alt="washer" />,
-        text: "Washer (AER)",
-        link: "/inventory?view=Washer%20(AER)",
+        icon: <Image src={icons["EditInventory.svg"]} width={24} height={24} alt="manage inventory" />,
+        text: "Manage Inventory",
+        // link: "/inventory?view=Washer%20(AER)",
+        link: "/inventory/manage?action=Edit",
       },
     ],
   },
@@ -35,12 +36,12 @@ export const navItems = [
       {
         icon: <Image src={icons["ViewSchedule.svg"]} width={24} height={24} alt="view schedule" />,
         text: "View Schedule",
-        link: "/schedule/view",
+        link: "/schedule",
       },
       {
-        icon: <Image src={icons["EditSchedule.svg"]} width={24} height={24} alt="edit schedule" />,
-        text: "Edit Schedule",
-        link: "/schedule?action=Edit",
+        icon: <Image src={icons["EditSchedule.svg"]} width={24} height={24} alt="manage schedule" />,
+        text: "Manage Schedule",
+        link: "/schedule/manage?action=Edit",
       },
     ],
   },
