@@ -37,7 +37,7 @@ export default function ViewSchedule() {
     else type = 'washer';
 
     Router.push({
-      pathname: '/record/' + type,
+      pathname: '/record/' + type + '/cleaning',
       query: { index: i }
     })
   };
