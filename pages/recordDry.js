@@ -18,29 +18,34 @@ export default function RecordDry() {
 
   return (
     <Layout>
-      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]} />
+      <MainHeader heading="Record" description="Equipment Sampling Record" />
       <SubHeader
       heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
       description="Record the details of equipment sampling"
-      breadCrumbItems={["Home", "Inventory", "View", "Record"]}
+      breadCrumbItems={["Home", "Schedule", "View", "Record"]}
       />
 
         <div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                      <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                    <Link href="recordClean">
+                      <div className="bg-[#1890FF] hover:cursor-pointer hover:bg-[#1890FF]/80 ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
+                    </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
+                  <h3 className="pl-2 text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
                   </div>
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
-                  <div className="flex items-center">
-                   <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="flex items-center ">
+                  <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
+                  <Link href="/recordWash">
+                    <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
+                  </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
@@ -49,6 +54,7 @@ export default function RecordDry() {
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
+                  <div className="bg-[#1890FF] hidden sm:flex w-[1.125rem] h-0.5"></div>
                     <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                       <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
@@ -59,7 +65,8 @@ export default function RecordDry() {
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
-                  <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="bg-gray-200 hidden sm:flex w-7 h-0.5"></div>
+                  <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-2 h-2 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                       <div></div>
                   </div>
@@ -81,11 +88,12 @@ export default function RecordDry() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <Dropdown
                 menuHeader="Scope Dryer"
-                menuItems={["1", "2"]}
+                menuItems={["Item 1", "Item 2"]}
+                type="drop"
                 />
                 <Dropdown
                 menuHeader="Dryer Level"
-                menuItems={["1", "2"]}
+                menuItems={["Level 1", "Level 2", "Level 3", "Level 4"]}
                 />
 
                 <div className="py-1 input-group">

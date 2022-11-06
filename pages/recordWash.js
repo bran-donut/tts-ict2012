@@ -21,28 +21,31 @@ export default function RecordWash() {
 
   return (
     <Layout>
-      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]} />
+      <MainHeader heading="Record" description="Equipment Sampling Record" />
       <SubHeader
       heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
       description="Record the details of equipment sampling"
-      breadCrumbItems={["Home", "Inventory", "View", "Record"]}
+      breadCrumbItems={["Home", "Schedule", "View", "Record"]}
       />
 
-        <div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
+<div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                      <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <Link href="/recordClean">
+                      <div className="bg-[#1890FF] ml-[4.1rem] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
+                  </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
+                  <h3 className="pl-2 text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
                   </div>
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
-                  <div className="flex items-center">
-                   <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="flex items-center ">
+                  <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
+                   <div className="bg-[#1890FF] z-10  flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                       <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
                   </div>
@@ -52,17 +55,19 @@ export default function RecordWash() {
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
-                    <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="bg-gray-200 hidden sm:flex w-[1.125rem] h-0.5"></div>
+                    <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-2 h-2 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                       <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg text-gray-300">Drying</h3>                
+                  <h3 className="text-lg font-normal text-gray-900">Drying</h3>                
                   </div>
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
-                  <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="bg-gray-200 hidden sm:flex w-7 h-0.5"></div>
+                  <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-2 h-2 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                       <div></div>
                   </div>
@@ -89,13 +94,16 @@ export default function RecordWash() {
                 menuHeader="AER Model"
                 menuItems={["1", "2"]}
                 />
-                <div className="flex flex-row items-center justify-start pt-1">
-                    <h3 className="pt-4 mr-2 font-medium">Disinfection</h3>
                 </div>
-                <div></div>
+                <div className="p-5 bg-white">
+                  <h3 className="pb-2 font-medium">Disinfectant</h3>
+                  <hr></hr>
+                </div>
+                <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <Dropdown
                 menuHeader="Disinfectant Used"
-                menuItems={["1", "2"]}
+                menuItems={["RAPICIDE PA PART A & PART B", "ANIOXYDE 1000", "ACECIDE"]}
+                type="drop"
                 />
                 <Input
                 menuHeader="Disinfectant LOT Number"
@@ -105,30 +113,35 @@ export default function RecordWash() {
                 menuHeader="Disinfectant Changed"
                 status = "required"
                 />
-                <div></div>
-                <div className="flex flex-row items-center justify-start pt-1">
-                    <h3 className="pt-4 mr-2 font-medium">Detergent</h3>
                 </div>
-                <div></div>
+                <div className="p-5 bg-white">
+                  <h3 className="pb-2 font-medium">Detergent</h3>
+                  <hr></hr>
+                </div>
+                <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <Dropdown
                 menuHeader="Detergent Used"
-                menuItems={["1", "2"]}
+                menuItems={["INTERCEPT PLUS", "CIDEZYME DETERGENT", "ENDORAPID"]}
+                type="drop"
                 />
-                <Dropdown
+                <Input
                 menuHeader="Detergent LOT Number"
-                menuItems={["1", "2"]}
                 />
-                <div className="flex flex-row items-center justify-start pbt1">
-                    <h3 className="pt-4 mr-2 font-medium">Filter</h3>
                 </div>
-                <div></div>
+                <div className="p-5 bg-white">
+                  <h3 className="pb-2 font-medium">Filter</h3>
+                  <hr></hr>
+                </div>
+                <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DateInput
                 menuHeader="Date of Filter Changed"
                 />
+                <div className="mb-28"></div>
+                </div>
+                </div>
                 <div className="pb-5"></div>
                   </div>
-                </div>
-              </div>
+
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
                     <Link href="/recordClean">
@@ -153,7 +166,7 @@ export default function RecordWash() {
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
-              link="/view"
+              type="/view"
             />
           : null)}
 

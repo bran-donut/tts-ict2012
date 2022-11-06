@@ -3,14 +3,13 @@ import { useState } from "react";
 import { DownOutlined, UpOutlined, ExclamationCircleOutlined, InfoCircleOutlined, CloseOutlined } from "@ant-design/icons";
 
 
-export default function Dropdown({ menuHeader, menuItems }) {
+export default function Dropdown({ menuHeader, menuItems, type }) {
 
 const [selected, setSelected] = useState(false);
 const [text, setText] = useState("");
 const [addText, setAddText] = useState("");
 const [showModal, setShowModal] = useState(false);
 const [dropItem, setDropItem] = useState(menuItems);
-
   return (
     <>
     <div className="py-1 input-group">
@@ -28,16 +27,17 @@ const [dropItem, setDropItem] = useState(menuItems);
 
                     {dropItem.map((item, i) => (
                         <React.Fragment key={i}>
-                        <li>
-                            <p onClick={() => (setSelected(false), setText({item}))} className="block px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
+                        <li className="py-1">
+                            <p onClick={() => (setSelected(false), setText({item}))} className="items-center inline px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
+                            <CloseOutlined onClick={() => (delete dropItem[i], setDropItem(dropItem.filter(textItem => textItem != undefined)))} className={`${type == undefined ? "invisible" : "visible"} inline float-right px-2`} style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
                         </li>
                         </React.Fragment>
                     ))}
 
                 </ul>
-                <div className="py-1">
+                {type == undefined ? null : (<div className="py-1">
                     <p onClick={() => setShowModal(true)} className="block px-2 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 ">+ Add new</p>
-                </div>
+                </div>)}
             </div>
         </div>
     </div>

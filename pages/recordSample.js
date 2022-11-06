@@ -20,29 +20,34 @@ export default function RecordSample() {
 
   return (
     <Layout>
-      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]} />
+      <MainHeader heading="Record" description="Equipment Sampling Record" />
       <SubHeader
       heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
       description="Record the details of equipment sampling"
-      breadCrumbItems={["Home", "Inventory", "View", "Record"]}
+      breadCrumbItems={["Home", "Schedule", "View", "Record"]}
       />
 
-        <div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
+<div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                      <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <Link href="/recordClean">
+                      <div className="bg-[#1890FF]  hover:bg-[#1890FF]/80 hover:cursor-pointer ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
+                  </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
+                  <h3 className="pl-2 text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
                   </div>
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
-                  <div className="flex items-center">
-                   <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="flex items-center ">
+                  <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
+                  <Link href="/recordWash">
+                   <div className="bg-[#1890FF] z-10  hover:bg-[#1890FF]/80 hover:cursor-pointer flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
+                  </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
@@ -51,8 +56,11 @@ export default function RecordSample() {
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
-                    <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="bg-[#1890FF] hidden sm:flex w-[1.125rem] h-0.5"></div>
+                  <Link href="/recordDry">
+                    <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
+                  </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
@@ -61,6 +69,7 @@ export default function RecordSample() {
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
+                  <div className="bg-[#1890FF] hidden sm:flex w-7 h-0.5"></div>
                   <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                       <div></div>
@@ -77,27 +86,10 @@ export default function RecordSample() {
             <div className="px-20 py-10">
               <div className="flex flex-col justify-center h-full min-w-full text-justify bg-white border-2 rounded-md">
                 <div className="p-5 bg-white">
-                  <h3 className="pb-2 font-medium">ATP</h3>
+                  <h3 className="pb-2 font-medium">Fluid Result</h3>
                   <hr></hr>
                 </div>
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
-                <Dropdown
-                menuHeader="Month"
-                menuItems={["Jan", "Feb"]}
-                />
-                <Input
-                menuHeader="ATP Water RLU"
-                status="required"
-                />
-                <Input
-                menuHeader="ATP Swab RLU"
-                status="required"
-                />
-                <div></div>
-                <div className="flex flex-row items-center justify-start pt-1">
-                    <h3 className="pt-4 mr-2 font-medium">Fluid Result</h3>
-                </div>
-                <div></div>
                 <DateInput
                 menuHeader="Date of Result"
                 />
@@ -113,10 +105,12 @@ export default function RecordSample() {
                 menuHeader="Action"
                 status="optional"
                 />
-                <div className="flex flex-row items-center justify-start pt-1">
-                    <h3 className="pt-4 mr-2 font-medium">Swab Result</h3>
                 </div>
-                <div></div>
+                <div className="p-5 bg-white">
+                  <h3 className="pb-2 font-medium">Repeat Details</h3>
+                  <hr></hr>
+                </div>
+                <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DateInput
                 menuHeader="Date of Result"
                 />
@@ -137,11 +131,12 @@ export default function RecordSample() {
                 menuHeader="Room to Perform"
                 menuItems={["1", "2"]}   
                 />
-                <div></div>
-                <div className="flex flex-row items-center justify-start pt-1">
-                    <h3 className="pt-4 mr-2 font-medium">Repeat of MS</h3>
                 </div>
-                <div></div>
+                <div className="p-5 bg-white">
+                  <h3 className="pb-2 font-medium">Repeat of MS</h3>
+                  <hr></hr>
+                </div>
+                <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <Dropdown
                 menuHeader="Quarantine Required"
                 menuItems={["Yes", "No"]}   
@@ -151,24 +146,25 @@ export default function RecordSample() {
                 />
                <Dropdown
                 menuHeader="Borescope"
-                menuItems={["1", "2"]}   
+                menuItems={["Yes", "No"]}   
                 />
-                <div></div>
-                <div className="flex flex-row items-center justify-start pt-1">
-                    <h3 className="pt-4 mr-2 font-medium">After Action</h3>
                 </div>
-                <div></div>
-
+                <div className="p-5 bg-white">
+                  <h3 className="pb-2 font-medium">Repeat of MS</h3>
+                  <hr></hr>
+                </div>
+                <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <Dropdown
                 menuHeader="Circulated By"
-                menuItems={["1", "2"]}   
+                menuItems={["Janice", "Nina"]}  
+                type="drop"
                 />
-
-                <div className="mb-28 "></div>
-                  </div>
+                <div className="mb-28"></div>
+                </div>
                 </div>
               </div>
-
+            
+            
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
                     <Link href="/recordDry">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
