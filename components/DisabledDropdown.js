@@ -12,7 +12,6 @@ const [textBorescope, setTextBorescope] = useState("");
 const [dropItem, setDropItem] = useState(["Yes", "No"]);
 const [choice, setChoice] = useState(["Yes", "No"]);
 
-console.log(textQuarantine);
   return (
     <>
       <div className="py-1 input-group">

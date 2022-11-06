@@ -98,7 +98,7 @@ export default function RecordSample() {
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
-                menuItems={["1", "2"]}
+                menuItems={["Growth", "No Growth"]}
                 />
                 <Input
                 menuHeader="Culture Comment"
@@ -119,7 +119,7 @@ export default function RecordSample() {
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
-                menuItems={["1", "2"]}         
+                menuItems={["Growth", "No Growth"]}         
                 />
 
                 <Input
