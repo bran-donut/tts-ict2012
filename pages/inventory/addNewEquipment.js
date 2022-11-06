@@ -1,12 +1,12 @@
-import Layout from "../layouts/Layout";
+import Layout from "../../layouts/Layout";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import Dropdown from "../components/Dropdown";
-import MainHeader from "../components/MainHeader";
-import SubHeader from "../components/SubHeader";
-import MobileScan from "../components/MobileScan";
-import Input from "../components/Input";
-import { equipments } from "../Constants";
+import Dropdown from "../../components/Dropdown";
+import MainHeader from "../../components/MainHeader";
+import SubHeader from "../../components/SubHeader";
+import MobileScan from "../../components/MobileScan";
+import Input from "../../components/Input";
+import { equipments } from "../../Constants";
 
 export default function addNewEquipment() {
 

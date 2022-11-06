@@ -1,19 +1,15 @@
-import Layout from "../layouts/Layout";
-import Input from "../components/Input";
+import Layout from "../../../layouts/Layout";
 import { useState } from "react";
-import Dropdown from "../components/Dropdown";
-import MainHeader from "../components/MainHeader";
-import SubHeader from "../components/SubHeader";
-import MobileScan from "../components/MobileScan";
-import DateInput from "../components/DateInput";
-import PopupMessage from "../components/Modal";
+import Dropdown from "../../../components/Dropdown";
+import MainHeader from "../../../components/MainHeader";
+import SubHeader from "../../../components/SubHeader";
+import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
-import { equipments } from "../Constants";
 
-export default function RecordWash() {
-
+export default function Drying() {
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
+  const [charCount, setCharCount] = useState(0);
   const [equipmentData, setEquipmentData] = useState(
     {
         brand: "Olympus", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"
@@ -22,48 +18,55 @@ export default function RecordWash() {
 
   return (
     <Layout>
-      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: equipments.length }]} />
+      <MainHeader heading="Record" description="Equipment Sampling Record" />
       <SubHeader
       heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
       description="Record the details of equipment sampling"
-      breadCrumbItems={["Home", "Inventory", "View", "Record"]}
+      breadCrumbItems={["Home", "Schedule", "View", "Record"]}
       />
 
         <div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                      <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                    <Link href="scopeCleaning">
+                      <div className="bg-[#1890FF] hover:cursor-pointer hover:bg-[#1890FF]/80 ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
+                    </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
+                  <h3 className="pl-2 text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
+                  </div>
+              </li>
+              <li className="relative w-64 mb-6 sm:mb-0">
+                  <div className="flex items-center ">
+                  <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
+                  <Link href="/record/scope/washing">
+                    <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                      </div>
+                  </Link>
+                      <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
+                  </div>
+                  <div className="mt-3 sm:pr-8">
+                  <h3 className="text-lg font-normal text-gray-900">Washing</h3>                    
                   </div>
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
-                   <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="bg-[#1890FF] hidden sm:flex w-[1.125rem] h-0.5"></div>
+                    <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                       <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg font-semibold text-gray-900">Washing</h3>                    
+                  <h3 className="text-lg font-semibold text-gray-900">Drying</h3>                
                   </div>
               </li>
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
-                    <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
-                      </div>
-                      <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
-                  </div>
-                  <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg text-gray-300">Drying</h3>                
-                  </div>
-              </li>
-              <li className="relative w-64 mb-6 sm:mb-0">
-                  <div className="flex items-center">
-                  <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                  <div className="bg-gray-200 hidden sm:flex w-7 h-0.5"></div>
+                  <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-2 h-2 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                       <div></div>
                   </div>
@@ -79,60 +82,33 @@ export default function RecordWash() {
             <div className="px-20 py-10">
               <div className="flex flex-col justify-center h-full min-w-full text-justify bg-white border-2 rounded-md">
                 <div className="p-5 bg-white">
-                  <h3 className="pb-2 font-medium">AER Detail</h3>
+                  <h3 className="pb-2 font-medium">Drying Cabinet</h3>
                   <hr></hr>
                 </div>
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
-                <MobileScan
-                menuHeader="AER Serial Number"
+                <Dropdown
+                menuHeader="Scope Dryer"
+                menuItems={["Dryer 1", "Dryer 2", "Dryer 3", "Dryer 4"]}
+                drop="drop"
                 />
                 <Dropdown
-                menuHeader="AER Model"
-                menuItems={["1", "2"]}
+                menuHeader="Dryer Level"
+                menuItems={["Level 1", "Level 2", "Level 3", "Level 4"]}
                 />
-                <div className="flex flex-row items-center justify-start pt-1">
-                    <h3 className="pt-4 mr-2 font-medium">Disinfection</h3>
+
+                <div className="py-1 input-group">
+                  <h4 className="inline pb-1">Remarks</h4><p className="inline px-2 text-gray-400">(optional)</p>
+                  <textarea placeholder="Remarks" maxlength="100" onChange={e => setCharCount(e.target.value.length)} className="w-full p-2 border-2 rounded-md" />
+                  <div className="text-right text-gray-300">{charCount} / 100</div>
                 </div>
-                <div></div>
-                <Dropdown
-                menuHeader="Disinfectant Used"
-                menuItems={["1", "2"]}
-                />
-                <Input
-                menuHeader="Disinfectant LOT Number"
-                status = "required"
-                />
-                <Input
-                menuHeader="Disinfectant Changed"
-                status = "required"
-                />
-                <div></div>
-                <div className="flex flex-row items-center justify-start pt-1">
-                    <h3 className="pt-4 mr-2 font-medium">Detergent</h3>
-                </div>
-                <div></div>
-                <Dropdown
-                menuHeader="Detergent Used"
-                menuItems={["1", "2"]}
-                />
-                <Dropdown
-                menuHeader="Detergent LOT Number"
-                menuItems={["1", "2"]}
-                />
-                <div className="flex flex-row items-center justify-start pbt1">
-                    <h3 className="pt-4 mr-2 font-medium">Filter</h3>
-                </div>
-                <div></div>
-                <DateInput
-                menuHeader="Date of Filter Changed"
-                />
+
                 <div className="pb-5"></div>
                   </div>
                 </div>
               </div>
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/recordClean">
+                    <Link href="/record/scope/washing">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
@@ -154,7 +130,7 @@ export default function RecordWash() {
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
-              link="/view"
+              link="/schedule/index"
             />
           : null)}
 
@@ -165,7 +141,7 @@ export default function RecordWash() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/recordDry"
+              link="/record/scope/sampling"
             />
           : null)}
 

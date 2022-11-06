@@ -1,4 +1,4 @@
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, FileTextOutlined } from "@ant-design/icons";
 
 export default function EquipmentCard(props) {
   return (
@@ -59,12 +59,20 @@ export function ItemWrapper(props) {
   );
 }
 
+<<<<<<< HEAD
 export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit, onChangeCheck, isSchedule }) {
+=======
+export function ItemCard({ index, data, titles, keys, edit, select, icon, onClickEdit, onChangeCheck }) {
+>>>>>>> 68a2d192b5166f0ecf562aaedd0e8e2ab7ee95da
   const displayIcon = edit || select;
   {
     /* keys refer to the keys in the data array, used to retrieve specific additional values for the card */
   }
+<<<<<<< HEAD
   const { brand, scopeType, modelNumber, serialNumber, samplingStatus } = data;
+=======
+  const { brand, scopeType, modelNumber, serialNumber, status } = data;
+>>>>>>> 68a2d192b5166f0ecf562aaedd0e8e2ab7ee95da
   return (
     <div className="flex flex-row items-center flex-grow h-20 gap-2 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start">
       <div className="flex-grow">
@@ -78,12 +86,21 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
               <span className="text-xs text-gray-400">{modelNumber}</span>
               <span className="ml-3 text-xs text-gray-400">•</span>
               <span className="ml-3 text-xs text-gray-400">{serialNumber}</span>
+<<<<<<< HEAD
               {isSchedule ? (
                 <>
                   <span className="ml-3 text-xs text-gray-400">•</span>
                   <span className="ml-3 text-xs text-gray-400">{samplingStatus}</span>
                 </>
               ) : null}
+=======
+              {status && (
+                <>
+                  <span className="ml-3 text-xs text-gray-400">•</span>
+                  <span className="ml-3 text-xs text-gray-400">{status}</span>
+                </>
+              )}
+>>>>>>> 68a2d192b5166f0ecf562aaedd0e8e2ab7ee95da
             </div>
           </>
         ) : (
@@ -123,7 +140,12 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
             {select && <input type="checkbox" className="w-5 h-5" value={index} onChange={onChangeCheck} />}
           </>
         </button>
-      )}
+      )}.
+      {icon &&
+        <button className="flex items-center text-xl 2xl:ml-14" onClick={() => onClickEdit(index)}>
+          {icon}
+        </button>
+      }
     </div>
   );
 }
