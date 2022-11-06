@@ -1,16 +1,16 @@
-import Layout from "../../layouts/Layout";
+import Layout from "../../../layouts/Layout";
 import { useState } from "react";
-import Dropdown from "../../components/Dropdown";
-import MainHeader from "../../components/MainHeader";
-import SubHeader from "../../components/SubHeader";
-import Input from "../../components/Input";
-import DateInput from "../../components/DateInput";
-import PopupMessage from "../../components/Modal";
+import Dropdown from "../../../components/Dropdown";
+import MainHeader from "../../../components/MainHeader";
+import SubHeader from "../../../components/SubHeader";
+import Input from "../../../components/Input";
+import DateInput from "../../../components/DateInput";
+import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
 
-import DisabledDropdown from "../../components/DisabledDropdown";
+import DisabledDropdown from "../../../components/DisabledDropdown";
 
-export default function ScopeSampling() {
+export default function Sampling() {
 
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -33,7 +33,7 @@ export default function ScopeSampling() {
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                  <Link href="/record/scopeCleaning">
+                  <Link href="/record/scope/cleaning">
                       <div className="bg-[#1890FF]  hover:bg-[#1890FF]/80 hover:cursor-pointer ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -46,7 +46,7 @@ export default function ScopeSampling() {
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center ">
                   <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
-                  <Link href="/record/scopeWashing">
+                  <Link href="/record/scope/washing">
                    <div className="bg-[#1890FF] z-10  hover:bg-[#1890FF]/80 hover:cursor-pointer flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -59,7 +59,7 @@ export default function ScopeSampling() {
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
                   <div className="bg-[#1890FF] hidden sm:flex w-[1.125rem] h-0.5"></div>
-                  <Link href="/record/scopeDrying">
+                  <Link href="/record/scope/drying">
                     <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -131,7 +131,7 @@ export default function ScopeSampling() {
                 />
                 <Dropdown
                 menuHeader="Room to Perform"
-                menuItems={["1", "2"]}   
+                menuItems={["ENDO MS ROOM", "CLEAN", "REPROCESSING ROOM", "2B ENDO", "OTHERS"]}   
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -172,7 +172,7 @@ export default function ScopeSampling() {
             
             
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/record/scopeDrying">
+                    <Link href="/record/scope/drying">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
