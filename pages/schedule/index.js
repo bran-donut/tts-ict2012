@@ -6,7 +6,8 @@ import { ActionButton } from "./manage";
 import { RightOutlined, CalendarOutlined, AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import { equipments } from "../../Constants";
-import EquipmentCard from "../../components/EquipmentCard";
+import { ItemCard } from "../../components/EquipmentCard";
+import { Router } from "next/router";
 
 const tabs = ["Sample Schedule", "Off Schedule"];
 const actions = ["Jump to date", "View by: Day", "Filter By"];
@@ -29,6 +30,13 @@ const headerDetails = [
 export default function ViewSchedule() {
   const [index, setIndex] = useState(0);
   const [equipmentData, setEquipmentData] = useState(equipments);
+
+  const handleEdit = (i) => {
+    // Router.push({
+    //   pathname: '/record/edit',
+    //   query: { index: i }
+    // })
+  };
 
   return (
     <Layout>
@@ -60,9 +68,16 @@ export default function ViewSchedule() {
       <ContainerWrapper>
         <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
           {equipmentData.map(
-            (e, i) =>
+            (val, i) =>
               // scope type determines which is scope / washer. Washer does not have scopeType
-              ((index == 0 && e.scopeType) || (index == 1 && !e.scopeType)) && <EquipmentCard equipmentData={equipmentData[i]} key={i} /> //: <EquipmentCard equipmentData={equipmentData[i]} key={i} />
+              ((index == 0 && val.scopeType) || (index == 1 && !val.scopeType)) &&
+              <ItemCard
+                key={i}
+                index={i}
+                data={val}
+                edit={true}
+                onClickEdit={handleEdit}
+              />
           )}
         </div>
         {/* <ItemWrapper
