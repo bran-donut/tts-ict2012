@@ -90,7 +90,7 @@ export default function RecordDry() {
                 <Dropdown
                 menuHeader="Scope Dryer"
                 menuItems={["Item 1", "Item 2"]}
-                type="drop"
+                drop="drop"
                 />
                 <Dropdown
                 menuHeader="Dryer Level"

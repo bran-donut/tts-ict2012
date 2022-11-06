@@ -104,7 +104,7 @@ export default function RecordWash() {
                 <Dropdown
                 menuHeader="Disinfectant Used"
                 menuItems={["RAPICIDE PA PART A & PART B", "ANIOXYDE 1000", "ACECIDE"]}
-                type="drop"
+                drop="drop"
                 />
                 <Input
                 menuHeader="Disinfectant LOT Number"
@@ -123,7 +123,7 @@ export default function RecordWash() {
                 <Dropdown
                 menuHeader="Detergent Used"
                 menuItems={["INTERCEPT PLUS", "CIDEZYME DETERGENT", "ENDORAPID"]}
-                type="drop"
+                drop="drop"
                 />
                 <Input
                 menuHeader="Detergent LOT Number"

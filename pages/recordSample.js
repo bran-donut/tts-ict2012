@@ -9,6 +9,8 @@ import PopupMessage from "../components/Modal";
 import Link from "next/link";
 import { equipments } from "../Constants";
 
+import DisabledDropdown from "../components/DisabledDropdown";
+
 export default function RecordSample() {
 
   const [showExitModal, setShowExitModal] = useState(false);
@@ -138,7 +140,11 @@ export default function RecordSample() {
                   <hr></hr>
                 </div>
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
-                <Dropdown
+                  <DisabledDropdown
+                    menuHeader="Quarantine Required"
+                    menuItems={["Yes", "No"]}  
+                    />
+                {/* <Dropdown
                 menuHeader="Quarantine Required"
                 menuItems={["Yes", "No"]}   
                 />
@@ -148,7 +154,7 @@ export default function RecordSample() {
                <Dropdown
                 menuHeader="Borescope"
                 menuItems={["Yes", "No"]}   
-                />
+                /> */}
                 </div>
                 <div className="p-5 bg-white">
                   <h3 className="pb-2 font-medium">Repeat of MS</h3>
@@ -158,7 +164,7 @@ export default function RecordSample() {
                 <Dropdown
                 menuHeader="Circulated By"
                 menuItems={["Janice", "Nina"]}  
-                type="drop"
+                drop="drop"
                 />
                 <div className="mb-28"></div>
                 </div>

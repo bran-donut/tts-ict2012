@@ -96,7 +96,7 @@ export default function RecordClean() {
                         <h4 className="mr-2">Month</h4>
                     </div>
                     <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-                    <input type="text" value={monthNames[d.getMonth()]} className="w-full outline-none" disabled />
+                    <input type="text" value={monthNames[d.getMonth()]} className="w-full outline-none text-[#8C8C8C]" disabled />
                     </div>
                   </div>
                 <DateInput
@@ -105,10 +105,9 @@ export default function RecordClean() {
                 <div className="py-1 input-group">
                     <div className="flex flex-row items-center justify-start pb-1">
                         <h4 className="mr-2">Accession Number</h4>
-                        <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
                     </div>
                   <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-                    <input type="text" value={Math.floor(Math.random() * 100000000)} className="w-full outline-none" disabled />
+                    <input type="text" value={Math.floor(Math.random() * 100000000)} className="w-full text-[#8C8C8C] outline-none" disabled />
                   </div>
                 </div>
                 </div>
@@ -131,12 +130,12 @@ export default function RecordClean() {
                 <Dropdown
                 menuHeader="Washed by"
                 menuItems={["Jia Xin", "Mandy"]}
-                type="drop"
+                drop="drop"
                 />
                 <Dropdown
                 menuHeader="Collected by"
                 menuItems={["Nina", "Gan"]}
-                type="drop"
+                drop="drop"
                 />
                 <div className="mb-5"></div>
                 </div>
