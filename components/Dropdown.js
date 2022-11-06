@@ -3,11 +3,7 @@ import { useState } from "react";
 import { DownOutlined, UpOutlined, ExclamationCircleOutlined, InfoCircleOutlined, CloseOutlined } from "@ant-design/icons";
 
 
-<<<<<<< HEAD
-export default function Dropdown({ menuHeader, menuItems, drop }) {
-=======
-export default function Dropdown({ inputValue, menuHeader, menuItems, type }) {
->>>>>>> b9853c148c7301518e596d27655ba90785294f19
+export default function Dropdown({ inputValue, menuHeader, menuItems, drop }) {
 
 const [selected, setSelected] = useState(false);
 const [text, setText] = useState("");
