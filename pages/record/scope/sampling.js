@@ -141,22 +141,11 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                   <DisabledDropdown
                     menuHeader="Quarantine Required"
-                    menuItems={["Yes", "No"]}  
+                    borescope="borescope"  
                     />
-                {/* <Dropdown
-                menuHeader="Quarantine Required"
-                menuItems={["Yes", "No"]}   
-                />
-                <DateInput
-                menuHeader="Repeat Date"
-                />
-               <Dropdown
-                menuHeader="Borescope"
-                menuItems={["Yes", "No"]}   
-                /> */}
                 </div>
                 <div className="p-5 bg-white">
-                  <h3 className="pb-2 font-medium">Repeat of MS</h3>
+                  <h3 className="pb-2 font-medium">After Action</h3>
                   <hr></hr>
                 </div>
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
@@ -165,8 +154,8 @@ export default function Sampling() {
                 menuItems={["Janice", "Nina"]}  
                 drop="drop"
                 />
-                <div className="mb-28"></div>
                 </div>
+                <div className="mb-12"></div>
                 </div>
               </div>
             

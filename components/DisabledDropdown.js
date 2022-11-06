@@ -3,7 +3,7 @@ import { useState } from "react";
 import { DownOutlined, UpOutlined, InfoCircleOutlined} from "@ant-design/icons";
 
 
-export default function DisabledDropdown({ menuHeader }) {
+export default function DisabledDropdown({ menuHeader, borescope }) {
 
 const [selectedQuarantine, setSelectedQuarantine] = useState(false);
 const [selectedBorescope, setSelectedBorescope] = useState(false);
@@ -49,7 +49,7 @@ const [choice, setChoice] = useState(["Yes", "No"]);
           <input className="relative flex items-center w-full p-2 border-2 border-gray-300 rounded-md input-group" type="text" placeholder="Quarantine Required" disabled/>}
         </div>
         
-        <div className="py-1 input-group">
+        {borescope == undefined ? null : (<div className="py-1 input-group">
         <div className="flex flex-row items-center justify-start pb-1">
           <h4 className="mr-2">Borescope</h4>
           <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
@@ -77,7 +77,7 @@ const [choice, setChoice] = useState(["Yes", "No"]);
           <input type="text" placeholder="Quarantine Required" className="w-full outline-none" value={textBorescope.item} disabled />
             </div>)}
 
-        </div>             
+        </div> )}            
     </>
   );
 }

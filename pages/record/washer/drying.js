@@ -12,7 +12,7 @@ export default function Drying() {
   const [charCount, setCharCount] = useState(0);
   const [equipmentData, setEquipmentData] = useState(
     {
-      brand: "Medivator", scopeType: "1A", modelNumber: "WA5201325", serialNumber: "21904890", status: "New"
+        brand: "Medivator", modelNumber: "1A", serialNumber: "21904890", status: "New"
     }
   );
 
@@ -20,7 +20,7 @@ export default function Drying() {
     <Layout>
       <MainHeader heading="Record" description="Equipment Sampling Record" />
       <SubHeader
-      heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
+      heading={equipmentData.brand + " " + equipmentData.modelNumber}
       description="Record the details of equipment sampling"
       breadCrumbItems={["Home", "Schedule", "View", "Record"]}
       />
@@ -29,7 +29,7 @@ export default function Drying() {
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                    <Link href="scopeCleaning">
+                    <Link href="/record/washer/cleaning">
                       <div className="bg-[#1890FF] hover:cursor-pointer hover:bg-[#1890FF]/80 ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                     </Link>
@@ -42,7 +42,7 @@ export default function Drying() {
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center ">
                   <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
-                  <Link href="/record/scope/washing">
+                  <Link href="/record/washer/washing">
                     <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -108,7 +108,7 @@ export default function Drying() {
               </div>
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/record/scope/washing">
+                    <Link href="/record/washer/washing">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
@@ -141,7 +141,7 @@ export default function Drying() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/record/scope/sampling"
+              link="/record/washer/sampling"
             />
           : null)}
 
