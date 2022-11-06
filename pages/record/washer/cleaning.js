@@ -142,7 +142,7 @@ export default function Cleaning() {
                   </div>
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/schedule/index">
+                    <Link href="/schedule">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Back
                     </a>
@@ -164,7 +164,7 @@ export default function Cleaning() {
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
-              link="/schedule/index"
+              link="/schedule"
             />
           : null)}
 
