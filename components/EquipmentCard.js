@@ -2,7 +2,7 @@ import { EditOutlined, FileTextOutlined } from "@ant-design/icons";
 
 export default function EquipmentCard(props) {
   return (
-    <div className="flex flex-col items-start justify-center h-20 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start">
+    <div className="flex flex-col items-start justify-center h-20 p-5 m-2 mt-1 bg-white rounded-md shadow-md text-start">
       <div>
         {/* <span className="font-bold">{props.equipmentData.brand}</span>
         <span className="ml-3 text-sm font-bold text-gray-600">{props.equipmentData.scopeType}</span> */}

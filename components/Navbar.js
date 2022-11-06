@@ -15,7 +15,7 @@ export default function NavBar() {
   return (
     <div
       className={`
-        bg-tts-darkblue fixed cursor-pointer top-16 z-40 left-0 h-full transition-[width] ease-in-out duration-300 
+        bg-tts-darkblue fixed cursor-pointer top-14 z-40 left-0 h-full transition-[width] ease-in-out duration-300 
         ${open ? "w-[260px]" : "w-[64px]"}
       `}
       onClick={() => !open ? setOpen(true) : null}

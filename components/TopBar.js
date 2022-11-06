@@ -8,7 +8,7 @@ export default function TopBar(props) {
   return (
     <div className="flex flex-row items-center justify-between py-2 pl-5 pr-10 bg-[#F0F2F5]">
       <Link href="home">
-      <Image className="hover:cursor-pointer" src={Logo} alt="logo" width={180} height={60} />
+      <Image className="hover:cursor-pointer" src={Logo} alt="logo" width={150} height={40} />
       </Link>
       <div className="relative flex-row items-center hidden w-1/2 sm:flex">
         <input
