@@ -30,16 +30,32 @@ const headerDetails = [
 export default function ViewSchedule() {
   const [index, setIndex] = useState(0);
   const [equipmentData, setEquipmentData] = useState(equipments);
+  const [actionValues, setActionValues] = useState([]);
+  const [view, setView] = useState("View by: Day");
 
+  const handleClickAction = (i) => {
+    const value = actions[i];
+    setActionValues((prev) => prev.concat(value));
+    switch (value) {
+      case "View by: Day":
+        actions[1] = "View by: Month";
+        setView(() => "View by: Month");
+        break;
+      case "View by: Month":
+        actions[1] = "View by: Day";
+        setView(() => "View by: Day");
+        break;
+    }
+  };
   const handleEdit = (i) => {
     let type;
-    if (equipmentData[i].scopeType) type = 'scope';
-    else type = 'washer';
+    if (equipmentData[i].scopeType) type = "scope";
+    else type = "washer";
 
     Router.push({
-      pathname: '/record/' + type + '/cleaning',
-      query: { index: i }
-    })
+      pathname: "/record/" + type + "/cleaning",
+      query: { index: i },
+    });
   };
 
   return (
@@ -64,30 +80,40 @@ export default function ViewSchedule() {
           </div>
           <div className="flex items-center gap-4 ">
             {actions.map((action, i) => (
-              <ActionButton key={i} index={i} name={action} icon={i == 0 ? <RightOutlined /> : i == 1 ? <CalendarOutlined /> : <FilterOutlined />} />
+              <ActionButton
+                key={i}
+                index={i}
+                name={action}
+                active={actionValues.includes(actions[i])}
+                onClickAction={handleClickAction}
+                icon={i == 0 ? <RightOutlined /> : i == 1 ? <CalendarOutlined /> : <FilterOutlined />}
+              />
             ))}
           </div>
         </div>
       </SubHeader>
       <ContainerWrapper>
-        <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
-          {equipmentData.map(
-            (val, i) =>
-              // scope type determines which is scope / washer. Washer does not have scopeType
-              ((index == 0 && val.scopeType) || (index == 1 && !val.scopeType)) &&
-              <ItemCard
-                key={i}
-                index={i}
-                data={val}
-                icon={<FileTextOutlined />}
-                onClickEdit={handleEdit}
-              />
-          )}
-        </div>
-        {/* <ItemWrapper
-          items={equipments}
-          currentAction={tabs[index]}
-        /> */}
+        {view == "View by: Day" ? (
+          <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
+            <p className="col-span-2">Today, {todayMonth}</p>
+            {equipmentData.map(
+              (e, i) =>
+                e.sampleDate == today ? (
+                  <ItemCard
+                    data={equipmentData[i]}
+                    key={i}
+                    edit={true}
+                    onClickEdit={() => {
+                      alert("hi");
+                    }}
+                    isSchedule={true}
+                  />
+                ) : null //: <EquipmentCard equipmentData={equipmentData[i]} key={i} />
+            )}
+          </div>
+        ) : (
+          <Calendar year={2022} month={11} />
+        )}
       </ContainerWrapper>
     </Layout>
   );
