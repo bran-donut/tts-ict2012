@@ -4,10 +4,15 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./layouts/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontSize: {
+        '5xl':'2.5rem',
+        '3xl':'28px',
+      },
     container: {
       center: true,
     },
     extend: {
+      
       fontFamily: {
         roboto: ["'Roboto', sans-serif", ...defaultTheme.fontFamily.sans],
       },

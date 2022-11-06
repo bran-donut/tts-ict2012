@@ -14,7 +14,7 @@ export default function TopBar(props) {
         <input
           type="text"
           placeholder="Search by Serial Number"
-          className="w-full px-2 pr-10 border-2 border-gray-300 rounded-sm peer focus:outline-none focus:border-tts-red text-sm"
+          className="w-full px-2 pr-10 border-2 border-gray-300 rounded-sm peer focus:outline-none focus:border-tts-red placeholder:text-sm"
         />
         <button className="absolute top-0 right-0 flex items-center justify-center h-full px-2 text-gray-400 border-l-2 border-gray-300 peer-focus:border-tts-red peer-focus:text-tts-red">
           <SearchOutlined />
