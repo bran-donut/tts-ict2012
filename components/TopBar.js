@@ -1,12 +1,15 @@
 import Logo from "../assets/logo.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 import { SearchOutlined, BellOutlined, UserOutlined } from "@ant-design/icons";
 
 export default function TopBar(props) {
   return (
     <div className="flex flex-row items-center justify-between py-5 pl-5 pr-10 bg-[#F0F2F5]">
-      <Image src={Logo} alt="logo" width={100} height={30} />
+      <Link href="home">
+      <Image className="hover:cursor-pointer" src={Logo} alt="logo" width={100} height={30} />
+      </Link>
       <div className="relative flex-row items-center hidden w-1/2 sm:flex">
         <input
           type="text"
