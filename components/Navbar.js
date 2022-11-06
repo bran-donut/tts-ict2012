@@ -15,8 +15,8 @@ export default function NavBar() {
   return (
     <div
       className={`
-        bg-tts-darkblue fixed cursor-pointer top-14 z-40 left-0 h-full transition-[width] ease-in-out duration-300 
-        ${open ? "w-[260px]" : "w-[64px]"}
+        bg-tts-darkblue fixed cursor-pointer top-12 z-40 left-0 h-full transition-[width] ease-in-out duration-300 
+        ${open ? "w-[260px]" : "w-[48px]"}
       `}
       onClick={() => !open ? setOpen(true) : null}
       onMouseLeave={handleMouseLeave}
@@ -28,7 +28,7 @@ export default function NavBar() {
         <div className="flex-grow" onClick={toggleOpen} />
       </div>
       <button
-        className="expand-button flex items-center text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-21px] px-0.5"
+        className="w-4 expand-button flex items-center text-white bg-tts-darkblue h-[70px] absolute top-1/2 translate-y-[-50%] right-[-17px]"
         onClick={toggleOpen}
       >
         {open ? <LeftOutlined /> : <RightOutlined />}
@@ -50,12 +50,12 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
   return (
     <>
       <li
-        className={`flex items-center overflow-hidden hover:text-white ${className ? className : ''} ${router.pathname == link || router.pathname.includes(text.toLowerCase()) ? "bg-tts-red text-white" : "text-gray-400"
+        className={`text-sm flex items-center overflow-hidden hover:text-white ${className ? className : ''} ${router.pathname == link || router.pathname.includes(text.toLowerCase()) ? "bg-tts-red text-white" : "text-gray-400"
           }`}
       >
         {subItems ?
           <>
-            <button className="flex items-center p-5 gap-5 flex-grow" onClick={toggleExpand}>
+            <button className="flex items-center p-4 gap-5 flex-grow" onClick={toggleExpand}>
               <div className="inline-flex shrink-0">{icon}</div>
               <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
               <div className="flex ml-auto">
@@ -65,7 +65,7 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
           </>
           :
           <Link href={link}>
-            <a className="flex items-center p-5 gap-5 flex-grow">
+            <a className="flex items-center p-[0.95rem] gap-5 flex-grow">
               <div className="inline-flex shrink-0">{icon}</div>
               <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
             </a>

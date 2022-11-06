@@ -6,22 +6,22 @@ const icons = getIcons();
 
 export const navItems = [
   {
-    icon: <HomeFilled style={{ fontSize: 24 }} />,
+    icon: <HomeFilled style={{ fontSize: 18 }} />,
     text: "Home",
     link: "/home",
   },
   {
-    icon: <Image src={icons["Inventory.svg"]} width={24} height={24} alt="inventory" />,
+    icon: <Image src={icons["Inventory.svg"]} width={20} height={20} alt="inventory" />,
     text: "Inventory",
     link: "",
     subItems: [
       {
-        icon: <Image src={icons["ViewInventory.svg"]} width={24} height={24} alt="view inventory" />,
+        icon: <Image src={icons["ViewInventory.svg"]} width={20} height={20} alt="view inventory" />,
         text: "View Inventory",
         link: "/inventory",
       },
       {
-        icon: <Image src={icons["EditInventory.svg"]} width={24} height={24} alt="manage inventory" />,
+        icon: <Image src={icons["EditInventory.svg"]} width={20} height={20} alt="manage inventory" />,
         text: "Manage Inventory",
         // link: "/inventory?view=Washer%20(AER)",
         link: "/inventory/manage?action=Edit",
@@ -29,17 +29,17 @@ export const navItems = [
     ],
   },
   {
-    icon: <Image src={icons["Schedule.svg"]} width={24} height={24} alt="schedule" />,
+    icon: <Image src={icons["Schedule.svg"]} width={18} height={18} alt="schedule" />,
     text: "Schedule",
     link: "",
     subItems: [
       {
-        icon: <Image src={icons["ViewSchedule.svg"]} width={24} height={24} alt="view schedule" />,
+        icon: <Image src={icons["ViewSchedule.svg"]} width={18} height={18} alt="view schedule" />,
         text: "View Schedule",
         link: "/schedule",
       },
       {
-        icon: <Image src={icons["EditSchedule.svg"]} width={24} height={24} alt="manage schedule" />,
+        icon: <Image src={icons["EditSchedule.svg"]} width={18} height={18} alt="manage schedule" />,
         text: "Manage Schedule",
         link: "/schedule/manage?action=Edit",
       },
