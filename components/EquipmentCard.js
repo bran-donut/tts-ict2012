@@ -59,12 +59,12 @@ export function ItemWrapper(props) {
   );
 }
 
-export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit, onChangeCheck }) {
+export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit, onChangeCheck, isSchedule }) {
   const displayIcon = edit || select;
   {
     /* keys refer to the keys in the data array, used to retrieve specific additional values for the card */
   }
-  const { brand, scopeType, modelNumber, serialNumber } = data;
+  const { brand, scopeType, modelNumber, serialNumber, samplingStatus } = data;
   return (
     <div className="flex flex-row items-center flex-grow h-20 gap-2 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start">
       <div className="flex-grow">
@@ -78,6 +78,12 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
               <span className="text-xs text-gray-400">{modelNumber}</span>
               <span className="ml-3 text-xs text-gray-400">•</span>
               <span className="ml-3 text-xs text-gray-400">{serialNumber}</span>
+              {isSchedule ? (
+                <>
+                  <span className="ml-3 text-xs text-gray-400">•</span>
+                  <span className="ml-3 text-xs text-gray-400">{samplingStatus}</span>
+                </>
+              ) : null}
             </div>
           </>
         ) : (
@@ -87,6 +93,12 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
             </div>
             <div>
               <span className="text-xs text-gray-400">{serialNumber}</span>
+              {isSchedule ? (
+                <>
+                  <span className="ml-3 text-xs text-gray-400">•</span>
+                  <span className="ml-3 text-xs text-gray-400">{samplingStatus}</span>
+                </>
+              ) : null}
             </div>
           </>
         )}
