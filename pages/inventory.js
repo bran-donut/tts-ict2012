@@ -64,11 +64,11 @@ export default function Inventory() {
           <div className="mt-2">
             <button
               onClick={() => setIndex(0)}
-              className={`${index == 0 ? "text-blue-600 pb-4 font-bold border-b-2 border-indigo-500" : "text-black"} text-md md:text-base`}
+              className={`${index == 0 ? "text-tts-blue pb-4 font-bold border-b-2 border-tts-blue" : "text-black"} text-md md:text-base`}
             >{tabs[0]}</button>
             <button
               onClick={() => setIndex(1)}
-              className={`${index == 1 ? "text-blue-600 pb-4 font-bold border-b-2 border-indigo-500" : "text-black"
+              className={`${index == 1 ? "text-tts-blue pb-4 font-bold border-b-2 border-tts-blue" : "text-black"
                 } mx-10 text-md md:text-base`}
             >{tabs[1]}</button>
           </div>

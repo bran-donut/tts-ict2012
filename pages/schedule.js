@@ -116,15 +116,15 @@ export default function Schedule() {
             {tabs.map((tab, i) => (
               <button
                 key={i}
-                className={`${i == index ? "text-blue-600 pb-4 font-bold border-b-2 border-indigo-500" : "text-black"} mr-10 text-lg`}
+                className={`${i == index ? "text-tts-blue pb-4 font-bold border-b-2 border-tts-blue" : "text-black"} mr-10 text-lg`}
                 onClick={() => setIndex(i)}
               >
                 {tab}
               </button>
             ))}
           </div>
-          {/* <button onClick={() => setIndex(0)} className={`${tab[index] == tab[0] ? "text-blue-600 pb-3 font-bold border-b-2 border-indigo-500" : "text-black"} text-md md:text-base`}>{`${tab == 'null' ? "" : tab[0]}`}</button>
-                    <button onClick={() => setIndex(1)} className={`${tab[index] == tab[1] ? "text-blue-600 pb-3 font-bold border-b-2 border-indigo-500" : "text-black"} mx-10 text-md md:text-base`}>{`${tab == 'null' ? "" : tab[1]}`}</button> */}
+          {/* <button onClick={() => setIndex(0)} className={`${tab[index] == tab[0] ? "text-tts-blue pb-3 font-bold border-b-2 border-tts-blue" : "text-black"} text-md md:text-base`}>{`${tab == 'null' ? "" : tab[0]}`}</button>
+                    <button onClick={() => setIndex(1)} className={`${tab[index] == tab[1] ? "text-tts-blue pb-3 font-bold border-b-2 border-tts-blue" : "text-black"} mx-10 text-md md:text-base`}>{`${tab == 'null' ? "" : tab[1]}`}</button> */}
           <div className="flex items-center gap-4 ">
             {actions.map((action, i) => (
               <ActionButton
