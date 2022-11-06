@@ -106,6 +106,7 @@ export default function ViewInventory() {
           currentAction={tabs[index]}
         /> */}
       </ContainerWrapper>
+      <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row"></div>
     </Layout>
   );
 }

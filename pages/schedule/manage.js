@@ -12,37 +12,70 @@ import { equipments } from "../../Constants";
 import { convertDate } from "../../Helpers";
 import ContainerWrapper from "../../components/ContainerWrapper";
 
-const tabs = ["Edit", "Add", "Remove"];
-const actions = ["Scope", "Washer", "Filter By", "Sort By"];
+const tabs = ["Scope", "Washer (AER)"];
+const actions = ["Filter By", "Sort By"];
+const mainActions = ["Edit", "Add", "Remove"];
 
 export default function ManageSchedule() {
   const router = useRouter();
 
+  const [equipmentData, setEquipmentData] = useState(equipments);
+  const [showModal, setShowModal] = useState(false);
+  const [showConfirmEditModal, setShowConfirmEditModal] = useState(false);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showLoadingModal, setShowLoadingModal] = useState(false);
+  const [removeConfirmation, setRemoveConfirmation] = useState(false);
+  const [selectedDate, setSelectedDate] = useState();
   const [index, setIndex] = useState(0);
-  const [actionValues, setActionValues] = useState([]);
+  const [mainActionIndex, setMainActionIndex] = useState(0);
+  const [actionIndexes, setActionIndexes] = useState([]);
   const [editItem, setEditItem] = useState([]);
   const [addItem, setAddItem] = useState([]);
   const [removeItem, setRemoveItem] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [showConfirmEditModal, setShowConfirmEditModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState();
+
+  // const handleClickAction = (i) => {
+  //   const value = actions[i];
+  //   // toggle between scope and washer
+  //   setActionValues((prev) => {
+  //     if (value == "Scope") {
+  //       // toggle scope
+  //       if (actionValues.includes(value)) return prev.filter((val) => val !== value);
+  //       // remove washer
+  //       else return prev.concat(value).filter((val) => val !== "Washer");
+  //     } else if (value == "Washer") {
+  //       // toggle washer
+  //       if (actionValues.includes(value)) return prev.filter((val) => val !== value);
+  //       // remove scope
+  //       else return prev.concat(value).filter((val) => val !== "Scope");
+  //     } else return prev.concat(value);
+  //   });
+  // };
 
   const handleClickAction = (i) => {
-    const value = actions[i];
-    // toggle between scope and washer
-    setActionValues((prev) => {
-      if (value == "Scope") {
-        // toggle scope
-        if (actionValues.includes(value)) return prev.filter((val) => val !== value);
-        // remove washer
-        else return prev.concat(value).filter((val) => val !== "Washer");
-      } else if (value == "Washer") {
-        // toggle washer
-        if (actionValues.includes(value)) return prev.filter((val) => val !== value);
-        // remove scope
-        else return prev.concat(value).filter((val) => val !== "Scope");
-      } else return prev.concat(value);
-    });
+    setActionIndexes((prev) => prev.concat(i));
+  };
+
+  const handleClickMainAction = (i) => {
+    setMainActionIndex(i);
+  };
+
+  const handleEdit = (i) => {
+    // const { brand, scopeType, modelNumber, serialNumber, sampleDate } = equipments[i];
+    setShowModal(true);
+    setEditItem(equipments[i]);
+  };
+
+  const handleSelect = (e, action) => {
+    const { value, checked } = e.target;
+    if (action == 'add') {
+      if (checked) setAddItem((prev) => prev.concat(value));
+      else setAddItem((prev) => prev.filter((val) => val !== value));
+    }
+    else {
+      if (checked) setRemoveItem((prev) => prev.concat(value));
+      else setRemoveItem((prev) => prev.filter((val) => val !== value));
+    }
   };
 
   const handleCloseEditModal = (confirm) => {
@@ -61,7 +94,15 @@ export default function ManageSchedule() {
   };
 
   const handleCloseModal = (confirm) => {
+    // close change modal and open loading message
     setShowModal(false);
+    // setShowDeleteModal(false);
+    setRemoveConfirmation(confirm);
+    if (confirm) {
+      setShowLoadingModal(true);
+    } else {
+      // ...
+    }
     if (confirm) {
       // ....
     } else {
@@ -69,47 +110,42 @@ export default function ManageSchedule() {
     }
   };
 
-  const handleEdit = (i) => {
-    // const { brand, scopeType, modelNumber, serialNumber, sampleDate } = equipments[i];
-    setShowModal(true);
-    setEditItem(equipments[i]);
-  };
-
-  const handleAdd = (e) => {
-    const { value, checked } = e.target;
-    if (checked) setAddItem((prev) => prev.concat(value));
-    else setAddItem((prev) => prev.filter((val) => val !== value));
-  };
-
-  const handleRemove = (e) => {
-    const { value, checked } = e.target;
-    if (checked) setRemoveItem((prev) => prev.concat(value));
-    else setRemoveItem((prev) => prev.filter((val) => val !== value));
-  };
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    setRemoveItem([]);
+  }
 
   useEffect(() => {
-    setIndex(router.query.action ? tabs.indexOf(router.query.action) : 0);
-  }, [router.query.action]);
+    setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
+    setMainActionIndex(router.query.action ? mainActions.indexOf(router.query.action) : 0);
+  }, [router.query]);
 
   useEffect(() => {
-    router.push("/schedule?action=" + tabs[index], undefined, { shallow: true });
+    router.push("/schedule/manage?view=" + tabs[index] + "&action=" + mainActions[mainActionIndex], undefined, { shallow: true });
     // reset array
     setEditItem([]);
     setAddItem([]);
     setRemoveItem([]);
-  }, [index]);
+  }, [mainActionIndex]);
 
   useEffect(() => {
     console.log("adding", addItem, "removing", removeItem);
   }, [addItem, removeItem]);
 
+  useEffect(() => {
+    // display success modal after loading modal is closed
+    if (removeConfirmation && !showLoadingModal) {
+      setShowSuccessModal(true);
+    }
+  }, [removeConfirmation, showLoadingModal])
+
   return (
     <Layout>
       <MainHeader heading="Schedule" description="Equipment sampling forecast" />
       <SubHeader
-        heading={((index == 0 && "Edit") || (index == 1 && "Add to") || (index == 2 && "Remove from")) + " Sample Schedule"}
+        heading={((mainActionIndex == 0 && "Edit") || (mainActionIndex == 1 && "Add to") || (mainActionIndex == 2 && "Remove from")) + " Sample Schedule"}
         description="Displays equipment to be added to the schedule"
-        breadCrumbItems={["Home", "Schedule", tabs[index]]}
+        breadCrumbItems={["Home", "Schedule"]}
       >
         <div className="flex items-center justify-between w-full pt-3">
           <div className="mt-2">
@@ -126,13 +162,22 @@ export default function ManageSchedule() {
           {/* <button onClick={() => setIndex(0)} className={`${tab[index] == tab[0] ? "text-tts-blue pb-3 font-bold border-b-2 border-tts-blue" : "text-black"} text-md md:text-base`}>{`${tab == 'null' ? "" : tab[0]}`}</button>
                     <button onClick={() => setIndex(1)} className={`${tab[index] == tab[1] ? "text-tts-blue pb-3 font-bold border-b-2 border-tts-blue" : "text-black"} mx-10 text-md md:text-base`}>{`${tab == 'null' ? "" : tab[1]}`}</button> */}
           <div className="flex items-center gap-4 ">
+            {mainActions.map((action, i) => (
+              <ActionButton
+                key={i}
+                index={i}
+                active={i == mainActionIndex}
+                name={action}
+                onClickAction={handleClickMainAction}
+              />
+            ))}
             {actions.map((action, i) => (
               <ActionButton
                 key={i}
                 index={i}
-                active={actionValues.includes(actions[i])}
+                active={actionIndexes.includes(i)}
                 name={action}
-                icon={i >= 2 && (i == 2 ? <FilterOutlined /> : <AlignLeftOutlined />)}
+                icon={i == 0 ? <FilterOutlined /> : <AlignLeftOutlined />}
                 onClickAction={handleClickAction}
               />
             ))}
@@ -140,7 +185,7 @@ export default function ManageSchedule() {
         </div>
       </SubHeader>
       <ContainerWrapper>
-        {index == 1 ? (
+        {/* {index == 1 ? (
           <ItemWrapper>
             {equipments.map((item, i) => {
               let display = false;
@@ -166,44 +211,75 @@ export default function ManageSchedule() {
             onClickEdit={handleEdit}
             onChangeCheck={handleRemove}
           />
-        )}
+        )} */}
+        <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
+          {equipmentData.map(
+            (val, i) => {
+              // scope type determines which is scope / washer. Washer does not have scopeType
+              if ((index == 0 && val.scopeType) || (index == 1 && !val.scopeType)) {
+                if (mainActionIndex == 0) {
+                  return (
+                    <ItemCard
+                      key={i}
+                      index={i}
+                      data={val}
+                      titles={["Frequency"]}
+                      keys={["frequency"]}
+                      edit={true}
+                      onClickEdit={handleEdit}
+                    />
+                  )
+                }
+                else if (mainActionIndex == 1) {
+                  return (
+                    <ItemCard
+                      key={i}
+                      index={i}
+                      data={val}
+                      titles={["Frequency"]}
+                      keys={["frequency"]}
+                      select={true}
+                      onChangeCheck={(e) => handleSelect(e, 'add')}
+                    />
+                  )
+                }
+                else return (
+                  <ItemCard
+                    key={i}
+                    index={i}
+                    data={val}
+                    titles={["Frequency", "Next Sample Date"]}
+                    keys={["frequency", "sampleDate"]}
+                    select={true}
+                    onChangeCheck={(e) => handleSelect(e, 'remove')}
+                  />
+                )
+              }
+            }
+          )}
+        </div>
       </ContainerWrapper>
       <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
-        <Link href="/schedule">
+        {/* <Link href="/schedule">
           <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">Back</a>
-        </Link>
-        {/* <button type="submit" className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
-                      Add new
-                    </button> */}
-
-        {/* edit */}
-        {/* {index == 0 &&
-                    <button type="submit" onClick={() => setShowModal(true)} className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                        Save Changes
-                    </button>
-                } */}
-
-        {/* add */}
-        {index == 1 && (
+        </Link> */}
+        {mainActions[mainActionIndex] == 'Add' && (
           <button
             type="submit"
             onClick={() => (addItem.length ? setShowModal(true) : null)}
-            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${
-              addItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
-            }`}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${addItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+              }`}
           >
             Add
           </button>
         )}
 
-        {/* remove */}
-        {index == 2 && (
+        {mainActions[mainActionIndex] == 'Remove' && (
           <button
             type="submit"
             onClick={() => (removeItem.length ? setShowModal(true) : null)}
-            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${
-              removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
-            }`}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+              }`}
           >
             Remove
           </button>
@@ -212,7 +288,7 @@ export default function ManageSchedule() {
 
       {showModal && (
         <>
-          {index == 0 && (
+          {mainActionIndex == 0 && (
             <PopupMessage heading="Edit Next Sample Date" description="" leftText="Cancel" rightText="Done" onClickClose={handleCloseEditModal}>
               <table cellPadding="9" className="mx-8 mb-10 text-left table-fixed">
                 <tbody>
@@ -247,7 +323,7 @@ export default function ManageSchedule() {
               </table>
             </PopupMessage>
           )}
-          {index == 1 && (
+          {mainActionIndex == 1 && (
             <PopupMessage
               heading="Add to Sample Schedule"
               description="Are you sure you want to add the equipments to sample schedule?"
@@ -256,7 +332,7 @@ export default function ManageSchedule() {
               onClickClose={handleCloseModal}
             />
           )}
-          {index == 2 && (
+          {mainActionIndex == 2 && (
             <PopupMessage
               heading="Remove from Sample Schedule"
               description="Are you sure you want to remove the equipments from Sample Schedule?"
