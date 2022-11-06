@@ -18,7 +18,7 @@ export default function Cleaning() {
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [equipmentData, setEquipmentData] = useState(
     {
-        brand: "Medivator", scopeType: "1A", modelNumber: "WA5201325", serialNumber: "21904890", status: "New"
+        brand: "Medivator", modelNumber: "1A", serialNumber: "21904890", status: "New"
     }
   );
 
@@ -26,7 +26,7 @@ export default function Cleaning() {
     <Layout>
       <MainHeader heading="Record" description="Equipment Sampling Record" />
       <SubHeader
-      heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
+      heading={equipmentData.brand + " " + equipmentData.modelNumber}
       description="Record the details of equipment sampling"
       breadCrumbItems={["Home", "Schedule", "View", "Record"]}
       />
@@ -111,16 +111,6 @@ export default function Cleaning() {
                 </div>
 
                 <div className="p-5 bg-white">
-                  <h3 className="pb-2 font-medium">Scope Details</h3>
-                  <hr></hr>
-                </div>
-                <div className="grid grid-cols-2 gap-4 px-5 py-1">
-                <Dropdown
-                menuHeader="Scope Status"
-                menuItems={["Regular", "Loan", "Post Repair", "New"]}
-                />
-                </div>
-                <div className="p-5 bg-white">
                   <h3 className="pb-2 font-medium">Personnel Performed</h3>
                   <hr></hr>
                 </div>
@@ -175,7 +165,7 @@ export default function Cleaning() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/record/scope/washing"
+              link="/record/washer/washing"
             />
           : null)}
     </Layout>

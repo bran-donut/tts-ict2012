@@ -5,7 +5,6 @@ import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
 import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
-import MobileScan from "../../../components/MobileScan";
 import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
 
@@ -15,7 +14,7 @@ export default function Washing() {
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [equipmentData, setEquipmentData] = useState(
     {
-      brand: "Medivator", scopeType: "1A", modelNumber: "WA5201325", serialNumber: "21904890", status: "New"
+        brand: "Medivator", modelNumber: "1A", serialNumber: "21904890", status: "New"
     }
   );
 
@@ -23,7 +22,7 @@ export default function Washing() {
     <Layout>
       <MainHeader heading="Record" description="Equipment Sampling Record" />
       <SubHeader
-      heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
+      heading={equipmentData.brand + " " + equipmentData.modelNumber}
       description="Record the details of equipment sampling"
       breadCrumbItems={["Home", "Schedule", "View", "Record"]}
       />
@@ -32,7 +31,7 @@ export default function Washing() {
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                  <Link href="/record/scope/cleaning">
+                  <Link href="/record/washer/cleaning">
                       <div className="bg-[#1890FF] ml-[4.1rem] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -82,20 +81,7 @@ export default function Washing() {
           <form>
             <div className="px-20 py-10">
               <div className="flex flex-col justify-center h-full min-w-full text-justify bg-white border-2 rounded-md">
-                <div className="p-5 bg-white">
-                  <h3 className="pb-2 font-medium">AER Detail</h3>
-                  <hr></hr>
-                </div>
-                <div className="grid grid-cols-2 gap-4 px-5 py-1">
-                <MobileScan
-                menuHeader="AER Serial Number"
-                />
-                <Dropdown
-                menuHeader="AER Model"
-                menuItems={["MEDIVATOR 1A", "MEDIVATOR 1B", "MEDIVATOR 2A", "MEDIVATOR 2B"]}
-                />
-                </div>
-                <div className="p-5 bg-white">
+              <div className="p-5 bg-white">
                   <h3 className="pb-2 font-medium">Disinfectant</h3>
                   <hr></hr>
                 </div>
@@ -144,7 +130,7 @@ export default function Washing() {
 
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/record/scope/cleaning">
+                    <Link href="/record/washer/cleaning">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
@@ -177,7 +163,7 @@ export default function Washing() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/record/scope/drying"
+              link="/record/washer/drying"
             />
           : null)}
 
