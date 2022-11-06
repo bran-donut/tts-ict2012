@@ -6,7 +6,7 @@ const icons = getIcons();
 
 export const navItems = [
   {
-    icon: <HomeFilled style={{fontSize: 24}} />,
+    icon: <HomeFilled style={{ fontSize: 24 }} />,
     text: "Home",
     link: "/home",
   },
@@ -219,3 +219,54 @@ export const equipments = [
     sampleDate: "15/09/2022",
   },
 ];
+
+export const pastResults = [
+  {
+    "sampleDate": "15/07/2022",
+    "fluidResultDate": "29/07/2022",
+    "fluidResult": "GROWTH",
+    "fluidResultComments": "",
+    "fluidResultActionTaken": "",
+    "swabResultDate": "30/07/2022",
+    "swabResult": "GROWTH",
+    "swaResultComments": "",
+    "swabResultActionTaken": "",
+    "swabResultRoomPerformed": "Room A"
+  },
+  {
+    "sampleDate": "15/08/2022",
+    "fluidResultDate": "28/08/2022",
+    "fluidResult": "GROWTH",
+    "fluidResultComments": "",
+    "fluidResultActionTaken": "",
+    "swabResultDate": "30/08/2022",
+    "swabResult": "GROWTH",
+    "swaResultComments": "",
+    "swabResultActionTaken": "",
+    "swabResultRoomPerformed": "Room A"
+  },
+  {
+    "sampleDate": "15/09/2022",
+    "fluidResultDate": "29/09/2022",
+    "fluidResult": "NO GROWTH",
+    "fluidResultComments": "",
+    "fluidResultActionTaken": "",
+    "swabResultDate": "30/09/2022",
+    "swabResult": "NO GROWTH",
+    "swaResultComments": "",
+    "swabResultActionTaken": "",
+    "swabResultRoomPerformed": "Room B"
+  },
+  {
+    "sampleDate": "15/10/2022",
+    "fluidResultDate": "28/10/2022",
+    "fluidResult": "NO GROWTH",
+    "fluidResultComments": "",
+    "fluidResultActionTaken": "",
+    "swabResultDate": "30/10/2022",
+    "swabResult": "NO GROWTH INCLUDING ELEVATOR",
+    "swaResultComments": "",
+    "swabResultActionTaken": "",
+    "swabResultRoomPerformed": "Room C"
+  }
+]
