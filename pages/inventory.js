@@ -4,7 +4,7 @@ import EquipmentCard from "../components/EquipmentCard";
 import MainHeader from "../components/MainHeader";
 import { equipments } from "../Constants";
 import SubHeader, { SubHeaderButton } from "../components/SubHeader";
-import { ActionButton } from "./schedule";
+import { ActionButton } from "../pages/schedule/index";
 import { AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
 import { exportCSVFile } from "../Helpers";
 import { useRouter } from "next/router";
@@ -34,10 +34,10 @@ export default function Inventory() {
       serialNumber: "serialNumber",
       status: "status",
       frequency: "frequency",
-      sampleDate: "sampleDate"
+      sampleDate: "sampleDate",
     };
-    exportCSVFile(headers, equipments, '');
-  }
+    exportCSVFile(headers, equipments, "");
+  };
 
   useEffect(() => {
     setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
@@ -65,12 +65,15 @@ export default function Inventory() {
             <button
               onClick={() => setIndex(0)}
               className={`${index == 0 ? "text-blue-600 pb-4 font-bold border-b-2 border-indigo-500" : "text-black"} text-md md:text-base`}
-            >{tabs[0]}</button>
+            >
+              {tabs[0]}
+            </button>
             <button
               onClick={() => setIndex(1)}
-              className={`${index == 1 ? "text-blue-600 pb-4 font-bold border-b-2 border-indigo-500" : "text-black"
-                } mx-10 text-md md:text-base`}
-            >{tabs[1]}</button>
+              className={`${index == 1 ? "text-blue-600 pb-4 font-bold border-b-2 border-indigo-500" : "text-black"} mx-10 text-md md:text-base`}
+            >
+              {tabs[1]}
+            </button>
           </div>
           <div className="flex items-center gap-4 ">
             {actions.map((action, i) => (
@@ -95,10 +98,11 @@ export default function Inventory() {
       </section> */}
       <ContainerWrapper>
         <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
-          {equipmentData.map((e, i) => (
-            // scope type determines which is scope / washer. Washer does not have scopeType
-            ((index == 0 && e.scopeType) || (index == 1 && !e.scopeType)) && <EquipmentCard equipmentData={equipmentData[i]} key={i} /> //: <EquipmentCard equipmentData={equipmentData[i]} key={i} />
-          ))}
+          {equipmentData.map(
+            (e, i) =>
+              // scope type determines which is scope / washer. Washer does not have scopeType
+              ((index == 0 && e.scopeType) || (index == 1 && !e.scopeType)) && <EquipmentCard equipmentData={equipmentData[i]} key={i} /> //: <EquipmentCard equipmentData={equipmentData[i]} key={i} />
+          )}
         </div>
         {/* <ItemWrapper
           items={equipments}
