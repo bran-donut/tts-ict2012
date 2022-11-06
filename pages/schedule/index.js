@@ -47,6 +47,7 @@ export default function ViewSchedule() {
         break;
     }
   };
+
   const handleEdit = (i) => {
     let type;
     if (equipmentData[i].scopeType) type = "scope";
@@ -92,29 +93,17 @@ export default function ViewSchedule() {
           </div>
         </div>
       </SubHeader>
-      {/* <ContainerWrapper>
+      <ContainerWrapper>
         {view == "View by: Day" ? (
           <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
-            <p className="col-span-2">Today, {todayMonth}</p>
-            {equipmentData.map(
-              (e, i) =>
-                e.sampleDate == today ? (
-                  <ItemCard
-                    data={equipmentData[i]}
-                    key={i}
-                    edit={true}
-                    onClickEdit={() => {
-                      alert("hi");
-                    }}
-                    isSchedule={true}
-                  />
-                ) : null //: <EquipmentCard equipmentData={equipmentData[i]} key={i} />
-            )}
+            {equipmentData.map((e, i) => (
+              <ItemCard data={equipmentData[i]} key={i} isSchedule={true} icon={<FileTextOutlined />} onClickEdit={() => handleEdit(i)} />
+            ))}
           </div>
         ) : (
           <Calendar year={2022} month={11} />
         )}
-      </ContainerWrapper> */}
+      </ContainerWrapper>
     </Layout>
   );
 }

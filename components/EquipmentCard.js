@@ -124,11 +124,11 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
           </>
         </button>
       )}
-      {icon &&
+      {icon && (
         <button className="flex items-center text-xl 2xl:ml-14" onClick={() => onClickEdit(index)}>
           {icon}
         </button>
-      }
+      )}
     </div>
   );
 }
