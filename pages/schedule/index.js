@@ -72,7 +72,7 @@ export default function ViewSchedule() {
             {tabs.map((tab, i) => (
               <button
                 key={i}
-                className={`${i == index ? "text-blue-600 pb-4 font-bold border-b-2 border-indigo-500" : "text-black"} mr-10 text-lg`}
+                className={`${i == index ? "text-tts-blue pb-4 font-bold border-b-2 border-tts-blue" : "text-black"} text-md md:text-base mr-10`}
                 onClick={() => setIndex(i)}
               >
                 {tab}
