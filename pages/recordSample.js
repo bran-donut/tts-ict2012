@@ -7,6 +7,7 @@ import DateInput from "../components/DateInput";
 import Input from "../components/Input";
 import PopupMessage from "../components/Modal";
 import Link from "next/link";
+import { equipments } from "../Constants";
 
 export default function RecordSample() {
 

@@ -11,20 +11,10 @@ export default function Layout(props) {
       <aside>
         <NavBar />
       </aside>
-      <main className="pl-12">{props.children}</main>
+      <main className="pl-16">{props.children}</main>
       <footer className="relative">
         <Footer isLogin={false} />
       </footer>
     </>
   );
-}
-
-export function ContainerWrapper({ children }) {
-  return (
-    <div className="bg-gray-300 px-32">
-      <div className="py-4 px-8 bg-tts-background">
-        {children}
-      </div>
-    </div>
-  )
 }

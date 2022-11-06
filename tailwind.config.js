@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         "tts-darkblue": "#1f2733",
+        "tts-blue": "#1890FF",
         "tts-black": "#171D26",
         "tts-red": "#ac3e3f",
         "tts-orange": "#FABC16",

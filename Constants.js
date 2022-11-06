@@ -1,40 +1,44 @@
-import { HomeFilled, DatabaseFilled, CalendarFilled, GoldFilled, ExperimentFilled, ScheduleFilled, CarryOutFilled } from "@ant-design/icons";
+import { HomeFilled } from "@ant-design/icons";
+import Image from "next/image";
+import { getIcons } from "./Helpers";
+
+const icons = getIcons();
 
 export const navItems = [
   {
-    icon: <HomeFilled className="text-xl leading-5" />,
+    icon: <HomeFilled style={{ fontSize: 24 }} />,
     text: "Home",
-    link: "/main",
+    link: "/home",
   },
   {
-    icon: <DatabaseFilled className="text-xl leading-5" />,
+    icon: <Image src={icons["Inventory.svg"]} width={24} height={24} alt="inventory" />,
     text: "Inventory",
     link: "",
     subItems: [
       {
-        icon: <GoldFilled className="text-xl leading-5" />,
+        icon: <Image src={icons["Scope.svg"]} width={24} height={24} alt="scope" />,
         text: "Scope",
-        link: "/inventory/scope",
+        link: "/inventory?view=Scope",
       },
       {
-        icon: <ExperimentFilled className="text-xl leading-5" />,
-        text: "Washer(AER)",
-        link: "/inventory/washer",
+        icon: <Image src={icons["Washer.svg"]} width={24} height={24} alt="washer" />,
+        text: "Washer (AER)",
+        link: "/inventory?view=Washer%20(AER)",
       },
     ],
   },
   {
-    icon: <CalendarFilled className="text-xl leading-5" />,
+    icon: <Image src={icons["Schedule.svg"]} width={24} height={24} alt="schedule" />,
     text: "Schedule",
     link: "",
     subItems: [
       {
-        icon: <ScheduleFilled className="text-xl leading-5" />,
+        icon: <Image src={icons["ViewSchedule.svg"]} width={24} height={24} alt="view schedule" />,
         text: "View Schedule",
         link: "/schedule/view",
       },
       {
-        icon: <CarryOutFilled className="text-xl leading-5" />,
+        icon: <Image src={icons["EditSchedule.svg"]} width={24} height={24} alt="edit schedule" />,
         text: "Edit Schedule",
         link: "/schedule?action=Edit",
       },
@@ -51,6 +55,8 @@ export const equipments = [
     status: "",
     frequency: 5,
     sampleDate: "15/09/2022",
+    fluidResult: "No Growth - 18 Sept 2022",
+    swabResult: "No Growth Including Eleavtor - 19 Sept 2022",
   },
   {
     brand: "OLYMPUS",
@@ -60,6 +66,8 @@ export const equipments = [
     status: "New",
     frequency: 4,
     sampleDate: "14/09/2022",
+    fluidResult: "No Growth - 18 Sept 2022",
+    swabResult: "No Growth Including Eleavtor - 19 Sept 2022",
   },
   {
     brand: "OLYMPUS",
@@ -215,3 +223,54 @@ export const equipments = [
     sampleDate: "15/09/2022",
   },
 ];
+
+export const pastResults = [
+  {
+    "sampleDate": "15/07/2022",
+    "fluidResultDate": "29/07/2022",
+    "fluidResult": "GROWTH",
+    "fluidResultComments": "",
+    "fluidResultActionTaken": "",
+    "swabResultDate": "30/07/2022",
+    "swabResult": "GROWTH",
+    "swaResultComments": "",
+    "swabResultActionTaken": "",
+    "swabResultRoomPerformed": "Room A"
+  },
+  {
+    "sampleDate": "15/08/2022",
+    "fluidResultDate": "28/08/2022",
+    "fluidResult": "GROWTH",
+    "fluidResultComments": "",
+    "fluidResultActionTaken": "",
+    "swabResultDate": "30/08/2022",
+    "swabResult": "GROWTH",
+    "swaResultComments": "",
+    "swabResultActionTaken": "",
+    "swabResultRoomPerformed": "Room A"
+  },
+  {
+    "sampleDate": "15/09/2022",
+    "fluidResultDate": "29/09/2022",
+    "fluidResult": "NO GROWTH",
+    "fluidResultComments": "",
+    "fluidResultActionTaken": "",
+    "swabResultDate": "30/09/2022",
+    "swabResult": "NO GROWTH",
+    "swaResultComments": "",
+    "swabResultActionTaken": "",
+    "swabResultRoomPerformed": "Room B"
+  },
+  {
+    "sampleDate": "15/10/2022",
+    "fluidResultDate": "28/10/2022",
+    "fluidResult": "NO GROWTH",
+    "fluidResultComments": "",
+    "fluidResultActionTaken": "",
+    "swabResultDate": "30/10/2022",
+    "swabResult": "NO GROWTH INCLUDING ELEVATOR",
+    "swaResultComments": "",
+    "swabResultActionTaken": "",
+    "swabResultRoomPerformed": "Room C"
+  }
+]

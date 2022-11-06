@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import MainHeader from "../components/MainHeader";
-import SubHeader from "../components/SubHeader";
-import Layout, { ContainerWrapper } from "../layouts/Layout";
+import MainHeader from "../../components/MainHeader";
+import SubHeader from "../../components/SubHeader";
+import Layout from "../../layouts/Layout";
 import { useRouter } from "next/router";
 import { FilterOutlined, AlignLeftOutlined } from "@ant-design/icons";
 import React from "react";
-import { ItemCard, ItemWrapper } from "../components/EquipmentCard";
-import PopupMessage from "../components/Modal";
+import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
+import PopupMessage from "../../components/Modal";
 import Link from "next/link";
-import { equipments } from "../Constants";
-import { convertDate } from "../Helpers";
+import { equipments } from "../../Constants";
+import { convertDate } from "../../Helpers";
+import ContainerWrapper from "../../components/ContainerWrapper";
 
 const tabs = ["Edit", "Add", "Remove"];
 const actions = ["Scope", "Washer", "Filter By", "Sort By"];
@@ -115,15 +116,15 @@ export default function Schedule() {
             {tabs.map((tab, i) => (
               <button
                 key={i}
-                className={`${i == index ? "text-blue-600 pb-4 font-bold border-b-2 border-indigo-500" : "text-black"} mr-10 text-lg`}
+                className={`${i == index ? "text-tts-blue pb-4 font-bold border-b-2 border-tts-blue" : "text-black"} mr-10 text-lg`}
                 onClick={() => setIndex(i)}
               >
                 {tab}
               </button>
             ))}
           </div>
-          {/* <button onClick={() => setIndex(0)} className={`${tab[index] == tab[0] ? "text-blue-600 pb-3 font-bold border-b-2 border-indigo-500" : "text-black"} text-md md:text-base`}>{`${tab == 'null' ? "" : tab[0]}`}</button>
-                    <button onClick={() => setIndex(1)} className={`${tab[index] == tab[1] ? "text-blue-600 pb-3 font-bold border-b-2 border-indigo-500" : "text-black"} mx-10 text-md md:text-base`}>{`${tab == 'null' ? "" : tab[1]}`}</button> */}
+          {/* <button onClick={() => setIndex(0)} className={`${tab[index] == tab[0] ? "text-tts-blue pb-3 font-bold border-b-2 border-tts-blue" : "text-black"} text-md md:text-base`}>{`${tab == 'null' ? "" : tab[0]}`}</button>
+                    <button onClick={() => setIndex(1)} className={`${tab[index] == tab[1] ? "text-tts-blue pb-3 font-bold border-b-2 border-tts-blue" : "text-black"} mx-10 text-md md:text-base`}>{`${tab == 'null' ? "" : tab[1]}`}</button> */}
           <div className="flex items-center gap-4 ">
             {actions.map((action, i) => (
               <ActionButton
@@ -187,8 +188,9 @@ export default function Schedule() {
           <button
             type="submit"
             onClick={() => (addItem.length ? setShowModal(true) : null)}
-            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${addItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
-              }`}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${
+              addItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+            }`}
           >
             Add
           </button>
@@ -199,8 +201,9 @@ export default function Schedule() {
           <button
             type="submit"
             onClick={() => (removeItem.length ? setShowModal(true) : null)}
-            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
-              }`}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${
+              removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+            }`}
           >
             Remove
           </button>
@@ -211,26 +214,26 @@ export default function Schedule() {
         <>
           {index == 0 && (
             <PopupMessage heading="Edit Next Sample Date" description="" leftText="Cancel" rightText="Done" onClickClose={handleCloseEditModal}>
-              <table cellPadding="9" className="mx-8 mb-10 table-fixed">
+              <table cellPadding="9" className="mx-8 mb-10 text-left table-fixed">
                 <tbody>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Brand</td>
+                    <th className="bg-gray-100">Brand</th>
                     <td>{editItem.brand}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Scope Type</td>
+                    <th className="bg-gray-100">Scope Type</th>
                     <td>{editItem.scopeType}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Model Number</td>
+                    <th className="bg-gray-100">Model Number</th>
                     <td>{editItem.modelNumber}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Serial Number</td>
+                    <th className="bg-gray-100">Serial Number</th>
                     <td>{editItem.serialNumber}</td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="bg-gray-100">Next Sample Date</td>
+                    <th className="bg-gray-100">Next Sample Date</th>
                     <td className="flex items-center">
                       <input
                         type="date"
@@ -279,15 +282,20 @@ export default function Schedule() {
   );
 }
 
-export function ActionButton({ index, active, name, icon, onClickAction, disable = false }) {
+export function ActionButton({ index, active, name, icon, onClickAction, disable = false, subHeaderButton = false }) {
+  const [hover, setHover] = useState(false);
+
   return (
     <button
       className={`
                 px-2 flex items-center gap-2 border 
-                ${active && !disable ? "border-[#FF9193] text-tts-red bg-[#FF9193]/30" : "border-gray-400 text-black"}
+                ${subHeaderButton ? "border-[#FF9193] text-tts-red" : ""}
+                ${(active && !disable) || hover ? "border-[#FF9193] text-tts-red bg-[#FF9193]/30" : "border-gray-400 text-black"}
                 ${disable ? "border-gray-400 text-gray-400 cursor-default" : ""}
             `}
       onClick={() => onClickAction(index)}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
       {icon}
       <span>{name}</span>

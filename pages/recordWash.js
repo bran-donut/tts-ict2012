@@ -8,6 +8,7 @@ import MobileScan from "../components/MobileScan";
 import DateInput from "../components/DateInput";
 import PopupMessage from "../components/Modal";
 import Link from "next/link";
+import { equipments } from "../Constants";
 
 export default function RecordWash() {
 
@@ -21,7 +22,11 @@ export default function RecordWash() {
 
   return (
     <Layout>
+<<<<<<< HEAD
       <MainHeader heading="Record" description="Equipment Sampling Record" />
+=======
+      <MainHeader heading="Inventory" description="View all the equipment and miscellaneous inside the system" details={[{ title: 'Total Equipment in Inventory', subtitle: equipments.length }]} />
+>>>>>>> 4077d9f0bf2343fc09c41bda95d7d10581f3d8ad
       <SubHeader
       heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
       description="Record the details of equipment sampling"

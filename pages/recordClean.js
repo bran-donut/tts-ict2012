@@ -7,7 +7,7 @@ import SubHeader from "../components/SubHeader";
 import DateInput from "../components/DateInput";
 import PopupMessage from "../components/Modal";
 import Link from "next/link";
-import Input from "../components/Input";
+import { equipments } from "../Constants";
 
 export default function RecordClean() {
 

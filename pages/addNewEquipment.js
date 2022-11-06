@@ -6,6 +6,7 @@ import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
 import MobileScan from "../components/MobileScan";
 import Input from "../components/Input";
+import { equipments } from "../Constants";
 
 export default function addNewEquipment() {
 
@@ -21,7 +22,7 @@ export default function addNewEquipment() {
       <MainHeader
       heading="Inventory"
       description="View all the equipment and miscellaneous inside the system"
-      details={[{ title: 'Total Equipment in Inventory', subtitle: '36' }]}
+      details={[{ title: 'Total Equipment in Inventory', subtitle: equipments.length }]}
       />
       <SubHeader
       heading="Add / Edit Equipment"
