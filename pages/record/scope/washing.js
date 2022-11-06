@@ -166,7 +166,7 @@ export default function Washing() {
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
-              type="/view"
+              type="/schedule/index"
             />
           : null)}
 

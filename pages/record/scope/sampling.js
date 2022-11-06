@@ -194,7 +194,7 @@ export default function Sampling() {
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
-              link="/view"
+              link="/schedule/index"
             />
           : null)}
 
@@ -205,7 +205,7 @@ export default function Sampling() {
               leftText="Cancel"
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
-              link="/view"
+              link="/schedule/index"
             />
           : null)}
 
