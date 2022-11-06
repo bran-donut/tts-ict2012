@@ -19,7 +19,7 @@ export default function InventoryDetails() {
         }
     }
 
-    const link = "/inventory?view=" + itemSelected.type;
+    const link = "/inventory/manage?view=" + itemSelected.type;
 
     const [selectedItem, setSelectedItem] = useState(itemSelected);
     const [showChangeConditionModal, setShowChangeConditionModal] = useState(false);

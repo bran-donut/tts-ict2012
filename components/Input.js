@@ -1,7 +1,7 @@
 import React from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
 
-export default function Input({ menuHeader, status }) {
+export default function Input({ inputValue, menuHeader, status }) {
 
 
   return (
@@ -11,7 +11,7 @@ export default function Input({ menuHeader, status }) {
             {status == "optional" ? (<p className="inline text-gray-400">(optional)</p>) : (<InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>)}
         </div>
       <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-      {status == "optional" ? (<input type="text" placeholder="Input" className="w-full outline-none"/>) : (<input type="text" placeholder="Input" className="w-full outline-none" required />)}
+      {status == "optional" ? (<input type="text" placeholder="Input" value={inputValue ? inputValue : ''} className="w-full outline-none"/>) : (<input type="text" placeholder="Input" value={inputValue ? inputValue : ''} className="w-full outline-none" required />)}
       </div>
   </div>
   );

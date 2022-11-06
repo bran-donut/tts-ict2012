@@ -1,0 +1,227 @@
+import Layout from "../../layouts/Layout";
+import { useEffect, useState } from "react";
+import { ItemCard } from "../../components/EquipmentCard";
+import MainHeader from "../../components/MainHeader";
+import { equipments } from "../../Constants";
+import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
+import { ActionButton } from "../schedule/manage";
+import { AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
+import { exportCSVFile } from "../../Helpers";
+import Router, { useRouter } from "next/router";
+import ContainerWrapper from "../../components/ContainerWrapper";
+import PopupMessage, { LoadingMessage, SuccessMessage } from "../../components/Modal";
+import Link from "next/link";
+
+const tabs = ["Scope", "Washer (AER)"];
+const actions = ["Filter By", "Sort By"];
+const mainActions = ['Edit', 'Remove'];
+
+export default function ManageInventory() {
+  const router = useRouter();
+
+  const [equipmentData, setEquipmentData] = useState(equipments);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showLoadingModal, setShowLoadingModal] = useState(false);
+  const [removeConfirmation, setRemoveConfirmation] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [mainActionIndex, setMainActionIndex] = useState(0);
+  const [actionIndexes, setActionIndexes] = useState([]);
+  const [removeItem, setRemoveItem] = useState([]);
+
+  const handleClickAction = (i) => {
+    setActionIndexes((prev) => prev.concat(i));
+  };
+
+  const handleClickMainAction = (i) => {
+    setMainActionIndex(i);
+  };
+
+  const handleEdit = (i) => {
+    Router.push({
+      pathname: '/inventory/edit',
+      query: { index: i }
+    })
+  };
+
+  // remove
+  const handleSelect = (e) => {
+    const { value, checked } = e.target;
+    if (checked) setRemoveItem((prev) => prev.concat(value));
+    else setRemoveItem((prev) => prev.filter((val) => val !== value));
+  };
+
+  const handleCloseModal = (confirm) => {
+    // close change modal and open loading message
+    setShowDeleteModal(false);
+    setRemoveConfirmation(confirm);
+    if (confirm) {
+      setShowLoadingModal(true);
+    } else {
+      // ...
+    }
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    setRemoveItem([]);
+  }
+
+  const handleClickExport = () => {
+    console.log("exporting...");
+    let headers = {
+      brand: "brand",
+      scopeType: "scopeType",
+      modelNumber: "modelNumber",
+      serialNumber: "serialNumber",
+      status: "status",
+      frequency: "frequency",
+      sampleDate: "sampleDate",
+    };
+    exportCSVFile(headers, equipmentData, "");
+  };
+
+  useEffect(() => {
+    setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
+    setMainActionIndex(router.query.action ? mainActions.indexOf(router.query.action) : 0);
+  }, [router.query]);
+
+  useEffect(() => {
+    router.push("/inventory/manage?view=" + tabs[index] + "&action=" + mainActions[mainActionIndex], undefined, { shallow: true });
+    // reset array
+    setRemoveItem([]);
+  }, [mainActionIndex]);
+
+  useEffect(() => {
+    console.log("removing", removeItem);
+  }, [removeItem]);
+
+  useEffect(() => {
+    // display success modal after loading modal is closed
+    if (removeConfirmation && !showLoadingModal) {
+      setShowSuccessModal(true);
+    }
+  }, [removeConfirmation, showLoadingModal])
+
+  return (
+    <Layout>
+      <MainHeader
+        heading="Inventory"
+        description="View all the equipment and miscellaneous inside the system"
+        details={[{ title: "Total Equipment in Inventory", subtitle: equipments.length }]}
+      />
+      <SubHeader
+        heading={tabs[index]}
+        description="Displays all equipment inside the system"
+        breadCrumbItems={["Home", "Inventory"]}
+        button={<SubHeaderButton text="Export Inventory as CSV" onClickAction={handleClickExport} />}
+      >
+        <div className="flex items-center justify-between w-full pt-3">
+          <div className="mt-2">
+            <button
+              onClick={() => setIndex(0)}
+              className={`${index == 0 ? "text-tts-blue pb-4 font-bold border-b-2 border-tts-blue" : "text-black"} text-md md:text-base`}
+            >{tabs[0]}</button>
+            <button
+              onClick={() => setIndex(1)}
+              className={`${index == 1 ? "text-tts-blue pb-4 font-bold border-b-2 border-tts-blue" : "text-black"
+                } mx-10 text-md md:text-base`}
+            >{tabs[1]}</button>
+          </div>
+          <div className="flex items-center gap-4 ">
+            {mainActions.map((action, i) => (
+              <ActionButton
+                key={i}
+                index={i}
+                active={i == mainActionIndex}
+                name={action}
+                onClickAction={handleClickMainAction}
+              />
+            ))}
+            {actions.map((action, i) => (
+              <ActionButton
+                key={i}
+                index={i}
+                active={actionIndexes.includes(i)}
+                name={action}
+                icon={i == 0 ? <FilterOutlined /> : <AlignLeftOutlined />}
+                onClickAction={handleClickAction}
+              />
+            ))}
+          </div>
+        </div>
+      </SubHeader>
+      {/* <section className={`${tabs[index] == "Scope" ? "visible" : "invisible"} bg-[#C1C1C1] px-20`}>
+        <div className="grid grid-cols-1 gap-y-0 overflow-y-scroll bg-[#F0F2F5] max-h-screen xl:grid-cols-2 px-10 gap-5 py-5">
+          {equipmentData.map((e, i) => (
+            <EquipmentCard equipmentData={equipmentData[i]} key={i} />
+          ))}
+        </div>
+      </section> */}
+      <ContainerWrapper>
+        <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
+          {equipmentData.map(
+            (val, i) => (
+              // scope type determines which is scope / washer. Washer does not have scopeType
+              (index == 0 && val.scopeType) || (index == 1 && !val.scopeType)) && //<EquipmentCard equipmentData={equipmentData[i]} key={i} /> 
+              <ItemCard
+                key={i}
+                index={i}
+                data={val}
+                edit={mainActionIndex == 0}
+                select={mainActionIndex > 0}
+                onClickEdit={handleEdit}
+                onChangeCheck={handleSelect}
+              />
+          )}
+        </div>
+        {/* <ItemWrapper
+          items={equipments}
+          currentAction={tabs[index]}
+        /> */}
+      </ContainerWrapper>
+      {mainActions[mainActionIndex] == 'Remove' && (
+        <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
+          <button
+            type="submit"
+            onClick={() => (removeItem.length ? setShowDeleteModal(true) : null)}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+              }`}
+          >
+            Remove
+          </button>
+
+        </div>
+      )}
+      {/* <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
+        <Link href="/inventory">
+          <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">Back</a>
+        </Link>
+        {mainActions[mainActionIndex] == 'Remove' && (
+          <button
+            type="submit"
+            onClick={() => (removeItem.length ? setShowDeleteModal(true) : null)}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+              }`}
+          >
+            Remove
+          </button>
+        )}
+      </div> */}
+
+      {showDeleteModal &&
+        <PopupMessage
+          heading="Are you sure delete?"
+          description={`Selected ${removeItem.length} items`}
+          leftText="No"
+          rightText="Yes"
+          onClickClose={handleCloseModal}
+        />
+      }
+
+      {showLoadingModal && <LoadingMessage onClose={() => setShowLoadingModal(false)} />}
+
+      {showSuccessModal && <SuccessMessage text={`${removeItem.length} Item has been added`} onClose={handleCloseSuccessModal} />}
+    </Layout>
+  );
+}
