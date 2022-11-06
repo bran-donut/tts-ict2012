@@ -1,13 +1,11 @@
-import Layout from "../layouts/Layout";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import Layout from "../../layouts/Layout";
 import { useState } from "react";
-import Dropdown from "../components/Dropdown";
-import MainHeader from "../components/MainHeader";
-import SubHeader from "../components/SubHeader";
-import DateInput from "../components/DateInput";
-import PopupMessage from "../components/Modal";
+import Dropdown from "../../components/Dropdown";
+import MainHeader from "../../components/MainHeader";
+import SubHeader from "../../components/SubHeader";
+import DateInput from "../../components/DateInput";
+import PopupMessage from "../../components/Modal";
 import Link from "next/link";
-import { equipments } from "../Constants";
 
 export default function ScopeCleaning() {
 
@@ -177,7 +175,7 @@ export default function ScopeCleaning() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/scopeWashing"
+              link="/record/scopeWashing"
             />
           : null)}
     </Layout>
