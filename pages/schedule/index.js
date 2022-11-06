@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import MainHeader from "../components/MainHeader";
-import SubHeader from "../components/SubHeader";
-import Layout from "../layouts/Layout";
+import MainHeader from "../../components/MainHeader";
+import SubHeader from "../../components/SubHeader";
+import Layout from "../../layouts/Layout";
 import { useRouter } from "next/router";
 import { FilterOutlined, AlignLeftOutlined } from "@ant-design/icons";
 import React from "react";
-import { ItemCard, ItemWrapper } from "../components/EquipmentCard";
-import PopupMessage from "../components/Modal";
+import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
+import PopupMessage from "../../components/Modal";
 import Link from "next/link";
-import { equipments } from "../Constants";
-import { convertDate } from "../Helpers";
-import ContainerWrapper from "../components/ContainerWrapper";
+import { equipments } from "../../Constants";
+import { convertDate } from "../../Helpers";
+import ContainerWrapper from "../../components/ContainerWrapper";
 
 const tabs = ["Edit", "Add", "Remove"];
 const actions = ["Scope", "Washer", "Filter By", "Sort By"];
@@ -188,8 +188,9 @@ export default function Schedule() {
           <button
             type="submit"
             onClick={() => (addItem.length ? setShowModal(true) : null)}
-            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${addItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
-              }`}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${
+              addItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+            }`}
           >
             Add
           </button>
@@ -200,8 +201,9 @@ export default function Schedule() {
           <button
             type="submit"
             onClick={() => (removeItem.length ? setShowModal(true) : null)}
-            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
-              }`}
+            className={`px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm ${
+              removeItem.length ? "bg-tts-red hover:bg-tts-red/80 border-tts-red" : "bg-gray-400 border-gray-400 cursor-default"
+            }`}
           >
             Remove
           </button>
@@ -212,7 +214,7 @@ export default function Schedule() {
         <>
           {index == 0 && (
             <PopupMessage heading="Edit Next Sample Date" description="" leftText="Cancel" rightText="Done" onClickClose={handleCloseEditModal}>
-              <table cellPadding="9" className="mx-8 mb-10 table-fixed text-left">
+              <table cellPadding="9" className="mx-8 mb-10 text-left table-fixed">
                 <tbody>
                   <tr className="border-b border-gray-200">
                     <th className="bg-gray-100">Brand</th>
@@ -282,13 +284,13 @@ export default function Schedule() {
 
 export function ActionButton({ index, active, name, icon, onClickAction, disable = false, subHeaderButton = false }) {
   const [hover, setHover] = useState(false);
-  
+
   return (
     <button
       className={`
                 px-2 flex items-center gap-2 border 
                 ${subHeaderButton ? "border-[#FF9193] text-tts-red" : ""}
-                ${(active && !disable || hover) ? "border-[#FF9193] text-tts-red bg-[#FF9193]/30" : "border-gray-400 text-black"}
+                ${(active && !disable) || hover ? "border-[#FF9193] text-tts-red bg-[#FF9193]/30" : "border-gray-400 text-black"}
                 ${disable ? "border-gray-400 text-gray-400 cursor-default" : ""}
             `}
       onClick={() => onClickAction(index)}
