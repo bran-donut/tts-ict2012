@@ -3,7 +3,7 @@ import { useState } from "react";
 import { MobileOutlined, LoadingOutlined, ScanOutlined, InfoCircleOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 
 
-export default function MobileScan({ inputValue, menuHeader, menuItems }) {
+export default function MobileScan({ menuHeader }) {
 
 const [selected, setSelected] = useState(false);
 const [text, setText] = useState("");
@@ -19,13 +19,13 @@ const [showModal, setShowModal] = useState(false);
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-            <input onClick={() => showModal === true ? setShowModal(false) : setShowModal(true)} type="text" placeholder="Input" className="w-full outline-none" value={inputValue ? inputValue : ''} required />
+            <input type="text" placeholder="Input" className="w-full outline-none" value={text.item} required />
             <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
         </div>
     </div>
         {showModal ? (
           <>
-            <div onClick={() => (setShowModal(false), setText(Math.floor(Math.random() * 100000000)))}
+            <div onClick={() => (setShowModal(false), setText({item : Math.floor(Math.random() * 100000000)}))}
               className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
             >
               <div className="relative w-auto max-w-3xl mx-auto my-6">
