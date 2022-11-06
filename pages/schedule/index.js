@@ -3,11 +3,11 @@ import MainHeader from "../../components/MainHeader";
 import SubHeader from "../../components/SubHeader";
 import { useState } from "react";
 import { ActionButton } from "./manage";
-import { RightOutlined, CalendarOutlined, AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
+import { RightOutlined, CalendarOutlined, AlignLeftOutlined, FilterOutlined, FileTextOutlined } from "@ant-design/icons";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import { equipments } from "../../Constants";
 import { ItemCard } from "../../components/EquipmentCard";
-import { Router } from "next/router";
+import Router from "next/router";
 
 const tabs = ["Sample Schedule", "Off Schedule"];
 const actions = ["Jump to date", "View by: Day", "Filter By"];
@@ -32,10 +32,14 @@ export default function ViewSchedule() {
   const [equipmentData, setEquipmentData] = useState(equipments);
 
   const handleEdit = (i) => {
-    // Router.push({
-    //   pathname: '/record/edit',
-    //   query: { index: i }
-    // })
+    let type;
+    if (equipmentData[i].scopeType) type = 'scope';
+    else type = 'washer';
+
+    Router.push({
+      pathname: '/record/' + type,
+      query: { index: i }
+    })
   };
 
   return (
@@ -75,7 +79,7 @@ export default function ViewSchedule() {
                 key={i}
                 index={i}
                 data={val}
-                edit={true}
+                icon={<FileTextOutlined />}
                 onClickEdit={handleEdit}
               />
           )}

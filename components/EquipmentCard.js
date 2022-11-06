@@ -1,4 +1,4 @@
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, FileTextOutlined } from "@ant-design/icons";
 
 export default function EquipmentCard(props) {
   return (
@@ -59,7 +59,7 @@ export function ItemWrapper(props) {
   );
 }
 
-export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit, onChangeCheck }) {
+export function ItemCard({ index, data, titles, keys, edit, select, icon, onClickEdit, onChangeCheck }) {
   const displayIcon = edit || select;
   {
     /* keys refer to the keys in the data array, used to retrieve specific additional values for the card */
@@ -117,7 +117,12 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
             {select && <input type="checkbox" className="w-5 h-5" value={index} onChange={onChangeCheck} />}
           </>
         </button>
-      )}
+      )}.
+      {icon &&
+        <button className="flex items-center text-xl 2xl:ml-14" onClick={() => onClickEdit(index)}>
+          {icon}
+        </button>
+      }
     </div>
   );
 }
