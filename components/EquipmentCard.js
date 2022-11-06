@@ -59,11 +59,7 @@ export function ItemWrapper(props) {
   );
 }
 
-<<<<<<< HEAD
-export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit, onChangeCheck, isSchedule }) {
-=======
-export function ItemCard({ index, data, titles, keys, edit, select, icon, onClickEdit, onChangeCheck }) {
->>>>>>> 68a2d192b5166f0ecf562aaedd0e8e2ab7ee95da
+export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit, onChangeCheck, isSchedule, icon }) {
   const displayIcon = edit || select;
   {
     /* keys refer to the keys in the data array, used to retrieve specific additional values for the card */
@@ -127,7 +123,7 @@ export function ItemCard({ index, data, titles, keys, edit, select, icon, onClic
             {select && <input type="checkbox" className="w-5 h-5" value={index} onChange={onChangeCheck} />}
           </>
         </button>
-      )}.
+      )}
       {icon &&
         <button className="flex items-center text-xl 2xl:ml-14" onClick={() => onClickEdit(index)}>
           {icon}

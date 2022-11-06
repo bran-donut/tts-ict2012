@@ -130,7 +130,7 @@ export default function Drying() {
               leftText="Cancel"
               rightText="Save & Exit"
               onClickClose={()=> setShowExitModal(false)}
-              link="/schedule/index"
+              link="/schedule"
             />
           : null)}
 

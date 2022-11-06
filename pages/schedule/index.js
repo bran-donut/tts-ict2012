@@ -92,7 +92,7 @@ export default function ViewSchedule() {
           </div>
         </div>
       </SubHeader>
-      <ContainerWrapper>
+      {/* <ContainerWrapper>
         {view == "View by: Day" ? (
           <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
             <p className="col-span-2">Today, {todayMonth}</p>
@@ -114,7 +114,7 @@ export default function ViewSchedule() {
         ) : (
           <Calendar year={2022} month={11} />
         )}
-      </ContainerWrapper>
+      </ContainerWrapper> */}
     </Layout>
   );
 }
