@@ -2,7 +2,6 @@ import React from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
 
 export default function Input({ menuHeader }) {
-  const d = new Date();
   return (
       <div className="py-1 input-group">
       <div className="flex flex-row items-center justify-start pb-1">

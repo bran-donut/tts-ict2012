@@ -9,7 +9,9 @@ import PopupMessage from "../components/Modal";
 import Link from "next/link";
 import { equipments } from "../Constants";
 
-export default function RecordSample() {
+import DisabledDropdown from "../components/DisabledDropdown";
+
+export default function ScopeSampling() {
 
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -32,7 +34,7 @@ export default function RecordSample() {
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                  <Link href="/recordClean">
+                  <Link href="/scopeCleaning">
                       <div className="bg-[#1890FF]  hover:bg-[#1890FF]/80 hover:cursor-pointer ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -45,7 +47,7 @@ export default function RecordSample() {
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center ">
                   <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
-                  <Link href="/recordWash">
+                  <Link href="/scopeWashing">
                    <div className="bg-[#1890FF] z-10  hover:bg-[#1890FF]/80 hover:cursor-pointer flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -58,7 +60,7 @@ export default function RecordSample() {
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center">
                   <div className="bg-[#1890FF] hidden sm:flex w-[1.125rem] h-0.5"></div>
-                  <Link href="/recordDry">
+                  <Link href="/scopeDrying">
                     <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -96,7 +98,7 @@ export default function RecordSample() {
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
-                menuItems={["1", "2"]}
+                menuItems={["Growth", "No Growth"]}
                 />
                 <Input
                 menuHeader="Culture Comment"
@@ -117,7 +119,7 @@ export default function RecordSample() {
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
-                menuItems={["1", "2"]}         
+                menuItems={["Growth", "No Growth"]}         
                 />
 
                 <Input
@@ -138,7 +140,11 @@ export default function RecordSample() {
                   <hr></hr>
                 </div>
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
-                <Dropdown
+                  <DisabledDropdown
+                    menuHeader="Quarantine Required"
+                    menuItems={["Yes", "No"]}  
+                    />
+                {/* <Dropdown
                 menuHeader="Quarantine Required"
                 menuItems={["Yes", "No"]}   
                 />
@@ -148,7 +154,7 @@ export default function RecordSample() {
                <Dropdown
                 menuHeader="Borescope"
                 menuItems={["Yes", "No"]}   
-                />
+                /> */}
                 </div>
                 <div className="p-5 bg-white">
                   <h3 className="pb-2 font-medium">Repeat of MS</h3>
@@ -158,7 +164,7 @@ export default function RecordSample() {
                 <Dropdown
                 menuHeader="Circulated By"
                 menuItems={["Janice", "Nina"]}  
-                type="drop"
+                drop="drop"
                 />
                 <div className="mb-28"></div>
                 </div>
@@ -167,7 +173,7 @@ export default function RecordSample() {
             
             
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/recordDry">
+                    <Link href="/scopeDrying">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>

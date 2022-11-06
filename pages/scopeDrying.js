@@ -7,7 +7,7 @@ import PopupMessage from "../components/Modal";
 import Link from "next/link";
 import { equipments } from "../Constants";
 
-export default function RecordDry() {
+export default function ScopeDrying() {
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [charCount, setCharCount] = useState(0);
@@ -30,7 +30,7 @@ export default function RecordDry() {
           <ol className="items-center sm:flex ">
               <li className="relative w-64 mb-6 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                    <Link href="recordClean">
+                    <Link href="scopeCleaning">
                       <div className="bg-[#1890FF] hover:cursor-pointer hover:bg-[#1890FF]/80 ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                     </Link>
@@ -43,7 +43,7 @@ export default function RecordDry() {
               <li className="relative w-64 mb-6 sm:mb-0">
                   <div className="flex items-center ">
                   <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
-                  <Link href="/recordWash">
+                  <Link href="/scopeWashing">
                     <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
                   </Link>
@@ -90,7 +90,7 @@ export default function RecordDry() {
                 <Dropdown
                 menuHeader="Scope Dryer"
                 menuItems={["Item 1", "Item 2"]}
-                type="drop"
+                drop="drop"
                 />
                 <Dropdown
                 menuHeader="Dryer Level"
@@ -109,7 +109,7 @@ export default function RecordDry() {
               </div>
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/recordWash">
+                    <Link href="/scopeWashing">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
@@ -142,7 +142,7 @@ export default function RecordDry() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/recordSample"
+              link="/scopeSampling"
             />
           : null)}
 
