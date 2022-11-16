@@ -107,11 +107,10 @@ export default function Washing() {
                 />
                 <Input
                 menuHeader="Disinfectant LOT Number"
-                status = "required"
+                tooltipText = "The identification number assigend to the Disinfectant that can be found on the packaging"
                 />
-                <Input
+                <DateInput
                 menuHeader="Disinfectant Changed"
-                status = "required"
                 />
                 </div>
                 <div className="p-5 bg-white">

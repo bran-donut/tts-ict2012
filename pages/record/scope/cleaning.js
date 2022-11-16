@@ -99,7 +99,8 @@ export default function Cleaning() {
                     </div>
                   </div> */}
                 <DateInput
-                  menuHeader="Date of Collection"
+                menuHeader="Date of Collection"
+                tooltipText="Collection date of sample"
                 />
                 {/* <div className="py-1 input-group">
                     <div className="flex flex-row items-center justify-start pb-1">
@@ -117,8 +118,9 @@ export default function Cleaning() {
               </div>
               <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <Dropdown
-                  menuHeader="Scope Status"
-                  menuItems={["1", "2"]}
+                menuHeader="Scope Status"
+                menuItems={["Regular", "Loan", "Post Repair", "New"]}
+                tooltipText="Current status of the equipment"
                 />
               </div>
               <div className="p-5 bg-white">
@@ -127,14 +129,16 @@ export default function Cleaning() {
               </div>
               <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <Dropdown
-                  menuHeader="Washed by"
-                  menuItems={["Jia Xin", "Mandy"]}
-                  drop="drop"
+                menuHeader="Washed by"
+                menuItems={["Janice Ng", "Mandy"]}
+                drop="drop"
+                tooltipText="The personnel who washed the equipment"
                 />
                 <Dropdown
-                  menuHeader="Collected by"
-                  menuItems={["Nina", "Gan"]}
-                  drop="drop"
+                menuHeader="Collected by"
+                menuItems={["Janice Ng", "Gan"]}
+                drop="drop"
+                tooltipText="The personnel who collected the equipment"
                 />
                 <div className="mb-5"></div>
               </div>
