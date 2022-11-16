@@ -39,11 +39,17 @@ export default function ViewInventory() {
     exportCSVFile(headers, equipments, "");
   };
 
+  const handleClickCard = (i) => {
+    router.push("/inventory/details?index=" + i);
+  }
+
   useEffect(() => {
+    console.log(router.query.view);
     setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
   }, [router.query.view]);
 
   useEffect(() => {
+    console.log(index);
     router.push("/inventory?view=" + tabs[index], undefined, { shallow: true });
   }, [index]);
 
@@ -98,7 +104,7 @@ export default function ViewInventory() {
           {equipmentData.map(
             (e, i) =>
               // scope type determines which is scope / washer. Washer does not have scopeType
-              ((index == 0 && e.scopeType) || (index == 1 && !e.scopeType)) && <EquipmentCard equipmentData={equipmentData[i]} key={i} /> //: <EquipmentCard equipmentData={equipmentData[i]} key={i} />
+              ((index == 0 && e.scopeType) || (index == 1 && !e.scopeType)) && <EquipmentCard key={i} index={i} equipmentData={equipmentData[i]} onClickCard={handleClickCard} /> //: <EquipmentCard equipmentData={equipmentData[i]} key={i} />
           )}
         </ItemWrapper>
         {/* <ItemWrapper
