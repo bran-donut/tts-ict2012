@@ -8,6 +8,7 @@ import { equipments } from "../../Constants";
 import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import Router from "next/router";
 import ActionButton from "../../components/ActionButton";
+import { Calendar, Badge } from "antd";
 
 const tabs = ["Sample Schedule", "Off Schedule"];
 const actions = ["Jump to date", "View by: Day", "Filter By"];
@@ -32,6 +33,97 @@ export default function ViewSchedule() {
   const [equipmentData, setEquipmentData] = useState(equipments);
   const [actionValues, setActionValues] = useState([]);
   const [view, setView] = useState("View by: Day");
+
+  const getListData = (value) => {
+    let listData;
+    switch (value.date()) {
+      case 8:
+        listData = [
+          {
+            type: 'warning',
+            content: 'Scope',
+          },
+          {
+            type: 'success',
+            content: 'Scope',
+          },
+        ];
+        break;
+      case 10:
+        listData = [
+          {
+            type: 'warning',
+            content: 'Scope',
+          },
+          {
+            type: 'success',
+            content: 'Scope',
+          },
+          {
+            type: 'error',
+            content: 'Scope',
+          },
+        ];
+        break;
+      case 15:
+        listData = [
+          {
+            type: 'warning',
+            content: 'Scope',
+          },
+          {
+            type: 'success',
+            content: 'Washer (AER)',
+          },
+          {
+            type: 'error',
+            content: 'Washer (AER)',
+          },
+          {
+            type: 'error',
+            content: 'Washer (AER)',
+          },
+          {
+            type: 'error',
+            content: 'Scope',
+          },
+          {
+            type: 'error',
+            content: 'Scope',
+          },
+        ];
+        break;
+      default:
+    }
+    return listData || [];
+  };
+  const getMonthData = (value) => {
+    if (value.month() === 8) {
+      return 1394;
+    }
+  };
+
+  const monthCellRender = (value) => {
+    const num = getMonthData(value);
+    return num ? (
+      <div className="notes-month">
+        <section>{num}</section>
+        <span>Backlog number</span>
+      </div>
+    ) : null;
+  };
+  const dateCellRender = (value) => {
+    const listData = getListData(value);
+    return (
+      <ul className="events">
+        {listData.map((item) => (
+          <li key={item.content}>
+            <Badge status={item.type} text={item.content} />
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   const handleClickAction = (i) => {
     const value = actions[i];
@@ -93,17 +185,26 @@ export default function ViewSchedule() {
           </div>
         </div>
       </SubHeader>
-      <ContainerWrapper>
-        {view == "View by: Day" ? (
+
+      {view == "View by: Day" ? (
+        <ContainerWrapper>
           <ItemWrapper>
             {equipmentData.map((e, i) => (
               <ItemCard data={equipmentData[i]} key={i} isSchedule={true} icon={<FileTextOutlined />} onClickEdit={() => handleEdit(i)} />
             ))}
           </ItemWrapper>
-        ) : (
-          <Calendar year={2022} month={11} />
-        )}
-      </ContainerWrapper>
+        </ContainerWrapper>
+      ) : (
+        <div className="pt-2 pb-32 px-40 relative bg-tts-background">
+          <div className="flex gap-10 absolute top-6 ml-4">
+            <Badge status="error" text="Awaiting Sample" />
+            <Badge status="warning" text="Pending Result" />
+            <Badge status="success" text="Regular" />
+          </div>
+          <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+        </div>
+      )}
+
     </Layout>
   );
 }
