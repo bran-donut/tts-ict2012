@@ -101,11 +101,9 @@ export default function Sampling() {
                 />
                 <Input
                 menuHeader="Culture Comment"
-                status="optional"
                 />
                 <Input
                 menuHeader="Action"
-                status="optional"
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -123,11 +121,9 @@ export default function Sampling() {
 
                 <Input
                 menuHeader="Culture Comment"
-                status="optional"
                 />
                 <Input
                 menuHeader="Action"
-                status="optional"
                 />
                 <Dropdown
                 menuHeader="Room to Perform"
