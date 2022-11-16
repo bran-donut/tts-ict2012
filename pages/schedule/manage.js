@@ -7,10 +7,10 @@ import { FilterOutlined, AlignLeftOutlined } from "@ant-design/icons";
 import React from "react";
 import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import PopupMessage from "../../components/Modal";
-import Link from "next/link";
 import { equipments } from "../../Constants";
 import { convertDate } from "../../Helpers";
 import ContainerWrapper from "../../components/ContainerWrapper";
+import ActionButton from "../../components/ActionButton";
 
 const tabs = ["Scope", "Washer (AER)"];
 const actions = ["Filter By", "Sort By"];
@@ -212,7 +212,7 @@ export default function ManageSchedule() {
             onChangeCheck={handleRemove}
           />
         )} */}
-        <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
+        <ItemWrapper>
           {equipmentData.map(
             (val, i) => {
               // scope type determines which is scope / washer. Washer does not have scopeType
@@ -257,7 +257,7 @@ export default function ManageSchedule() {
               }
             }
           )}
-        </div>
+          </ItemWrapper>
       </ContainerWrapper>
       <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
         {/* <Link href="/schedule">
@@ -355,26 +355,5 @@ export default function ManageSchedule() {
         />
       )}
     </Layout>
-  );
-}
-
-export function ActionButton({ index, active, name, icon, onClickAction, disable = false, subHeaderButton = false }) {
-  const [hover, setHover] = useState(false);
-
-  return (
-    <button
-      className={`
-                px-2 flex items-center gap-2 border 
-                ${subHeaderButton ? "border-[#FF9193] text-tts-red" : ""}
-                ${(active && !disable) || hover ? "border-[#FF9193] text-tts-red bg-[#FF9193]/30" : "border-gray-400 text-black"}
-                ${disable ? "border-gray-400 text-gray-400 cursor-default" : ""}
-            `}
-      onClick={() => onClickAction(index)}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      {icon}
-      <span>{name}</span>
-    </button>
   );
 }

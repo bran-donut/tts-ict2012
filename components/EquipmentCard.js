@@ -39,10 +39,10 @@ export default function EquipmentCard(props) {
   );
 }
 
-export function ItemWrapper(props) {
+export function ItemWrapper({ children }) {
   return (
     <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
-      {props.items &&
+      {/* {props.items &&
         props.items.map((item, i) => {
           let display = false;
           if (props.currentAction.includes("Scope")) {
@@ -53,8 +53,11 @@ export function ItemWrapper(props) {
             if (!item.scopeType) display = true;
           } else display = true;
           if (display) return <ItemCard key={i} index={i} data={item} {...props} />;
-        })}
-      {props.children}
+        })} */}
+
+      {/* {props.children} */}
+
+      {children}
     </div>
   );
 }
