@@ -1,4 +1,6 @@
 import { EditOutlined, FileTextOutlined } from "@ant-design/icons";
+import Document from "next/document";
+import { useEffect, useState } from "react";
 
 export default function EquipmentCard(props) {
   return (
@@ -62,12 +64,26 @@ export function ItemWrapper({ children }) {
   );
 }
 
-export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit, onChangeCheck, isSchedule, icon }) {
+export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, onClickEdit, onChangeCheck, isSchedule, icon }) {
+  // Document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
   const displayIcon = edit || select;
   {
     /* keys refer to the keys in the data array, used to retrieve specific additional values for the card */
   }
   const { brand, scopeType, modelNumber, serialNumber, samplingStatus } = data;
+
+  const [checked, setChecked] = useState(false);
+
+  const onChangeCheckbox = (e) => {
+    setChecked(e.target.checked);
+    onChangeCheck(e);
+  }
+
+  useEffect(() => {
+    // reset checkbox
+    if (resetCheck) setChecked(false);
+  }, [resetCheck])
+
   return (
     <div className="flex flex-row items-center flex-grow h-20 gap-2 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start">
       <div className="flex-grow">
@@ -123,7 +139,7 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
         <button className="flex items-center text-xl 2xl:ml-14">
           <>
             {edit && <EditOutlined onClick={() => onClickEdit(index)} />}
-            {select && <input type="checkbox" className="w-5 h-5" value={index} onChange={onChangeCheck} />}
+            {select && <input type="checkbox" className="w-5 h-5" value={index} checked={checked} onChange={onChangeCheckbox} />}
           </>
         </button>
       )}

@@ -239,6 +239,7 @@ export default function ManageSchedule() {
                       titles={["Frequency"]}
                       keys={["frequency"]}
                       select={true}
+                      resetCheck={mainActionIndex}
                       onChangeCheck={(e) => handleSelect(e, 'add')}
                     />
                   )
@@ -251,6 +252,7 @@ export default function ManageSchedule() {
                     titles={["Frequency", "Next Sample Date"]}
                     keys={["frequency", "sampleDate"]}
                     select={true}
+                    resetCheck={mainActionIndex}
                     onChangeCheck={(e) => handleSelect(e, 'remove')}
                   />
                 )
