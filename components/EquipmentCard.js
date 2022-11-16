@@ -1,27 +1,27 @@
-import { EditOutlined, FileTextOutlined } from "@ant-design/icons";
-import Document from "next/document";
+import { EditOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 
 export default function EquipmentCard(props) {
+  const { index, equipmentData, onClickCard } = props;
   return (
-    <div className="flex flex-col items-start justify-center h-20 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start">
+    <div className={`flex flex-col items-start justify-center h-20 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start ${onClickCard ? 'cursor-pointer' : ''}`} onClick={() => onClickCard ? onClickCard(index) : null}>
       <div>
-        {/* <span className="font-bold">{props.equipmentData.brand}</span>
-        <span className="ml-3 text-sm font-bold text-gray-600">{props.equipmentData.scopeType}</span> */}
-        {props.equipmentData.scopeType ? (
+        {/* <span className="font-bold">{equipmentData.brand}</span>
+        <span className="ml-3 text-sm font-bold text-gray-600">{equipmentData.scopeType}</span> */}
+        {equipmentData.scopeType ? (
           <>
             <div className="flex items-center gap-5 font-bold 2xl:gap-5">
-              <span className="inline-flex">{props.equipmentData.brand}</span>
-              <span className="text-sm text-gray-600">{props.equipmentData.scopeType}</span>
+              <span className="inline-flex">{equipmentData.brand}</span>
+              <span className="text-sm text-gray-600">{equipmentData.scopeType}</span>
             </div>
             <div>
-              <span className="text-xs text-gray-400">{props.equipmentData.modelNumber}</span>
+              <span className="text-xs text-gray-400">{equipmentData.modelNumber}</span>
               <span className="ml-3 text-xs text-gray-400">•</span>
-              <span className="ml-3 text-xs text-gray-400">{props.equipmentData.serialNumber}</span>
-              {props.equipmentData.status && (
+              <span className="ml-3 text-xs text-gray-400">{equipmentData.serialNumber}</span>
+              {equipmentData.status && (
                 <>
                   <span className="ml-3 text-xs text-gray-400">•</span>
-                  <span className="ml-3 text-xs text-gray-400">{props.equipmentData.status}</span>
+                  <span className="ml-3 text-xs text-gray-400">{equipmentData.status}</span>
                 </>
               )}
             </div>
@@ -29,10 +29,10 @@ export default function EquipmentCard(props) {
         ) : (
           <>
             <div className="font-bold">
-              <span className="inline-flex text-sm">{props.equipmentData.modelNumber}</span>
+              <span className="inline-flex text-sm">{equipmentData.modelNumber}</span>
             </div>
             <div>
-              <span className="text-xs text-gray-400">{props.equipmentData.serialNumber}</span>
+              <span className="text-xs text-gray-400">{equipmentData.serialNumber}</span>
             </div>
           </>
         )}
@@ -64,8 +64,7 @@ export function ItemWrapper({ children }) {
   );
 }
 
-export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, onClickEdit, onChangeCheck, isSchedule, icon }) {
-  // Document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
+export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, onClickEdit, onChangeCheck, onClickCard, isSchedule, icon }) {
   const displayIcon = edit || select;
   {
     /* keys refer to the keys in the data array, used to retrieve specific additional values for the card */
@@ -85,7 +84,7 @@ export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, 
   }, [resetCheck])
 
   return (
-    <div className="flex flex-row items-center flex-grow h-20 gap-2 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start">
+    <div className="flex flex-row items-center flex-grow h-20 gap-2 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start" onClick={() => onClickCard ? onClickCard(index) : null}>
       <div className="flex-grow">
         {scopeType ? (
           <>
