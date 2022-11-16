@@ -1,4 +1,6 @@
 import { EditOutlined, FileTextOutlined } from "@ant-design/icons";
+import Document from "next/document";
+import { useEffect, useState } from "react";
 
 export default function EquipmentCard(props) {
   return (
@@ -39,10 +41,10 @@ export default function EquipmentCard(props) {
   );
 }
 
-export function ItemWrapper(props) {
+export function ItemWrapper({ children }) {
   return (
     <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
-      {props.items &&
+      {/* {props.items &&
         props.items.map((item, i) => {
           let display = false;
           if (props.currentAction.includes("Scope")) {
@@ -53,18 +55,35 @@ export function ItemWrapper(props) {
             if (!item.scopeType) display = true;
           } else display = true;
           if (display) return <ItemCard key={i} index={i} data={item} {...props} />;
-        })}
-      {props.children}
+        })} */}
+
+      {/* {props.children} */}
+
+      {children}
     </div>
   );
 }
 
-export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit, onChangeCheck, isSchedule, icon }) {
+export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, onClickEdit, onChangeCheck, isSchedule, icon }) {
+  // Document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
   const displayIcon = edit || select;
   {
     /* keys refer to the keys in the data array, used to retrieve specific additional values for the card */
   }
   const { brand, scopeType, modelNumber, serialNumber, samplingStatus } = data;
+
+  const [checked, setChecked] = useState(false);
+
+  const onChangeCheckbox = (e) => {
+    setChecked(e.target.checked);
+    onChangeCheck(e);
+  }
+
+  useEffect(() => {
+    // reset checkbox
+    if (resetCheck) setChecked(false);
+  }, [resetCheck])
+
   return (
     <div className="flex flex-row items-center flex-grow h-20 gap-2 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start">
       <div className="flex-grow">
@@ -120,7 +139,7 @@ export function ItemCard({ index, data, titles, keys, edit, select, onClickEdit,
         <button className="flex items-center text-xl 2xl:ml-14">
           <>
             {edit && <EditOutlined onClick={() => onClickEdit(index)} />}
-            {select && <input type="checkbox" className="w-5 h-5" value={index} onChange={onChangeCheck} />}
+            {select && <input type="checkbox" className="w-5 h-5" value={index} checked={checked} onChange={onChangeCheckbox} />}
           </>
         </button>
       )}

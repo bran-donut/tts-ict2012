@@ -1,16 +1,15 @@
 import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
-import { ItemCard } from "../../components/EquipmentCard";
+import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import MainHeader from "../../components/MainHeader";
 import { equipments } from "../../Constants";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
-import { ActionButton } from "../schedule/manage";
 import { AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
 import { exportCSVFile } from "../../Helpers";
 import Router, { useRouter } from "next/router";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import PopupMessage, { LoadingMessage, SuccessMessage } from "../../components/Modal";
-import Link from "next/link";
+import ActionButton from "../../components/ActionButton";
 
 const tabs = ["Scope", "Washer (AER)"];
 const actions = ["Filter By", "Sort By"];
@@ -159,7 +158,7 @@ export default function ManageInventory() {
         </div>
       </section> */}
       <ContainerWrapper>
-        <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
+        <ItemWrapper>
           {equipmentData.map(
             (val, i) => (
               // scope type determines which is scope / washer. Washer does not have scopeType
@@ -174,7 +173,7 @@ export default function ManageInventory() {
                 onChangeCheck={handleSelect}
               />
           )}
-        </div>
+        </ItemWrapper>
         {/* <ItemWrapper
           items={equipments}
           currentAction={tabs[index]}

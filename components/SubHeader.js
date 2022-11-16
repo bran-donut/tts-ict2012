@@ -1,5 +1,5 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { ActionButton } from "../pages/schedule/manage";
+import ActionButton from "./ActionButton";
 import Breadcrumb from "./Breadcrumb";
 
 export default function SubHeader({ heading, smallHeading, description, breadCrumbItems, button, children }) {

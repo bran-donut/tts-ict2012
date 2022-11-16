@@ -2,12 +2,12 @@ import Layout from "../../layouts/Layout";
 import MainHeader from "../../components/MainHeader";
 import SubHeader from "../../components/SubHeader";
 import { useState } from "react";
-import { ActionButton } from "./manage";
-import { RightOutlined, CalendarOutlined, AlignLeftOutlined, FilterOutlined, FileTextOutlined } from "@ant-design/icons";
+import { RightOutlined, CalendarOutlined, FilterOutlined, FileTextOutlined } from "@ant-design/icons";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import { equipments } from "../../Constants";
-import { ItemCard } from "../../components/EquipmentCard";
+import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import Router from "next/router";
+import ActionButton from "../../components/ActionButton";
 
 const tabs = ["Sample Schedule", "Off Schedule"];
 const actions = ["Jump to date", "View by: Day", "Filter By"];
@@ -95,11 +95,11 @@ export default function ViewSchedule() {
       </SubHeader>
       <ContainerWrapper>
         {view == "View by: Day" ? (
-          <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
+          <ItemWrapper>
             {equipmentData.map((e, i) => (
               <ItemCard data={equipmentData[i]} key={i} isSchedule={true} icon={<FileTextOutlined />} onClickEdit={() => handleEdit(i)} />
             ))}
-          </div>
+          </ItemWrapper>
         ) : (
           <Calendar year={2022} month={11} />
         )}

@@ -1,14 +1,14 @@
 import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
-import EquipmentCard from "../../components/EquipmentCard";
+import EquipmentCard, { ItemWrapper } from "../../components/EquipmentCard";
 import MainHeader from "../../components/MainHeader";
 import { equipments } from "../../Constants";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
-import { ActionButton } from "../schedule/manage";
 import { AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
 import { exportCSVFile } from "../../Helpers";
 import { useRouter } from "next/router";
 import ContainerWrapper from "../../components/ContainerWrapper";
+import ActionButton from "../../components/ActionButton";
 
 const tabs = ["Scope", "Washer (AER)"];
 const actions = ["Filter By", "Sort By"];
@@ -94,13 +94,13 @@ export default function ViewInventory() {
         </div>
       </section> */}
       <ContainerWrapper>
-        <div className="grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2">
+        <ItemWrapper>
           {equipmentData.map(
             (e, i) =>
               // scope type determines which is scope / washer. Washer does not have scopeType
               ((index == 0 && e.scopeType) || (index == 1 && !e.scopeType)) && <EquipmentCard equipmentData={equipmentData[i]} key={i} /> //: <EquipmentCard equipmentData={equipmentData[i]} key={i} />
           )}
-        </div>
+        </ItemWrapper>
         {/* <ItemWrapper
           items={equipments}
           currentAction={tabs[index]}
