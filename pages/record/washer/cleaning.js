@@ -9,11 +9,6 @@ import Link from "next/link";
 
 export default function Cleaning() {
 
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
-  const d = new Date();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [equipmentData, setEquipmentData] = useState(
@@ -28,12 +23,12 @@ export default function Cleaning() {
       <SubHeader
         heading={equipmentData.brand + " " + equipmentData.modelNumber}
         description="Record the details of equipment sampling"
-        breadCrumbItems={["Home", "Schedule", "View", "Record"]}
+        breadCrumbItems={["Home", "Schedule", "View", "Record Detail"]}
       />
 
       <div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
         <ol className="items-center sm:flex ">
-          <li className="relative w-64 mb-6 ml-36 sm:mb-0">
+          <li className="relative mb-6 w-80 ml-36 sm:mb-0">
             <div className="flex items-center">
               <div className="bg-[#1890FF] ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
               </div>
@@ -43,7 +38,7 @@ export default function Cleaning() {
               <h3 className="pl-2 text-lg font-semibold text-gray-900">Manual Cleaning</h3>
             </div>
           </li>
-          <li className="relative w-64 mb-6 sm:mb-0">
+          <li className="relative mb-6 w-80 sm:mb-0">
             <div className="flex items-center ">
               <div className="bg-gray-200 hidden sm:flex w-8 h-0.5"></div>
               <div className="bg-[#8C8C8C] z-10  flex items-center justify-center w-2 h-2 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
@@ -54,26 +49,14 @@ export default function Cleaning() {
               <h3 className="text-lg text-gray-300">Washing</h3>
             </div>
           </li>
-          <li className="relative w-64 mb-6 sm:mb-0">
+          <li className="relative mb-6 w-80 sm:mb-0">
             <div className="flex items-center">
               <div className="bg-gray-200 hidden sm:flex w-[1.125rem] h-0.5"></div>
               <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-2 h-2 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
               </div>
-              <div className="bg-gray-200 hidden sm:flex w-full h-0.5"></div>
             </div>
             <div className="mt-3 sm:pr-8">
               <h3 className="text-lg text-gray-300">Drying</h3>
-            </div>
-          </li>
-          <li className="relative w-64 mb-6 sm:mb-0">
-            <div className="flex items-center">
-              <div className="bg-gray-200 hidden sm:flex w-7 h-0.5"></div>
-              <div className="bg-[#8C8C8C] z-10 flex items-center justify-center w-2 h-2 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
-              </div>
-              <div></div>
-            </div>
-            <div className="mt-3">
-              <h3 className="text-lg text-gray-300">Sampling</h3>
             </div>
           </li>
         </ol>
