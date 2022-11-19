@@ -132,6 +132,7 @@ export default function Drying() {
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
               link="/schedule"
+              submitForm="true"
             />
           : null)}
 

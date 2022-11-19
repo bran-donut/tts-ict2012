@@ -145,8 +145,12 @@ export default function ViewSchedule() {
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
+    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED');
+    let step;
+    formSubmitted === "true" ? step = "/sampling" : step = "/cleaning";
+
     Router.push({
-      pathname: "/record/" + type + "/cleaning",
+      pathname: "/record/" + type + step,
       query: { index: i },
     });
   };
@@ -195,8 +199,8 @@ export default function ViewSchedule() {
           </ItemWrapper>
         </ContainerWrapper>
       ) : (
-        <div className="pt-2 pb-32 px-40 relative bg-tts-background">
-          <div className="flex gap-10 absolute top-6 ml-4">
+        <div className="relative px-40 pt-2 pb-32 bg-tts-background">
+          <div className="absolute flex gap-10 ml-4 top-6">
             <Badge status="error" text="Awaiting Sample" />
             <Badge status="warning" text="Pending Result" />
             <Badge status="success" text="Regular" />

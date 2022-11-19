@@ -125,6 +125,7 @@ export default function Sampling() {
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
               link="/schedule"
+              submitForm="false"
             />
           : null)}
 

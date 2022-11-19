@@ -1,12 +1,18 @@
 import { CheckCircleFilled, ExclamationCircleOutlined, LoadingOutlined } from "@ant-design/icons";
-import { useReducer } from "react";
+import { useState, useReducer } from "react";
 import Link from "next/link";
 
-export default function PopupMessage({ heading, description, leftText, rightText, onClickClose, children, link }) {
+export default function PopupMessage({ heading, description, leftText, rightText, onClickClose, children, link, submitForm }) {
     const [showModal, toggleModal] = useReducer(
         showModal => !showModal,
         true
     )
+
+    function localStore()
+    {
+        submitForm === "true" ? window.localStorage.setItem('FORM_SUBMITTED', "true") : null
+        submitForm === "false" ? window.localStorage.setItem('FORM_SUBMITTED', "false") : null
+    }
 
     return (
         <>
@@ -46,7 +52,7 @@ export default function PopupMessage({ heading, description, leftText, rightText
                                         (<button
                                             className="py-2 mb-1 ml-2 mr-1 text-sm text-white transition-all duration-150 ease-linear border-2 rounded-sm shadow outline-none px-7 border-tts-red bg-tts-red hover:bg-tts-red/80 border-tts-re hover:shadow-lg focus:outline-none"
                                             type="button"
-                                            onClick={() => { onClickClose(1); toggleModal() }}
+                                            onClick={() => { onClickClose(1); toggleModal(); localStore() }}
                                         >
                                             {rightText}
                                         </button>)
@@ -55,7 +61,7 @@ export default function PopupMessage({ heading, description, leftText, rightText
                                             <button
                                                 className="py-2 mb-1 ml-2 mr-1 text-sm text-white transition-all duration-150 ease-linear border-2 rounded-sm shadow outline-none px-7 border-tts-red bg-tts-red hover:bg-tts-red/80 border-tts-re hover:shadow-lg focus:outline-none"
                                                 type="button"
-                                                onClick={() => { onClickClose(1); toggleModal() }}
+                                                onClick={() => { onClickClose(1); toggleModal(); localStore() }}
                                             >
                                                 {rightText}
                                             </button>
