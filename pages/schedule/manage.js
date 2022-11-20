@@ -147,7 +147,7 @@ export default function ManageSchedule() {
         description="Displays equipment to be added to the schedule"
         breadCrumbItems={["Home", "Schedule"]}
       >
-        <div className="flex items-center justify-between w-full pt-3">
+        <div className="flex items-center justify-between w-full pt-1">
           <div className="mt-2">
             {tabs.map((tab, i) => (
               <button
