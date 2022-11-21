@@ -44,21 +44,6 @@ export default function EquipmentCard(props) {
 export function ItemWrapper({ className, children }) {
   return (
     <div className={"grid grid-cols-1 gap-4 gap-y-0 bg-tts-background xl:grid-cols-2 " + (className ? className : '') }>
-      {/* {props.items &&
-        props.items.map((item, i) => {
-          let display = false;
-          if (props.currentAction.includes("Scope")) {
-            if (item.scopeType) display = true;
-          }
-          // only display scope
-          else if (props.currentAction.includes("Washer")) {
-            if (!item.scopeType) display = true;
-          } else display = true;
-          if (display) return <ItemCard key={i} index={i} data={item} {...props} />;
-        })} */}
-
-      {/* {props.children} */}
-
       {children}
     </div>
   );
