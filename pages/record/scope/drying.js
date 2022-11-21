@@ -76,7 +76,7 @@ export default function Drying() {
                 menuHeader="Scope Dryer"
                 menuItems={["Dryer 1", "Dryer 2", "Dryer 3", "Dryer 4"]}
                 drop="drop"
-                tooltipText="Unique Dryer ID"
+                tooltipText="Type of Scope Dryer"
                 />
                 <Dropdown
                 menuHeader="Dryer Level"

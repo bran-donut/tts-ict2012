@@ -37,10 +37,12 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DateInput
                 menuHeader="Date of Result"
+                tooltipText="Date of washer sampling result"
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
                 menuItems={["Growth", "No Growth"]}
+                tooltipText="Result of bacteria growth"
                 />
                 <Input
                 menuHeader="Analysis"
@@ -58,6 +60,8 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DisabledDropdown
                 menuHeader="Quarantine Required"
+                tooltipText="Washer requires quarantine if the fluid result comes back positive"
+                repeatDateTooltip="Date for repeated sampling"
                 />
                 </div>
 
@@ -81,6 +85,7 @@ export default function Sampling() {
                   menuHeader="Circulated By"
                   menuItems={["Janice", "Nina"]}  
                   drop="drop"
+                  tooltipText="The personnel who circulated the equipment"
                   />
                   </div>
                   <div className="mb-10"></div>

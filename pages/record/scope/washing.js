@@ -74,10 +74,12 @@ export default function Washing() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <MobileScan
                 menuHeader="AER Serial Number"
+                tooltipText="Serial number for Automated Endoscope Reprocessor"
                 />
                 <Dropdown
                 menuHeader="AER Model"
                 menuItems={["MEDIVATOR 1A", "MEDIVATOR 1B", "MEDIVATOR 2A", "MEDIVATOR 2B"]}
+                tooltipText="Model type of Automated Endoscope Reprocessor"
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -89,13 +91,15 @@ export default function Washing() {
                 menuHeader="Disinfectant Used"
                 menuItems={["RAPICIDE PA PART A & PART B", "ANIOXYDE 1000", "ACECIDE"]}
                 drop="drop"
+                tooltipText="Type of disinfectant used on the scope"
                 />
                 <Input
                 menuHeader="Disinfectant LOT Number"
-                tooltipText = "The identification number assigend to the Disinfectant that can be found on the packaging"
+                tooltipText = "The identification number assigned to the disinfectant that can be found on the packaging"
                 />
                 <DateInput
                 menuHeader="Disinfectant Changed"
+                tooltipText = "Date of disinfectant change"
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -107,9 +111,11 @@ export default function Washing() {
                 menuHeader="Detergent Used"
                 menuItems={["INTERCEPT PLUS", "CIDEZYME DETERGENT", "ENDORAPID"]}
                 drop="drop"
+                tooltipText="Type of detergent used on the scope"
                 />
                 <Input
                 menuHeader="Detergent LOT Number"
+                tooltipText = "The identification number assigned to the detergent that can be found on the packaging"
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -119,6 +125,7 @@ export default function Washing() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DateInput
                 menuHeader="Date of Filter Changed"
+                tooltipText="The filter change date"
                 />
                 <div className="mb-28"></div>
                 </div>

@@ -76,10 +76,12 @@ export default function Drying() {
                 menuHeader="Scope Dryer"
                 menuItems={["Dryer 1", "Dryer 2", "Dryer 3", "Dryer 4"]}
                 drop="drop"
+                tooltipText="Type of Scope Dryer"
                 />
                 <Dropdown
                 menuHeader="Dryer Level"
                 menuItems={["Level 1", "Level 2", "Level 3", "Level 4"]}
+                tooltipText="Set level indicated on the Dryer"
                 />
 
                 <div className="py-1 input-group">

@@ -37,10 +37,12 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DateInput
                 menuHeader="Date of Result"
+                tooltipText="Date of scope sampling result"
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
                 menuItems={["Growth", "No Growth"]}
+                tooltipText="Result of bacteria growth"
                 />
                 <Input
                 menuHeader="Culture Comment"
@@ -56,10 +58,12 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DateInput
                 menuHeader="Date of Result"
+                tooltipText="Date of scope sampling repeat result"
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
-                menuItems={["Growth", "No Growth"]}         
+                menuItems={["Growth", "No Growth"]}
+                tooltipText="Result of bacteria growth"    
                 />
 
                 <Input
@@ -70,7 +74,8 @@ export default function Sampling() {
                 />
                 <Dropdown
                 menuHeader="Room to Perform"
-                menuItems={["ENDO MS ROOM", "CLEAN", "REPROCESSING ROOM", "2B ENDO", "OTHERS"]}   
+                menuItems={["ENDO MS ROOM", "CLEAN", "REPROCESSING ROOM", "2B ENDO", "OTHERS"]}  
+                tooltipText="Location of repeated sampling"   
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -80,7 +85,10 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                   <DisabledDropdown
                     menuHeader="Quarantine Required"
-                    borescope="borescope"  
+                    borescope="borescope" 
+                    tooltipText="Washer requires quarantine if the fluid result comes back positive"
+                    repeatDateTooltip="Date for repeated sampling"
+                    borescopeTooltip="Borescope is an instrument used to inspect the inside of a structure through a small hole"
                     />
                 </div>
                 <div className="p-5 bg-white">
@@ -92,6 +100,7 @@ export default function Sampling() {
                 menuHeader="Circulated By"
                 menuItems={["Janice", "Nina"]}  
                 drop="drop"
+                tooltipText="The personnel who circulated the equipment"
                 />
                 </div>
                 <div className="mb-12"></div>

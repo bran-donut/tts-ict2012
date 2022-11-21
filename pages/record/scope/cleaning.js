@@ -107,7 +107,7 @@ export default function Cleaning() {
                 <Dropdown
                 menuHeader="Scope Status"
                 menuItems={["Regular", "Loan", "Post Repair", "New"]}
-                tooltipText="Current status of the equipment"
+                tooltipText="Current status of the scope"
                 />
               </div>
               <div className="p-5 bg-white">
