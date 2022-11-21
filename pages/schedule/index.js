@@ -164,7 +164,7 @@ export default function ViewSchedule() {
 
   const scrollToToday = () => {
     scrollRef.current.scrollTo({
-      top: todayRef.current.offsetTop - 480
+      top: todayRef.current.offsetTop - 490
     })
     // let scrollY = window.scrollY;
     // todayRef.current.scrollIntoView();
@@ -224,20 +224,22 @@ export default function ViewSchedule() {
       </SubHeader>
       {index == 0 ?
         view == "View by: Day" ? (
-          <ContainerWrapper>
-            {[...Array(30)].map((e, i) =>
-              <div key={i}>
-                <div ref={i + 1 == 17 ? todayRef : null} className="w-full my-3 h-3 border-b border-gray-300">
-                  <div className={`pl-2 pr-4 ml-4 bg-tts-background w-fit ${i + 1 == 17 ? 'text-tts-red font-bold' : ''}`}>{(i + 1 == 16 && 'Yesterday,') || (i + 1 == 17 && 'Today,')} {i + 1} Nov 22</div>
+          <div className="bg-gray-300 px-28">
+            <div ref={scrollRef} className="py-4 px-8 bg-tts-background overflow-y-auto max-h-screen">
+              {[...Array(30)].map((e, i) =>
+                <div key={i}>
+                  <div ref={i + 1 == 17 ? todayRef : null} className="w-full my-3 h-3 border-b border-gray-300">
+                    <div className={`pl-2 pr-4 ml-4 bg-tts-background w-fit ${i + 1 == 17 ? 'text-tts-red font-bold' : ''}`}>{(i + 1 == 16 && 'Yesterday,') || (i + 1 == 17 && 'Today,')} {i + 1} Nov 22</div>
+                  </div>
+                  <ItemWrapper className="px-4">
+                    {[...Array(4)].map((e, i) =>
+                      <ItemCard data={sampleSchedule} key={i} isSchedule={true} icon={<FileTextOutlined />} onClickEdit={() => handleEdit(1)} />
+                    )}
+                  </ItemWrapper>
                 </div>
-                <ItemWrapper className="px-4">
-                  {[...Array(4)].map((e, i) =>
-                    <ItemCard data={sampleSchedule} key={i} isSchedule={true} icon={<FileTextOutlined />} onClickEdit={() => handleEdit(1)} />
-                  )}
-                </ItemWrapper>
-              </div>
-            )}
-          </ContainerWrapper>
+              )}
+            </div>
+          </div>
         ) : (
           <div className="pt-2 pb-32 px-40 relative bg-tts-background">
             <div className="flex gap-10 absolute top-6 ml-4">
