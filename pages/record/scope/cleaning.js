@@ -120,7 +120,7 @@ export default function Cleaning() {
                 <Dropdown
                 menuHeader="Scope Status"
                 menuItems={["Regular", "Loan", "Post Repair", "New"]}
-                tooltipText="Current status of the equipment"
+                tooltipText="The reason for the scope sampling cycle"
                 />
               </div>
               <div className="p-5 bg-white">
@@ -132,13 +132,13 @@ export default function Cleaning() {
                 menuHeader="Washed by"
                 menuItems={["Janice Ng", "Mandy"]}
                 drop="drop"
-                tooltipText="The personnel who washed the equipment"
+                tooltipText="Personnel who manually washed the equipment"
                 />
                 <Dropdown
                 menuHeader="Collected by"
                 menuItems={["Janice Ng", "Gan"]}
                 drop="drop"
-                tooltipText="The personnel who collected the equipment"
+                tooltipText="Personnel who collected the equipment"
                 />
                 <div className="mb-5"></div>
               </div>
@@ -147,7 +147,7 @@ export default function Cleaning() {
           </div>
 
           <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-            <Link href="/view">
+            <Link href="/schedule">
               <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                 Back
               </a>
