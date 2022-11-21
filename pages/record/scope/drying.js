@@ -88,7 +88,7 @@ export default function Drying() {
 
                 <div className="py-1 input-group">
                   <h4 className="inline pb-1">Remarks</h4><p className="inline px-2 text-gray-400">(optional)</p>
-                  <textarea placeholder="Remarks" maxlength="100" onChange={e => setCharCount(e.target.value.length)} className="w-full p-2 border-2 rounded-md" />
+                  <textarea placeholder="Remarks" maxLength="100" onChange={e => setCharCount(e.target.value.length)} className="w-full p-2 border-2 rounded-md" />
                   <div className="text-right text-gray-300">{charCount} / 100</div>
                 </div>
 
