@@ -6,19 +6,23 @@ import MainHeader from "../../components/MainHeader";
 import SubHeader from "../../components/SubHeader";
 import MobileScan from "../../components/MobileScan";
 import Input from "../../components/Input";
-import { equipments } from "../../Constants";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function AddEquipment() {
     const [equipmentType, setEquipmentType] = useState("Scope");
+    const [equipmentData, setEquipmentData] = useState([]);
+
+    useEffect(() => {
+        let items = window.localStorage.getItem("equipments");
+        setEquipmentData(JSON.parse(items));
+    }, [])
 
     return (
         <Layout>
             <MainHeader
                 heading="Inventory"
                 description="View all the equipment and miscellaneous inside the system"
-                details={[{ title: 'Total Equipment in Inventory', subtitle: equipments.length }]}
+                details={[{ title: 'Total Equipment in Inventory', subtitle: equipmentData.length }]}
             />
             <SubHeader
                 heading="Add Equipment"

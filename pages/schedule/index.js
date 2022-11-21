@@ -1,10 +1,9 @@
 import Layout from "../../layouts/Layout";
 import MainHeader from "../../components/MainHeader";
 import SubHeader from "../../components/SubHeader";
-import { useRef, useState } from "react";
-import { RightOutlined, CalendarOutlined, FilterOutlined, FileTextOutlined } from "@ant-design/icons";
-import ContainerWrapper from "../../components/ContainerWrapper";
-import { equipments, sampleSchedule } from "../../Constants";
+import { useEffect, useRef, useState } from "react";
+import { CalendarOutlined, FilterOutlined, FileTextOutlined } from "@ant-design/icons";
+import { sampleSchedule } from "../../Constants";
 import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import Router from "next/router";
 import ActionButton from "../../components/ActionButton";
@@ -33,7 +32,7 @@ export default function ViewSchedule() {
   const todayRef = useRef();
 
   const [index, setIndex] = useState(0);
-  const [equipmentData, setEquipmentData] = useState(equipments);
+  const [equipmentData, setEquipmentData] = useState([]);
   const [actionValues, setActionValues] = useState([]);
   const [view, setView] = useState("View by: Day");
 
@@ -167,6 +166,11 @@ export default function ViewSchedule() {
     //   top: scrollY
     // });
   }
+
+  useEffect(() => {
+    let items = window.localStorage.getItem("equipments");
+    setEquipmentData(JSON.parse(items));
+  }, [])
 
   return (
     <Layout>

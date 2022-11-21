@@ -5,13 +5,14 @@ import { DefaultDropdown } from "../../components/Dropdown";
 import MainHeader from "../../components/MainHeader";
 import PopupMessage, { LoadingMessage, SuccessMessage } from "../../components/Modal";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
-import { equipments, pastResults } from "../../Constants";
+import { pastResults } from "../../Constants";
 import { exportCSVFile } from "../../Helpers";
 import Layout from "../../layouts/Layout";
 
 export default function InventoryDetails() {
     const router = useRouter();
 
+    const [equipmentData, setEquipmentData] = useState([]);
     const [selectedItem, setSelectedItem] = useState({});
     const [repairStatus, setRepairStatus] = useState(0);
     const [showChangeConditionModal, setShowChangeConditionModal] = useState(false);
@@ -35,7 +36,7 @@ export default function InventoryDetails() {
             frequency: "frequency",
             sampleDate: "sampleDate"
         };
-        exportCSVFile(headers, equipments, 'equipments');
+        exportCSVFile(headers, equipmentData, 'equipments');
     }
 
     const handleClickExportResults = () => {
@@ -80,9 +81,10 @@ export default function InventoryDetails() {
     }, [changeConfirmation, showLoadingModal])
 
     useEffect(() => {
-        const item = equipments[router.query.index];
+        let items = JSON.parse(window.localStorage.getItem("equipments"));
+        setEquipmentData(items);
+        const item = items[router.query.index];
         setSelectedItem(item);
-        console.log(item);
         setRepairStatus(item.samplingStatus.includes('Repair') ? 1 : 0);
       }, [router.query.index]);
 
