@@ -1,34 +1,26 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { DefaultDropdown } from "../components/Dropdown";
-import MainHeader from "../components/MainHeader";
-import PopupMessage, { LoadingMessage, SuccessMessage } from "../components/Modal";
-import SubHeader, { SubHeaderButton } from "../components/SubHeader";
-import { equipments, pastResults } from "../Constants";
-import { exportCSVFile } from "../Helpers";
-import Layout from "../layouts/Layout";
+import { DefaultDropdown } from "../../components/Dropdown";
+import MainHeader from "../../components/MainHeader";
+import PopupMessage, { LoadingMessage, SuccessMessage } from "../../components/Modal";
+import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
+import { equipments, pastResults } from "../../Constants";
+import { exportCSVFile } from "../../Helpers";
+import Layout from "../../layouts/Layout";
 
 export default function InventoryDetails() {
-    const itemSelected = {
-        ...equipments[1],
-        type: 'Scope',
-        samplingStatus: 'Regular',
-        condition: {
-            type: 'Repair',
-            status: 0
-        }
-    }
+    const router = useRouter();
 
-    const link = "/inventory/manage?view=" + itemSelected.type;
-
-    const [selectedItem, setSelectedItem] = useState(itemSelected);
+    const [selectedItem, setSelectedItem] = useState({});
+    const [repairStatus, setRepairStatus] = useState(0);
     const [showChangeConditionModal, setShowChangeConditionModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showLoadingModal, setShowLoadingModal] = useState(false);
     const [changeConfirmation, setChangeConfirmation] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const {brand, scopeType, type, modelNumber, serialNumber, status, samplingStatus, frequency, sampleDate, condition} = selectedItem;
+    const {brand, scopeType, type, modelNumber, serialNumber, status, samplingStatus, frequency, sampleDate} = selectedItem;
 
     const toggleDropdown = () => setShowDropdown(!showDropdown);
 
@@ -73,12 +65,11 @@ export default function InventoryDetails() {
     const handleCloseSuccessModal = () => {
         setShowSuccessModal(false);
         // toggle status of condition
-        setSelectedItem({
-            ...selectedItem, condition: {
-                ...selectedItem.condition,
-                status: 1 - selectedItem.condition.status,
-            }
-        })
+        setRepairStatus(!repairStatus);
+        if (!repairStatus == 1) {
+            // do something...
+            alert('wait for backend');
+        }
     }
 
     useEffect(() => {
@@ -88,12 +79,19 @@ export default function InventoryDetails() {
         }
     }, [changeConfirmation, showLoadingModal])
 
+    useEffect(() => {
+        const item = equipments[router.query.index];
+        setSelectedItem(item);
+        console.log(item);
+        setRepairStatus(item.samplingStatus.includes('Repair') ? 1 : 0);
+      }, [router.query.index]);
+
     return (
         <Layout>
             <MainHeader heading="Inventory" description="What would you like to do today?" />
             <SubHeader
                 heading="Equipment Details"
-                smallHeading={[type, modelNumber]}
+                smallHeading={[scopeType ? 'Scope' : 'Washer (AER)', modelNumber]}
                 description="Displays all the related information for an equipment"
                 breadCrumbItems={['Home', 'Inventory', 'Equipment Details']}
                 button={<SubHeaderButton text="Export Item as CSV" onClickAction={handleClickExportItems} />}
@@ -139,7 +137,7 @@ export default function InventoryDetails() {
                                 <th className="border-b border-r border-gray-200 bg-gray-50 text-black">Past Sampling Results</th>
                                 <th className="border-b border-r border-gray-200 bg-gray-50 text-black">Future Sample Date</th>
                                 <th className="flex justify-between border-b border-gray-200 bg-gray-50 text-black">
-                                    <span>On {condition.type}</span>
+                                    <span>On Repair</span>
                                     <button className="underline text-tts-blue font-normal" onClick={() => setShowChangeConditionModal(true)}>Change</button>
                                 </th>
                             </tr>
@@ -151,7 +149,7 @@ export default function InventoryDetails() {
                                     <button className="underline text-tts-blue" onClick={toggleDropdown}>View</button>
                                     {showDropdown && <DefaultDropdown dropItems={pastResults.map(value => value.sampleDate)} />}
                                 </td>
-                                <td className="border-b border-gray-200">{condition.status ? 'Yes' : 'No'}</td>
+                                <td className="border-b border-gray-200">{repairStatus ? 'Yes' : 'No'}</td>
                             </tr>
                             <tr className="h-14"></tr>
                         </tbody>
@@ -159,22 +157,22 @@ export default function InventoryDetails() {
                 </div>
             </div>
             <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
-                <Link href={link}>
+                <Link href={`/inventory?view=${scopeType ? 'Scope' : 'Washer (AER)'}`}>
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">Back</a>
                 </Link>
-                <Link href={link + '&action=Edit'}>
+                <Link href={`/inventory/edit?index=${router.query.index}`}>
                     <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Edit</a>
                 </Link>
             </div>
 
             {showChangeConditionModal &&
                 <PopupMessage
-                    heading={`Set equipment on "${condition.type}"?`}
+                    heading='Set equipment as "Repair"?'
                     description={`
-                        ${condition.status ?
-                            `This will resume the tracking of the equipment's sampling schedule until "${condition.type}" is turned on.`
+                        ${repairStatus ?
+                            `This will resume the tracking of the equipment's sampling schedule until Repair is turned on.`
                             :
-                            `This will pause the tracking of the equipment's sampling schedule until "${condition.type}" is turned off.`
+                            `This will pause the tracking of the equipment's sampling schedule until Repair is turned off.`
                         }
                     `}
                     leftText="No"
@@ -185,7 +183,7 @@ export default function InventoryDetails() {
 
             {showLoadingModal && <LoadingMessage onClose={() => setShowLoadingModal(false)} />}
 
-            {showSuccessModal && <SuccessMessage text={'1 Item has been set on ' + condition.type.toLowerCase()} onClose={handleCloseSuccessModal} />}
+            {showSuccessModal && <SuccessMessage text="1 Item has been set on repair" onClose={handleCloseSuccessModal} />}
         </Layout>
     )
 }

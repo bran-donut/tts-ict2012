@@ -7,3 +7,32 @@
 .expand-button {
     transform: perspective(7px) rotateY(7deg);
 }
+
+.ant-picker-calendar-mode-switch {
+    display: none;
+}
+
+.ant-picker-calendar-header {
+    margin-right: 10px;
+}
+
+.ant-picker-calendar, .ant-picker-calendar-full .ant-picker-panel {
+    background: none;
+}
+
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-body th {
+    background: rgba(255,145,147,.3);
+}
+
+.ant-picker-content {
+    border-collapse: separate;
+    border-spacing: 1rem 5px;
+}
+
+.ant-picker-calendar .ant-picker-panel .ant-picker-body {
+    padding-top: 0;
+}
+
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-body td {
+    background: white;
+}

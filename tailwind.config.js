@@ -24,6 +24,9 @@ module.exports = {
         "tts-orange": "#FABC16",
         "tts-background": "#f0f2f5",
       },
+      maxHeight: {
+        "screen" : "calc(100vh - 194px)"
+      }
     },
   },
   plugins: [],

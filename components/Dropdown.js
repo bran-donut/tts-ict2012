@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { DownOutlined, UpOutlined, ExclamationCircleOutlined, InfoCircleOutlined, CloseOutlined } from "@ant-design/icons";
+import Tooltip from "../components/Tooltip";
 
-
-export default function Dropdown({ menuHeader, menuItems, drop }) {
+export default function Dropdown({ menuHeader, menuItems, drop, tooltipText }) {
 
 const [selected, setSelected] = useState(false);
 const [text, setText] = useState("");
@@ -15,7 +15,9 @@ const [dropItem, setDropItem] = useState(menuItems);
       <div className="py-1 input-group">
         <div className="flex flex-row items-center justify-start pb-1">
           <h4 className="mr-2">{menuHeader}</h4>
-          <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+            <Tooltip tooltipText={tooltipText}>
+              <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
+            </Tooltip>
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
