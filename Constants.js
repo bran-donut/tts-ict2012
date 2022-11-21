@@ -290,3 +290,11 @@ export const pastResults = [
     swabResultRoomPerformed: "Room C",
   },
 ];
+
+export const sampleSchedule = {
+  "brand": "OLYMPUS",
+  "scopeType": "tracheal intubation",
+  "modelNumber": "TJF403",
+  "serialNumber": 21904890,
+  "samplingStatus": "Pending Results"
+}

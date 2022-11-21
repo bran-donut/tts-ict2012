@@ -1,10 +1,10 @@
 import Layout from "../../layouts/Layout";
 import MainHeader from "../../components/MainHeader";
 import SubHeader from "../../components/SubHeader";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { RightOutlined, CalendarOutlined, FilterOutlined, FileTextOutlined } from "@ant-design/icons";
 import ContainerWrapper from "../../components/ContainerWrapper";
-import { equipments } from "../../Constants";
+import { equipments, sampleSchedule } from "../../Constants";
 import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import Router from "next/router";
 import ActionButton from "../../components/ActionButton";
@@ -16,19 +16,22 @@ const actions = ["Jump to date", "View by: Day", "Filter By"];
 const headerDetails = [
   {
     title: "Today",
-    subtitle: "2",
+    subtitle: "4",
   },
   {
     title: "This Week",
-    subtitle: "7",
+    subtitle: "28",
   },
   {
     title: "This Month",
-    subtitle: "20",
+    subtitle: "120",
   },
 ];
 
 export default function ViewSchedule() {
+  const scrollRef = useRef();
+  const todayRef = useRef();
+
   const [index, setIndex] = useState(0);
   const [equipmentData, setEquipmentData] = useState(equipments);
   const [actionValues, setActionValues] = useState([]);
@@ -137,6 +140,9 @@ export default function ViewSchedule() {
         actions[1] = "View by: Day";
         setView(() => "View by: Day");
         break;
+      case "Jump to date":
+        scrollToToday();
+        break;
     }
   };
 
@@ -145,7 +151,7 @@ export default function ViewSchedule() {
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
-    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED'+i);
+    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED' + i);
     let step;
     window.localStorage.setItem('EQUIPMENT', i);
     formSubmitted === "true" ? step = "/sampling" : step = "/cleaning";
@@ -156,6 +162,12 @@ export default function ViewSchedule() {
     });
   };
 
+  const scrollToToday = () => {
+    scrollRef.current.scrollTo({
+      top: todayRef.current.offsetTop - 480
+    })
+  }
+
   return (
     <Layout>
       <MainHeader heading="Schedule" description="Displaying all equipment inside the sampling schedule calendar" details={headerDetails} />
@@ -164,7 +176,7 @@ export default function ViewSchedule() {
         description="Display all the equipment under the regular sampling schedule"
         breadCrumbItems={["Home", "Schedule"]}
       >
-        <div className="flex items-center justify-between w-full pt-3">
+        <div className="flex items-center justify-between w-full pt-1">
           <div className="mt-2">
             {tabs.map((tab, i) => (
               <button
@@ -182,9 +194,10 @@ export default function ViewSchedule() {
                 key={i}
                 index={i}
                 name={action}
-                active={actionValues.includes(actions[i])}
+                // active={actionValues.includes(actions[i])}
                 onClickAction={handleClickAction}
-                icon={i == 0 ? <RightOutlined /> : i == 1 ? <CalendarOutlined /> : <FilterOutlined />}
+                // icon={i == 0 ? <RightOutlined /> : i == 1 ? <CalendarOutlined /> : <FilterOutlined />} 
+                icon={(i == 1 && <CalendarOutlined />) || (i == 2 && <FilterOutlined />)} // removed jump to date icon
               />
             ))}
           </div>
@@ -192,13 +205,22 @@ export default function ViewSchedule() {
       </SubHeader>
 
       {view == "View by: Day" ? (
-        <ContainerWrapper>
-          <ItemWrapper>
-            {equipmentData.map((e, i) => (
-              <ItemCard data={equipmentData[i]} key={i} isSchedule={true} icon={<FileTextOutlined />} onClickEdit={() => handleEdit(i)} />
-            ))}
-          </ItemWrapper>
-        </ContainerWrapper>
+        <div className="bg-gray-300 px-28">
+          <div ref={scrollRef} className="py-4 px-8 bg-tts-background overflow-y-auto max-h-screen">
+            {[...Array(30)].map((e, i) =>
+              <div key={i}>
+                <div ref={i + 1 == 17 ? todayRef : null} className="w-full my-3 h-3 border-b border-gray-300">
+                  <div className={`pl-2 pr-4 ml-4 bg-tts-background w-fit ${i + 1 == 17 ? 'text-tts-red font-bold' : ''}`}>{(i + 1 == 16 && 'Yesterday,') || (i + 1 == 17 && 'Today,')} {i + 1} Nov 22</div>
+                </div>
+                <ItemWrapper className="px-4">
+                  {[...Array(4)].map((e, i) =>
+                    <ItemCard data={sampleSchedule} key={i} isSchedule={true} icon={<FileTextOutlined />} onClickEdit={() => handleEdit(1)} />
+                  )}
+                </ItemWrapper>
+              </div>
+            )}
+          </div>
+        </div>
       ) : (
         <div className="relative px-40 pt-2 pb-32 bg-tts-background">
           <div className="absolute flex gap-10 ml-4 top-6">
