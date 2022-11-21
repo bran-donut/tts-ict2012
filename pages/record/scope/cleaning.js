@@ -1,5 +1,5 @@
 import Layout from "../../../layouts/Layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -14,6 +14,7 @@ export default function Cleaning() {
   ];
 
   const d = new Date();
+  const [accessionNum, setAccessionNum] = useState();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [equipmentData, setEquipmentData] = useState(
@@ -21,6 +22,10 @@ export default function Cleaning() {
       brand: "Olympus", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"
     }
   );
+
+  useEffect(() => {
+    setAccessionNum(Math.floor(Math.random() * 100000000))
+  }, [])
 
   return (
     <Layout>
@@ -85,10 +90,10 @@ export default function Cleaning() {
             <div className="flex flex-col justify-center h-full min-w-full text-justify bg-white border-2 rounded-md">
               <div className="p-5 bg-white">
                 <h3 className="pb-2 font-medium">Form Details</h3>
-                <h2 className="pb-2 text-gray-400">ACN No - {Math.floor(Math.random() * 100000000)}</h2>
+                <h2 className="pb-2 text-gray-400">ACN No - {accessionNum}</h2>
                 <hr></hr>
               </div>
-              <div className="grid grid-cols-2 gap-4 px-5 py-1">
+              <div className="grid grid-cols-2 gap-4 px-5 py-1"> 
 
                 {/* <div className="py-1 input-group">
                     <div className="flex flex-row items-center justify-start pb-1"> 
