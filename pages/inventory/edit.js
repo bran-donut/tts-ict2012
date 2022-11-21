@@ -12,65 +12,62 @@ import Link from "next/link";
 export default function EditEquipment() {
   const router = useRouter();
 
-  const [equipmentData, setEquipmentData] = useState([]);
+  const [equipmentData, setEquipmentData] = useState({});
+  const [selectedItem, setSelectedItem] = useState({});
 
   useEffect(() => {
-    let items = window.localStorage.getItem("equipments");
-    setEquipmentData(JSON.parse(items));
+    let items = JSON.parse(window.localStorage.getItem("equipments"));
+    setEquipmentData(items);
+    setSelectedItem(items[router.query.index]);
   }, [])
-
-  useEffect(() => {
-    setEquipmentData(equipmentData[router.query.index]);
-    console.log(equipmentData[router.query.index]);
-  }, [router.query.index]);
 
   return (
     <Layout>
       <MainHeader
         heading="Inventory"
         description="View all the equipment and miscellaneous inside the system"
-        details={[{ title: 'Total Equipment in Inventory', subtitle: equipmentData.length }]}
+        details={[{ title: 'Total Equipment in Inventory', subtitle: selectedItem.length }]}
       />
       <SubHeader
         heading="Edit Equipment"
         description="Editing an equipment"
         breadCrumbItems={["Home", "Inventory", "Edit"]}
       />
-      {equipmentData &&
+      {selectedItem &&
         <section className="grid grid-flow-row bg-#f0f2f5">
           <form>
-            {equipmentData.scopeType ?
+            {selectedItem.scopeType ?
               <div className="px-20 py-10">
                 <div className="flex flex-col justify-center h-full min-w-full text-justify bg-white border-2 rounded-md">
                   <div className="grid grid-cols-2 gap-4 px-5 py-1">
                     <Dropdown
-                      inputValue={equipmentData.brand}
+                      inputValue={selectedItem.brand}
                       menuHeader="Brand"
                       menuItems={["Olympus"]}
                     />
                     <Dropdown
-                      inputValue={equipmentData.scopeType}
+                      inputValue={selectedItem.scopeType}
                       menuHeader="Scope Type"
                       menuItems={["tracheal intubation"]}
                     />
                     <Dropdown
-                      inputValue={equipmentData.modelNumber}
+                      inputValue={selectedItem.modelNumber}
                       menuHeader="Model Number"
                       menuItems={["TJF423"]}
                     />
 
                     <Input
-                      inputValue={equipmentData.frequency}
+                      inputValue={selectedItem.frequency}
                       menuHeader="Frequency"
                     />
 
                     <MobileScan
-                      inputValue={equipmentData.serialNumber}
+                      inputValue={selectedItem.serialNumber}
                       menuHeader="Serial Number"
                     />
 
                     <Dropdown
-                      inputValue={equipmentData.status}
+                      inputValue={selectedItem.status}
                       menuHeader="Status"
                       menuItems={["Regular", "Loan"]}
                     />
@@ -93,7 +90,7 @@ export default function EditEquipment() {
                 <div className="flex flex-col justify-center h-full min-w-full text-justify bg-white border-2 rounded-md">
                   <div className="grid grid-cols-2 gap-4 px-5 py-1">
                     <Dropdown
-                      inputValue={equipmentData.modelNumber}
+                      inputValue={selectedItem.modelNumber}
                       menuHeader="AER Model Number"
                       menuItems={["Olympus"]}
                     />
@@ -107,12 +104,12 @@ export default function EditEquipment() {
                       </div>
                     </div> */}
                     <Input
-                      inputValue={equipmentData.frequency}
+                      inputValue={selectedItem.frequency}
                       menuHeader="Frequency"
                     />
 
                     <MobileScan
-                      inputValue={equipmentData.serialNumber}
+                      inputValue={selectedItem.serialNumber}
                       menuHeader="AER Serial Number"
                     />
                     <div></div>
@@ -132,11 +129,7 @@ export default function EditEquipment() {
             }
 
             <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-              <Link href="/inventory">
-                <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
-                  Back
-                </a>
-              </Link>
+              <div className="text-black hover:text-black/80 hover:cursor-pointer hover:underline" onClick={() => router.back()}>Back</div>
               <Link href="/inventory">
                 <a className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
                   Save

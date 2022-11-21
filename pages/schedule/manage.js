@@ -117,12 +117,9 @@ export default function ManageSchedule() {
   useEffect(() => {
     let items = window.localStorage.getItem("equipments");
     setEquipmentData(JSON.parse(items));
-  }, [])
-
-  useEffect(() => {
     setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
     setMainActionIndex(router.query.action ? mainActions.indexOf(router.query.action) : 0);
-  }, [router.query]);
+  }, [])
 
   useEffect(() => {
     router.push("/schedule/manage?view=" + tabs[index] + "&action=" + mainActions[mainActionIndex], undefined, { shallow: true });
@@ -130,7 +127,7 @@ export default function ManageSchedule() {
     setEditItem([]);
     setAddItem([]);
     setRemoveItem([]);
-  }, [mainActionIndex]);
+  }, [index, mainActionIndex]);
 
   useEffect(() => {
     console.log("adding", addItem, "removing", removeItem);

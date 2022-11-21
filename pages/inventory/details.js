@@ -86,7 +86,7 @@ export default function InventoryDetails() {
         const item = items[router.query.index];
         setSelectedItem(item);
         setRepairStatus(item.samplingStatus.includes('Repair') ? 1 : 0);
-      }, [router.query.index]);
+      }, []);
 
     return (
         <Layout>
@@ -159,9 +159,7 @@ export default function InventoryDetails() {
                 </div>
             </div>
             <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
-                <Link href={`/inventory?view=${scopeType ? 'Scope' : 'Washer (AER)'}`}>
-                    <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">Back</a>
-                </Link>
+                <div className="text-black hover:text-black/80 hover:cursor-pointer hover:underline" onClick={() => router.back()}>Back</div>
                 <Link href={`/inventory/edit?index=${router.query.index}`}>
                     <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Edit</a>
                 </Link>
