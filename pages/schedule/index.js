@@ -145,8 +145,9 @@ export default function ViewSchedule() {
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
-    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED');
+    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED'+i);
     let step;
+    window.localStorage.setItem('EQUIPMENT', i);
     formSubmitted === "true" ? step = "/sampling" : step = "/cleaning";
 
     Router.push({

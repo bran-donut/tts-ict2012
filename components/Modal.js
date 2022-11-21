@@ -2,7 +2,7 @@ import { CheckCircleFilled, ExclamationCircleOutlined, LoadingOutlined } from "@
 import { useState, useReducer } from "react";
 import Link from "next/link";
 
-export default function PopupMessage({ heading, description, leftText, rightText, onClickClose, children, link, submitForm }) {
+export default function PopupMessage({ heading, description, leftText, rightText, onClickClose, children, link, equipmentIndex }) {
     const [showModal, toggleModal] = useReducer(
         showModal => !showModal,
         true
@@ -10,10 +10,12 @@ export default function PopupMessage({ heading, description, leftText, rightText
 
     function localStore()
     {
-        submitForm === "true" ? window.localStorage.setItem('FORM_SUBMITTED', "true") : null
-        submitForm === "false" ? window.localStorage.setItem('FORM_SUBMITTED', "false") : null
-    }
 
+        let toggleForm = window.localStorage.getItem('FORM_SUBMITTED'+equipmentIndex);
+
+        toggleForm === "true" ? window.localStorage.setItem('FORM_SUBMITTED'+equipmentIndex, "false") : window.localStorage.setItem('FORM_SUBMITTED'+equipmentIndex, "true");
+    }
+    
     return (
         <>
             {showModal && (

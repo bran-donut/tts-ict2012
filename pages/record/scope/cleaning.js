@@ -5,17 +5,16 @@ import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
+import { equipments } from "../../../Constants";
 import Link from "next/link";
 
 export default function Cleaning() {
 
+  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
+
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(
-    {
-      brand: "Olympus", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"
-    }
-  );
+  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
 
   return (
     <Layout>
@@ -130,7 +129,7 @@ export default function Cleaning() {
           </div>
 
           <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-            <Link href="/view">
+            <Link href="/schedule">
               <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                 Back
               </a>

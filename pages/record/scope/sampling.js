@@ -6,19 +6,16 @@ import SubHeader from "../../../components/SubHeader";
 import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
+import { equipments } from "../../../Constants";
 import Link from "next/link";
 
 import DisabledDropdown from "../../../components/DisabledDropdown";
 
 export default function Sampling() {
-
+  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(
-    {
-        brand: "Olympus", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"
-    }
-  );
+  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
 
   return (
     <Layout>
@@ -137,7 +134,7 @@ export default function Sampling() {
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
               link="/schedule"
-              submitForm="false"
+              equipmentIndex={equipmentIndex}
             />
           : null)}
 

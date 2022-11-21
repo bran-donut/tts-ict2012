@@ -7,17 +7,15 @@ import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
+import { equipments } from "../../../Constants";
 import DisabledDropdown from "../../../components/DisabledDropdown";
 
 export default function Sampling() {
+  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [charCount, setCharCount] = useState(0);
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(
-    {
-        brand: "Medivator", modelNumber: "1A", serialNumber: "21904890", status: "New"
-    }
-  );
+  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
 
   return (
     <Layout>
@@ -70,7 +68,7 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <div className="py-1 input-group">
                   <h4 className="inline pb-1">Remarks</h4><p className="inline px-2 text-gray-400">(optional)</p>
-                  <textarea placeholder="Remarks" maxlength="100" onChange={e => setCharCount(e.target.value.length)} className="w-full p-2 border-2 rounded-md" />
+                  <textarea placeholder="Remarks" maxLength="100" onChange={e => setCharCount(e.target.value.length)} className="w-full p-2 border-2 rounded-md" />
                   <div className="text-right text-gray-300">{charCount} / 100</div>
                 </div>
                 </div>
@@ -125,7 +123,7 @@ export default function Sampling() {
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
               link="/schedule"
-              submitForm="false"
+              equipmentIndex={equipmentIndex}
             />
           : null)}
 

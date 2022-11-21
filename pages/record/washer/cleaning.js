@@ -5,17 +5,14 @@ import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
+import { equipments } from "../../../Constants";
 import Link from "next/link";
 
 export default function Cleaning() {
-
+  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(
-    {
-      brand: "Medivator", modelNumber: "1A", serialNumber: "21904890", status: "New"
-    }
-  );
+  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
 
   return (
     <Layout>

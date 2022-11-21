@@ -7,17 +7,14 @@ import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import MobileScan from "../../../components/MobileScan";
 import PopupMessage from "../../../components/Modal";
+import { equipments } from "../../../Constants";
 import Link from "next/link";
 
 export default function Washing() {
-
+  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(
-    {
-        brand: "Olympus", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"
-    }
-  );
+  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
 
   return (
     <Layout>
