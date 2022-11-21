@@ -115,7 +115,7 @@ export default function ManageInventory() {
         breadCrumbItems={["Home", "Inventory"]}
         button={<SubHeaderButton text="Export Inventory as CSV" onClickAction={handleClickExport} />}
       >
-        <div className="flex items-center justify-between w-full pt-3">
+        <div className="flex items-center justify-between w-full pt-1">
           <div className="mt-2">
             {tabs.map((tab, i) => (
               <button
@@ -150,13 +150,7 @@ export default function ManageInventory() {
           </div>
         </div>
       </SubHeader>
-      {/* <section className={`${tabs[index] == "Scope" ? "visible" : "invisible"} bg-[#C1C1C1] px-20`}>
-        <div className="grid grid-cols-1 gap-y-0 overflow-y-scroll bg-[#F0F2F5] max-h-screen xl:grid-cols-2 px-10 gap-5 py-5">
-          {equipmentData.map((e, i) => (
-            <EquipmentCard equipmentData={equipmentData[i]} key={i} />
-          ))}
-        </div>
-      </section> */}
+
       <ContainerWrapper>
         <ItemWrapper>
           {equipmentData.map(

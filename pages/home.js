@@ -35,7 +35,7 @@ export default function Home() {
     <Layout>
       <MainHeader heading="Welcome back, Janice Ng" description="What would you like to do today?" details={headerDetails} />
       <SubHeader heading="Home" description="This area displays all the essential information relating to the equipment under tracking" />
-      <section className="grid min-h-screen grid-cols-1 gap-5 px-10 py-5 md:grid-cols-2">
+      <section className="grid min-h-screen grid-cols-1 gap-5 px-8 py-5 md:grid-cols-2">
         <Card title="TO SAMPLE" description="Equipment to be sampled as soon as possible">
           {equipments.slice(0, 3).map((item, i) => {
             return (
