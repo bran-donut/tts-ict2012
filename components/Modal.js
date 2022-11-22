@@ -22,7 +22,7 @@ export default function PopupMessage({ heading, description, leftText, rightText
                                 {/*body*/}
                                 <div className="relative flex-auto py-6 px-7">
                                     <div className="flex items-start">
-                                        <ExclamationCircleOutlined className="pr-4 text-xl align-center text-tts-orange" />
+                                        <ExclamationCircleOutlined className="pt-1 pr-3 text-xl align-center text-tts-orange" />
                                         <div className="flex flex-col gap-2.5">
                                             <p className="inline text-lg font-medium leading-relaxed text-black">{heading}</p>
                                             <div>{description}</div>

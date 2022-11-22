@@ -38,6 +38,12 @@ export default function Home() {
     });
   };
 
+
+  function removeDuplicates(arr) {
+    return arr.filter((item,
+        index) => arr.indexOf(item) === index);
+  } 
+
   useEffect(() => {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     setEquipmentData(items);
@@ -46,6 +52,7 @@ export default function Home() {
       if (checkForSample["dryingFinished"] === "true")
       {
         setSampleArray(sampleArray => [...sampleArray, i]);
+        setSampleArray(removeDuplicates(sampleArray));
       }
     }
     // code below is assuming EQUIPMENT is set in localstorage already (uncomment below once is set)
@@ -67,34 +74,6 @@ export default function Home() {
       <SubHeader heading="Home" description="This area displays all the essential information relating to the equipment under tracking" />
       <section className="grid min-h-screen grid-cols-1 gap-5 px-8 py-5 md:grid-cols-2">
         <Card title="TO SAMPLE" description="Equipment to be sampled as soon as possible">
-          {/* {equipmentData.slice(0, 3).map((item, i) => {
-            return (
-              <ItemCard
-                key={i}
-                index={i}
-                data={item}
-                titles={["Sample by"]}
-                keys={["sampleDate"]}
-                select={false}
-                edit={true}
-                onClickEdit={() => handleEdit(i)}
-              />
-            );
-          })} */}
-
-            {sampleArray.map((e, i) => <ItemCard
-            key={i}
-            index={i}
-            data={equipmentData[e]}
-            titles={["Sample by"]}
-            keys={["sampleDate"]}
-            select={false}
-            edit={true}
-            onClickEdit={() => handleEdit(e)}
-          />)}
-
-        </Card>
-        <Card title="PENDING RESULTS" description="Equipment that are awaiting swab or fluid results">
           {equipmentData.slice(0, 3).map((item, i) => {
             return (
               <ItemCard
@@ -109,6 +88,44 @@ export default function Home() {
               />
             );
           })}
+
+            {/* {sampleArray.map((e, i) => <ItemCard
+            key={i}
+            index={i}
+            data={equipmentData[e]}
+            titles={["Sample by"]}
+            keys={["sampleDate"]}
+            select={false}
+            edit={true}
+            onClickEdit={() => handleEdit(e)}
+          />)} */}
+
+        </Card>
+        <Card title="PENDING RESULTS" description="Equipment that are awaiting swab or fluid results">
+          {/* {equipmentData.slice(0, 3).map((item, i) => {
+            return (
+              <ItemCard
+                key={i}
+                index={i}
+                data={item}
+                titles={["Sample by"]}
+                keys={["sampleDate"]}
+                select={false}
+                edit={true}
+                onClickEdit={() => handleEdit(i)}
+              />
+            );
+          })} */}
+          {sampleArray.map((e, i) => <ItemCard
+            key={i}
+            index={i}
+            data={equipmentData[e]}
+            titles={["Sample by"]}
+            keys={["sampleDate"]}
+            select={false}
+            edit={true}
+            onClickEdit={() => handleEdit(e)}
+          />)}
         </Card>
         <Card title="SAMPLED RESULTS" description="Showing the most recent sampled results" big={true}>
           {equipmentData.slice(0, 2).map((item, i) => {

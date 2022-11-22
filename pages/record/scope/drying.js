@@ -130,7 +130,7 @@ export default function Drying() {
                       Save & Exit
                     </button>
                     <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                      Submit
+                      Submit details
                     </button>
                   </div>
             </form>
@@ -149,8 +149,8 @@ export default function Drying() {
 
           {(showModal ?
             <PopupMessage
-              heading="Submit"
-              description="Are you sure you want to submit?"
+              heading="Submit details"
+              description="Confirm submission of details? This will set the equipment status to Pending Results."
               leftText="Cancel"
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
