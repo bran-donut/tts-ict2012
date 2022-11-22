@@ -150,7 +150,7 @@ export default function Drying() {
 
           {(showModal ?
             <PopupMessage
-              heading="Submit details"
+              heading="Submit Details"
               description="Confirm submission of details? This will set the equipment status to Pending Results."
               leftText="Cancel"
               rightText="Submit"
