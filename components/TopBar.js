@@ -1,6 +1,7 @@
 import Logo from "../assets/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import NotificationList from "./Notification";
 
 import { SearchOutlined, BellOutlined, UserOutlined } from "@ant-design/icons";
 
@@ -21,14 +22,7 @@ export default function TopBar(props) {
         </button>
       </div>
       <div className="flex flex-row items-center gap-10">
-        <span className="relative flex flex-row items-center">
-          <BellOutlined className="scale-150" />
-          {props.notificationCount ? (
-            <p className="absolute inline-flex items-center justify-center w-4 h-4 text-xs text-white bg-[#FF4D4F] rounded-full left-2 -top-2">
-              {props.notificationCount}
-            </p>
-          ) : null}
-        </span>
+      <NotificationList notificationCount={props.notificationCount} />
         <UserOutlined className="scale-150" />
       </div>
     </div>

@@ -6,19 +6,16 @@ import SubHeader from "../../../components/SubHeader";
 import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
+import { equipments } from "../../../Constants";
 import Link from "next/link";
 
 import DisabledDropdown from "../../../components/DisabledDropdown";
 
 export default function Sampling() {
-
+  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(
-    {
-        brand: "Olympus", scopeType: "tracheal intubation", modelNumber: "TJF403", serialNumber: "21904890", status: "New"
-    }
-  );
+  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
 
   return (
     <Layout>
@@ -26,62 +23,8 @@ export default function Sampling() {
       <SubHeader
       heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
       description="Record the details of equipment sampling"
-      breadCrumbItems={["Home", "Schedule", "View", "Record"]}
+      breadCrumbItems={["Home", "Schedule", "View", "Record Result"]}
       />
-
-<div className="flex flex-col items-center justify-center min-w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-          <ol className="items-center sm:flex ">
-              <li className="relative w-64 mb-6 ml-36 sm:mb-0">
-                  <div className="flex items-center">
-                  <Link href="/record/scope/cleaning">
-                      <div className="bg-[#1890FF]  hover:bg-[#1890FF]/80 hover:cursor-pointer ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
-                      </div>
-                  </Link>
-                      <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
-                  </div>
-                  <div className="mt-3 sm:pr-8">
-                  <h3 className="pl-2 text-lg font-normal text-gray-900">Manual Cleaning</h3>                    
-                  </div>
-              </li>
-              <li className="relative w-64 mb-6 sm:mb-0">
-                  <div className="flex items-center ">
-                  <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
-                  <Link href="/record/scope/washing">
-                   <div className="bg-[#1890FF] z-10  hover:bg-[#1890FF]/80 hover:cursor-pointer flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
-                      </div>
-                  </Link>
-                      <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
-                  </div>
-                  <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg font-normal text-gray-900">Washing</h3>                    
-                  </div>
-              </li>
-              <li className="relative w-64 mb-6 sm:mb-0">
-                  <div className="flex items-center">
-                  <div className="bg-[#1890FF] hidden sm:flex w-[1.125rem] h-0.5"></div>
-                  <Link href="/record/scope/drying">
-                    <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
-                      </div>
-                  </Link>
-                      <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
-                  </div>
-                  <div className="mt-3 sm:pr-8">
-                  <h3 className="text-lg font-normal text-gray-900">Drying</h3>                
-                  </div>
-              </li>
-              <li className="relative w-64 mb-6 sm:mb-0">
-                  <div className="flex items-center">
-                  <div className="bg-[#1890FF] hidden sm:flex w-7 h-0.5"></div>
-                  <div className="bg-[#1890FF] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
-                      </div>
-                      <div></div>
-                  </div>
-                  <div className="mt-3">
-                      <h3 className="text-lg font-semibold text-gray-900">Sampling</h3>                
-                  </div>
-              </li>
-          </ol>
-      </div>
 
       <section className="grid grid-flow-row bg-#f0f2f5">
           <form>
@@ -94,10 +37,12 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DateInput
                 menuHeader="Date of Result"
+                tooltipText="Date of scope sampling result"
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
                 menuItems={["Growth", "No Growth"]}
+                tooltipText="Result of bacteria growth"
                 />
                 <Input
                 menuHeader="Culture Comment"
@@ -113,10 +58,12 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DateInput
                 menuHeader="Date of Result"
+                tooltipText="Date of scope sampling repeat result"
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
-                menuItems={["Growth", "No Growth"]}         
+                menuItems={["Growth", "No Growth"]}
+                tooltipText="Result of bacteria growth"    
                 />
 
                 <Input
@@ -127,7 +74,8 @@ export default function Sampling() {
                 />
                 <Dropdown
                 menuHeader="Room to Perform"
-                menuItems={["ENDO MS ROOM", "CLEAN", "REPROCESSING ROOM", "2B ENDO", "OTHERS"]}   
+                menuItems={["ENDO MS ROOM", "CLEAN", "REPROCESSING ROOM", "2B ENDO", "OTHERS"]}  
+                tooltipText="Room location of repeated sampling"   
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -137,7 +85,10 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                   <DisabledDropdown
                     menuHeader="Quarantine Required"
-                    borescope="borescope"  
+                    borescope="borescope" 
+                    tooltipText="The scope is required to be sent for quarantine if the fluid result comes back positive"
+                    repeatDateTooltip="Date for repeat sampling"
+                    borescopeTooltip="Borescope instrument is used to inspect the inside of a structure through a small hole"
                     />
                 </div>
                 <div className="p-5 bg-white">
@@ -149,6 +100,7 @@ export default function Sampling() {
                 menuHeader="Circulated By"
                 menuItems={["Janice", "Nina"]}  
                 drop="drop"
+                tooltipText="Personnel who circulated the equipment"
                 />
                 </div>
                 <div className="mb-12"></div>
@@ -157,15 +109,15 @@ export default function Sampling() {
             
             
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/record/scope/drying">
+                    <Link href="/schedule">
                     <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
-                      Previous Step
+                      Back
                     </a>
                     </Link>
-                    <button type="submit" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
+                    <button type="button" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                       Save & Exit
                     </button>
-                    <button type="submit" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
+                    <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
                       Submit
                     </button>
                   </div>
@@ -190,7 +142,8 @@ export default function Sampling() {
               leftText="Cancel"
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
-              link="/schedule"
+              link="/home"
+              equipmentIndex={equipmentIndex}
             />
           : null)}
 

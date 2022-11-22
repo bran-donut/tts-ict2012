@@ -82,9 +82,12 @@ export default function ManageInventory() {
   useEffect(() => {
     let items = window.localStorage.getItem("equipments");
     setEquipmentData(JSON.parse(items));
+  }, [])
+
+  useEffect(() => {
     setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
     setMainActionIndex(router.query.action ? mainActions.indexOf(router.query.action) : 0);
-  }, [])
+  }, []);
 
   useEffect(() => {
     router.push("/inventory/manage?view=" + tabs[index] + "&action=" + mainActions[mainActionIndex], undefined, { shallow: true });

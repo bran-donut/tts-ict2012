@@ -18,7 +18,6 @@ export default function AddEquipment() {
     const [index, setIndex] = useState(0);
     const [equipmentData, setEquipmentData] = useState([]);
 
-
     useEffect(() => {
         let items = window.localStorage.getItem("equipments");
         setEquipmentData(JSON.parse(items));

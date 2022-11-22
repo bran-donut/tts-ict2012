@@ -12,7 +12,7 @@ import Link from "next/link";
 export default function EditEquipment() {
   const router = useRouter();
 
-  const [equipmentData, setEquipmentData] = useState({});
+  const [equipmentData, setEquipmentData] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
 
   useEffect(() => {

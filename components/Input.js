@@ -2,7 +2,7 @@ import React from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import Tooltip from "../components/Tooltip";
 
-export default function Input({ inputValue, menuHeader, tooltipText }) {
+export default function Input({ menuHeader, tooltipText }) {
 
 
   return (
@@ -15,7 +15,7 @@ export default function Input({ inputValue, menuHeader, tooltipText }) {
             </Tooltip>) : (<p className="inline text-gray-400">(optional)</p>)}
         </div>
       <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-      {tooltipText ? (<input type="text" placeholder="Input" value={inputValue ? inputValue : ''} className="w-full outline-none" required />) : (<input type="text" placeholder="Input" value={inputValue ? inputValue : ''} className="w-full outline-none"/>)}
+      {tooltipText ? (<input type="text" placeholder="Input" className="w-full outline-none" required />) : (<input type="text" placeholder="Input" className="w-full outline-none"/>)}
       </div>
   </div>
   );

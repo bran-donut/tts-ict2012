@@ -60,7 +60,7 @@ export default function ManageSchedule() {
   };
 
   const handleEdit = (i) => {
-    // const { brand, scopeType, modelNumber, serialNumber, sampleDate } = equipments[i];
+    // const { brand, scopeType, modelNumber, serialNumber, sampleDate } = equipmentData[i];
     setShowModal(true);
     setEditItem(equipmentData[i]);
   };
@@ -117,9 +117,12 @@ export default function ManageSchedule() {
   useEffect(() => {
     let items = window.localStorage.getItem("equipments");
     setEquipmentData(JSON.parse(items));
+  }, [])
+
+  useEffect(() => {
     setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
     setMainActionIndex(router.query.action ? mainActions.indexOf(router.query.action) : 0);
-  }, [])
+  }, []);
 
   useEffect(() => {
     router.push("/schedule/manage?view=" + tabs[index] + "&action=" + mainActions[mainActionIndex], undefined, { shallow: true });

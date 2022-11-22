@@ -21,7 +21,7 @@ export default function InventoryDetails() {
     const [changeConfirmation, setChangeConfirmation] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const {brand, scopeType, type, modelNumber, serialNumber, status, samplingStatus, frequency, sampleDate} = selectedItem;
+    const { brand, scopeType, type, modelNumber, serialNumber, status, samplingStatus, frequency, sampleDate } = selectedItem;
 
     const toggleDropdown = () => setShowDropdown(!showDropdown);
 
@@ -86,7 +86,7 @@ export default function InventoryDetails() {
         const item = items[router.query.index];
         setSelectedItem(item);
         setRepairStatus(item.samplingStatus.includes('Repair') ? 1 : 0);
-      }, []);
+    }, []);
 
     return (
         <Layout>
