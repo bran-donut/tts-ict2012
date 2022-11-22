@@ -1,5 +1,6 @@
 import Layout from "../../../layouts/Layout";
 import { useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -9,15 +10,38 @@ import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
 
 export default function Washing() {
+  const router = useRouter();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
-    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
     let items = JSON.parse(window.localStorage.getItem("equipments"));
-    setEquipmentData(items[equipmentIndex]);
+    const item = items[router.query.index];
+    setEquipmentData(item);
   }, [])
+
+  const handleEdit = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/drying",
+      query: { index: i },
+    });
+  };
+
+  const handleReturn = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/cleaning",
+      query: { index: i },
+    });
+  };
 
   return (
     <Layout>
@@ -125,11 +149,9 @@ export default function Washing() {
 
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/record/washer/cleaning">
-                    <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
+                    <a onClick={()=> handleReturn(router.query.index)} className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
-                    </Link>
                     <button type="button" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                       Save & Exit
                     </button>
@@ -158,7 +180,8 @@ export default function Washing() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/record/washer/drying"
+              equipmentIndex={router.query.index}
+              onClickEdit={() => handleEdit(router.query.index)}
             />
           : null)}
 

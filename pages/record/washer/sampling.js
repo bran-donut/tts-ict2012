@@ -1,5 +1,6 @@
 import Layout from "../../../layouts/Layout";
 import { useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -16,9 +17,9 @@ export default function Sampling() {
   const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
-    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
     let items = JSON.parse(window.localStorage.getItem("equipments"));
-    setEquipmentData(items[equipmentIndex]);
+    const item = items[router.query.index];
+    setEquipmentData(item);
   }, [])
 
   return (
@@ -132,7 +133,7 @@ export default function Sampling() {
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
               link="/home"
-              equipmentIndex={equipmentIndex}
+              equipmentIndex={router.query.index}
             />
           : null)}
 

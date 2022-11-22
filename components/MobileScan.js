@@ -1,15 +1,20 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MobileOutlined, LoadingOutlined, ScanOutlined, InfoCircleOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import Tooltip from "../components/Tooltip";
 
 
-export default function MobileScan({ menuHeader, tooltipText }) {
-
+export default function MobileScan({ menuHeader, tooltipText, saveState, index }) {
+  const [saveText, setSaveText] = useState({"item":""});
 const [selected, setSelected] = useState(false);
 const [text, setText] = useState("");
 const [showModal, setShowModal] = useState(false);
 
+useEffect(() => {
+  let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+index));
+  saveText.item ? savedItems[saveState] = saveText.item : setSaveText({item: savedItems[saveState]});
+  window.localStorage.setItem("savedstate"+index, JSON.stringify(savedItems));
+}, [saveText.item])
 
   return (
     <>
@@ -22,7 +27,7 @@ const [showModal, setShowModal] = useState(false);
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-            <input type="text" placeholder="Input" className="w-full outline-none" value={text.item} required />
+            <input type="text" placeholder="Input" className="w-full outline-none" value={saveText.item}  required />
             <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
         </div>
     </div>

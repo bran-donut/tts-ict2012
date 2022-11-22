@@ -196,19 +196,19 @@ export default function ViewSchedule() {
 
   const handleEdit = (i) => {
     let type;
+    let step;
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
-    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED' + i);
-    let step;
-    window.localStorage.setItem('EQUIPMENT', i);
-    formSubmitted === "true" ? step = "/sampling" : step = "/cleaning";
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
+    savedItems["dryingFinished"] === "true" ? step = "/sampling" : step = "/cleaning";
 
     Router.push({
       pathname: "/record/" + type + step,
       query: { index: i },
     });
   };
+  
 
   const scrollToToday = () => {
     scrollRef.current.scrollTo({
@@ -309,10 +309,10 @@ export default function ViewSchedule() {
       {index == 0 ?
         view == "View by: Day" ? (
           <div className="bg-gray-300 px-28">
-            <div ref={scrollRef} className="py-4 px-8 bg-tts-background overflow-y-auto max-h-screen">
+            <div ref={scrollRef} className="max-h-screen px-8 py-4 overflow-y-auto bg-tts-background">
               {[...Array(30)].map((e, i) =>
                 <div key={i}>
-                  <div ref={i + 1 == 17 ? todayRef : null} className="w-full my-3 h-3 border-b border-gray-300">
+                  <div ref={i + 1 == 17 ? todayRef : null} className="w-full h-3 my-3 border-b border-gray-300">
                     <div className={`pl-2 pr-4 ml-4 bg-tts-background w-fit ${i + 1 == 17 ? 'text-tts-red font-bold' : ''}`}>{(i + 1 == 16 && 'Yesterday,') || (i + 1 == 17 && 'Today,')} {i + 1} Nov 22</div>
                   </div>
                   <ItemWrapper className="px-4">
@@ -325,8 +325,8 @@ export default function ViewSchedule() {
             </div>
           </div>
         ) : (
-          <div className="pt-2 pb-32 px-40 relative bg-tts-background">
-            <div className="flex gap-10 absolute top-6 ml-4">
+          <div className="relative px-40 pt-2 pb-32 bg-tts-background">
+            <div className="absolute flex gap-10 ml-4 top-6">
               <Badge status="error" text="Awaiting Sample" />
               <Badge status="warning" text="Pending Result" />
               <Badge status="success" text="Regular" />
