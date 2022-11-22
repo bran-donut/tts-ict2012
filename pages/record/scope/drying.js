@@ -31,6 +31,17 @@ export default function Drying() {
     });
   };
 
+  const handleReturnClean = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/cleaning",
+      query: { index: i },
+    });
+  };
+
   const handleDrying = (i) => {
     let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
     savedItems["dryingFinished"] = "true";
@@ -50,10 +61,9 @@ export default function Drying() {
           <ol className="items-center sm:flex ">
               <li className="relative mb-6 w-80 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                    <Link href="/record/scope/cleaning">
-                      <div className="bg-[#1890FF] hover:cursor-pointer hover:bg-[#1890FF]/80 ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+
+                      <div onClick={()=> handleReturnClean(router.query.index)} className="bg-[#1890FF] hover:cursor-pointer hover:bg-[#1890FF]/80 ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
-                    </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
@@ -63,10 +73,8 @@ export default function Drying() {
               <li className="relative mb-6 w-80 sm:mb-0">
                   <div className="flex items-center ">
                   <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
-                  <Link href="/record/scope/washing">
-                    <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                    <div onClick={()=> handleReturn(router.query.index)} className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
-                  </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
