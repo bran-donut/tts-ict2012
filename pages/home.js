@@ -2,8 +2,7 @@ import Layout from "../layouts/Layout";
 import MainHeader from "../components/MainHeader";
 import SubHeader from "../components/SubHeader";
 import { ItemCard } from "../components/EquipmentCard";
-import { equipments } from "../Constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Router from "next/router";
 
 const headerDetails = [
@@ -18,7 +17,7 @@ const headerDetails = [
 ];
 
 export default function Home() {
-  const [equipmentData, setEquipmentData] = useState(equipments);
+  const [equipmentData, setEquipmentData] = useState([]);
 
   const handleEdit = (i) => {
     let type;
@@ -36,13 +35,18 @@ export default function Home() {
     });
   };
 
+  useEffect(() => {
+    let items = window.localStorage.getItem("equipments");
+    setEquipmentData(JSON.parse(items));
+  }, [])
+
   return (
     <Layout>
       <MainHeader heading="Welcome back, Janice Ng" description="What would you like to do today?" details={headerDetails} />
       <SubHeader heading="Home" description="This area displays all the essential information relating to the equipment under tracking" />
       <section className="grid min-h-screen grid-cols-1 gap-5 px-8 py-5 md:grid-cols-2">
         <Card title="TO SAMPLE" description="Equipment to be sampled as soon as possible">
-          {equipments.slice(0, 3).map((item, i) => {
+          {equipmentData.slice(0, 3).map((item, i) => {
             return (
               <ItemCard
                 key={i}
@@ -58,7 +62,7 @@ export default function Home() {
           })}
         </Card>
         <Card title="PENDING RESULTS" description="Equipment that are awaiting swab or fluid results">
-          {equipments.slice(0, 3).map((item, i) => {
+          {equipmentData.slice(0, 3).map((item, i) => {
             return (
               <ItemCard
                 key={i}
@@ -74,7 +78,7 @@ export default function Home() {
           })}
         </Card>
         <Card title="SAMPLED RESULTS" description="Showing the most recent sampled results" big={true}>
-          {equipments.slice(0, 2).map((item, i) => {
+          {equipmentData.slice(0, 2).map((item, i) => {
             return (
               <ItemCard
                 key={i}

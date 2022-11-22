@@ -2,7 +2,6 @@ import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
 import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import MainHeader from "../../components/MainHeader";
-import { equipments } from "../../Constants";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
 import { AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
 import { exportCSVFile } from "../../Helpers";
@@ -18,7 +17,7 @@ const mainActions = ['Edit', 'Remove'];
 export default function ManageInventory() {
   const router = useRouter();
 
-  const [equipmentData, setEquipmentData] = useState(equipments);
+  const [equipmentData, setEquipmentData] = useState([]);
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showLoadingModal, setShowLoadingModal] = useState(false);
@@ -81,6 +80,11 @@ export default function ManageInventory() {
   };
 
   useEffect(() => {
+    let items = window.localStorage.getItem("equipments");
+    setEquipmentData(JSON.parse(items));
+  }, [])
+
+  useEffect(() => {
     setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
     setMainActionIndex(router.query.action ? mainActions.indexOf(router.query.action) : 0);
   }, [router.query]);
@@ -107,7 +111,7 @@ export default function ManageInventory() {
       <MainHeader
         heading="Inventory"
         description="View all the equipment and miscellaneous inside the system"
-        details={[{ title: "Total Equipment in Inventory", subtitle: equipments.length }]}
+        details={[{ title: "Total Equipment in Inventory", subtitle: equipmentData.length }]}
       />
       <SubHeader
         heading={tabs[index]}
@@ -168,10 +172,7 @@ export default function ManageInventory() {
               />
           )}
         </ItemWrapper>
-        {/* <ItemWrapper
-          items={equipments}
-          currentAction={tabs[index]}
-        /> */}
+
       </ContainerWrapper>
       <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
         {/* <Link href="/inventory">

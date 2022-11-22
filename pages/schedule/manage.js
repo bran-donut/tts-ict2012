@@ -7,7 +7,6 @@ import { FilterOutlined, AlignLeftOutlined } from "@ant-design/icons";
 import React from "react";
 import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import PopupMessage from "../../components/Modal";
-import { equipments } from "../../Constants";
 import { convertDate } from "../../Helpers";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import ActionButton from "../../components/ActionButton";
@@ -19,7 +18,7 @@ const mainActions = ["Edit", "Add", "Remove"];
 export default function ManageSchedule() {
   const router = useRouter();
 
-  const [equipmentData, setEquipmentData] = useState(equipments);
+  const [equipmentData, setEquipmentData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showConfirmEditModal, setShowConfirmEditModal] = useState(false);
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -61,9 +60,9 @@ export default function ManageSchedule() {
   };
 
   const handleEdit = (i) => {
-    // const { brand, scopeType, modelNumber, serialNumber, sampleDate } = equipments[i];
+    // const { brand, scopeType, modelNumber, serialNumber, sampleDate } = equipmentData[i];
     setShowModal(true);
-    setEditItem(equipments[i]);
+    setEditItem(equipmentData[i]);
   };
 
   const handleSelect = (e, action) => {
@@ -114,6 +113,11 @@ export default function ManageSchedule() {
     setShowSuccessModal(false);
     setRemoveItem([]);
   }
+
+  useEffect(() => {
+    let items = window.localStorage.getItem("equipments");
+    setEquipmentData(JSON.parse(items));
+  }, [])
 
   useEffect(() => {
     setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
@@ -187,7 +191,7 @@ export default function ManageSchedule() {
       <ContainerWrapper>
         {/* {index == 1 ? (
           <ItemWrapper>
-            {equipments.map((item, i) => {
+            {equipmentData.map((item, i) => {
               let display = false;
               if (actionValues.includes("Scope")) {
                 if (item.scopeType) display = true;
@@ -202,7 +206,7 @@ export default function ManageSchedule() {
           </ItemWrapper>
         ) : (
           <ItemWrapper
-            items={equipments}
+            items={equipmentData}
             currentAction={actionValues}
             titles={["Frequency", "Next Sample Date"]}
             keys={["frequency", "sampleDate"]}

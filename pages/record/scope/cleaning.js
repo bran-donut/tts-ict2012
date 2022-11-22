@@ -15,10 +15,12 @@ export default function Cleaning() {
   const [accessionNum, setAccessionNum] = useState();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
+  const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
     setAccessionNum(Math.floor(Math.random() * 100000000))
+    let items = JSON.parse(window.localStorage.getItem("equipments"));
+    setEquipmentData(items[equipmentIndex]);
   }, [])
 
   return (

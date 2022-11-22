@@ -5,7 +5,6 @@ import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
-import { equipments } from "../../../Constants";
 import Link from "next/link";
 
 export default function Cleaning() {
@@ -13,10 +12,12 @@ export default function Cleaning() {
   const [accessionNum, setAccessionNum] = useState();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
+  const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
     setAccessionNum(Math.floor(Math.random() * 100000000))
+    let items = JSON.parse(window.localStorage.getItem("equipments"));
+    setEquipmentData(items[equipmentIndex]);
   }, [])
 
   return (

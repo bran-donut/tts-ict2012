@@ -6,18 +6,22 @@ import MainHeader from "../../components/MainHeader";
 import SubHeader from "../../components/SubHeader";
 import MobileScan from "../../components/MobileScan";
 import Input from "../../components/Input";
-import { equipments } from "../../Constants";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function EditEquipment(props) {
+export default function EditEquipment() {
   const router = useRouter();
 
-  const [equipmentType, setEquipmentType] = useState("Scope");
   const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
-    setEquipmentData(equipments[router.query.index]);
-    console.log(equipments[router.query.index]);
+    let items = window.localStorage.getItem("equipments");
+    setEquipmentData(JSON.parse(items));
+  }, [])
+
+  useEffect(() => {
+    setEquipmentData(equipmentData[router.query.index]);
+    console.log(equipmentData[router.query.index]);
   }, [router.query.index]);
 
   return (
@@ -25,7 +29,7 @@ export default function EditEquipment(props) {
       <MainHeader
         heading="Inventory"
         description="View all the equipment and miscellaneous inside the system"
-        details={[{ title: 'Total Equipment in Inventory', subtitle: equipments.length }]}
+        details={[{ title: 'Total Equipment in Inventory', subtitle: equipmentData.length }]}
       />
       <SubHeader
         heading="Edit Equipment"
@@ -102,7 +106,7 @@ export default function EditEquipment(props) {
                         <input type="text" placeholder="Input" className="w-full outline-none" required />
                       </div>
                     </div> */}
-                     <Input
+                    <Input
                       inputValue={equipmentData.frequency}
                       menuHeader="Frequency"
                     />
@@ -128,12 +132,16 @@ export default function EditEquipment(props) {
             }
 
             <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-              <a href="/inventory" className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
-                Back
-              </a>
-              <a href="/inventory" className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                Save
-              </a>
+              <Link href="/inventory">
+                <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
+                  Back
+                </a>
+              </Link>
+              <Link href="/inventory">
+                <a className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
+                  Save
+                </a>
+              </Link>
             </div>
 
           </form>

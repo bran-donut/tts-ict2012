@@ -2,7 +2,6 @@ import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
 import EquipmentCard, { ItemWrapper } from "../../components/EquipmentCard";
 import MainHeader from "../../components/MainHeader";
-import { equipments } from "../../Constants";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
 import { AlignLeftOutlined, FilterOutlined } from "@ant-design/icons";
 import { exportCSVFile } from "../../Helpers";
@@ -17,7 +16,7 @@ const actions = ["Filter By", "Sort By"];
 export default function ViewInventory() {
   const router = useRouter();
 
-  const [equipmentData, setEquipmentData] = useState(equipments);
+  const [equipmentData, setEquipmentData] = useState([]);
   const [index, setIndex] = useState(0);
   const [actionValues, setActionValues] = useState([]);
 
@@ -37,12 +36,17 @@ export default function ViewInventory() {
       frequency: "frequency",
       sampleDate: "sampleDate",
     };
-    exportCSVFile(headers, equipments, "");
+    exportCSVFile(headers, equipmentData, "");
   };
 
   const handleClickCard = (i) => {
     router.push("/inventory/details?index=" + i);
   }
+
+  useEffect(() => {
+    let items = window.localStorage.getItem("equipments");
+    setEquipmentData(JSON.parse(items));
+  }, [])
 
   useEffect(() => {
     console.log(router.query.view);
@@ -59,7 +63,7 @@ export default function ViewInventory() {
       <MainHeader
         heading="Inventory"
         description="View all the equipment and miscellaneous inside the system"
-        details={[{ title: "Total Equipment in Inventory", subtitle: equipments.length }]}
+        details={[{ title: "Total Equipment in Inventory", subtitle: equipmentData.length }]}
       />
       <SubHeader
         heading={tabs[index]}
