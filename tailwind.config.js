@@ -25,7 +25,10 @@ module.exports = {
         "tts-background": "#f0f2f5",
       },
       maxHeight: {
-        "screen" : "calc(100vh - 194px)"
+        "screen" : "calc(100vh - 354px)"
+      },
+      minHeight: {
+        "screen" : "calc(100vh - 354px)"
       }
     },
   },
