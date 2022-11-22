@@ -82,7 +82,7 @@ export default function Washing() {
                 status = "required"
                 tooltipText = "The identification LOT number assigned to the disinfectant that can be found on the packaging"
                 />
-                <Input
+                <DateInput
                 menuHeader="Disinfectant Changed"
                 status = "required"
                 tooltipText = "Disinfectant change date"
