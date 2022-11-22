@@ -59,7 +59,7 @@ export function NavItem({ className, link, icon, text, main = true, subItems = f
               <div className="inline-flex shrink-0">{icon}</div>
               <span className={"truncate shrink-0 " + (main ? "uppercase font-bold" : "")}>{text}</span>
               <div className="flex ml-auto">
-                {expand ? <DownOutlined /> : <UpOutlined />}
+                {expand ? <UpOutlined /> : <DownOutlined />}
               </div>
             </button>
           </>

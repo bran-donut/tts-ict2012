@@ -1,5 +1,6 @@
 import Layout from "../../../layouts/Layout";
 import { useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -8,6 +9,7 @@ import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
 
 export default function Cleaning() {
+  const router = useRouter();
   const [accessionNum, setAccessionNum] = useState();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
@@ -15,10 +17,21 @@ export default function Cleaning() {
 
   useEffect(() => {
     setAccessionNum(Math.floor(Math.random() * 100000000));
-    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
     let items = JSON.parse(window.localStorage.getItem("equipments"));
-    setEquipmentData(items[equipmentIndex]);
+    const item = items[router.query.index];
+    setEquipmentData(item);
   }, [])
+
+  const handleEdit = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/washing",
+      query: { index: i },
+    });
+  };
 
   return (
     <Layout>
@@ -87,6 +100,8 @@ export default function Cleaning() {
                 <DateInput
                 menuHeader="Date of Collection"
                 tooltipText="Collection date of sample"
+                saveState="cleanDateOfCollection"
+                index={router.query.index}
                 />
                 {/* <div className="py-1 input-group">
                     <div className="flex flex-row items-center justify-start pb-1">
@@ -107,6 +122,8 @@ export default function Cleaning() {
                 menuHeader="Scope Status"
                 menuItems={["Regular", "Loan", "Post Repair", "New"]}
                 tooltipText="Current status of the scope"
+                saveState="cleanScopeStatus"
+                index={router.query.index}
                 />
               </div>
               <div className="p-5 bg-white">
@@ -119,12 +136,16 @@ export default function Cleaning() {
                 menuItems={["Janice Ng", "Mandy"]}
                 drop="drop"
                 tooltipText="Personnel who washed the equipment"
+                saveState="cleanWashedBy"
+                index={router.query.index}
                 />
                 <Dropdown
                 menuHeader="Collected by"
                 menuItems={["Janice Ng", "Gan"]}
                 drop="drop"
                 tooltipText="Personnel who collected the equipment"
+                saveState="cleanCollectedBy"
+                index={router.query.index}
                 />
                 <div className="mb-5"></div>
               </div>
@@ -155,7 +176,7 @@ export default function Cleaning() {
           leftText="Cancel"
           rightText="Save & Exit"
           onClickClose={() => setShowExitModal(false)}
-          link="/view"
+          link="/schedule"
         />
         : null)}
 
@@ -166,7 +187,7 @@ export default function Cleaning() {
           leftText="Cancel"
           rightText="Save & Continue"
           onClickClose={() => setShowContinueModal(false)}
-          link="/record/scope/washing"
+          onClickEdit={() => handleEdit(router.query.index)}
         />
         : null)}
     </Layout>

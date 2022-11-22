@@ -1,7 +1,7 @@
 import Layout from "../../layouts/Layout";
 import MainHeader from "../../components/MainHeader";
 import SubHeader from "../../components/SubHeader";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useReducer, useState } from "react";
 import { CalendarOutlined, FilterOutlined, FileTextOutlined } from "@ant-design/icons";
 import { sampleSchedule } from "../../Constants";
 import EquipmentCard, { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
@@ -9,6 +9,7 @@ import Router, { useRouter } from "next/router";
 import ActionButton from "../../components/ActionButton";
 import { Calendar, Badge } from "antd";
 import ContainerWrapper from "../../components/ContainerWrapper";
+import Dropdown from "../../components/Dropdown";
 
 const tabs = ["Sample Schedule", "Off Schedule"];
 const actions = ["Jump to date", "View by: Day", "Filter By"];
@@ -33,10 +34,21 @@ export default function ViewSchedule() {
   const scrollRef = useRef();
   const todayRef = useRef();
 
-  const [index, setIndex] = useState(0);
   const [equipmentData, setEquipmentData] = useState([]);
+  const [sortedData, setSortedData] = useState([]);
+  const [index, setIndex] = useState(0);
   const [actionValues, setActionValues] = useState([]);
   const [view, setView] = useState("View by: Day");
+  const [clearFilter, setClearFilter] = useState(false);
+  const [filterValues, setFilterValues] = useState({
+    0: '',
+    1: '',
+    2: ''
+  });
+  const [showFilterOptions, toggleShowFilterOptions] = useReducer(
+    showFilterOptions => !showFilterOptions,
+    false
+  );
 
   const getListData = (value) => {
     let listData;
@@ -151,21 +163,52 @@ export default function ViewSchedule() {
     }
   };
 
+  const handleClickFilter = (filterBy, filter) => {
+    setClearFilter(false);
+    switch (filterBy) {
+      case 0:
+        setFilterValues({
+          ...filterValues,
+          0: filter
+        })
+        break;
+      case 1:
+        setFilterValues({
+          ...filterValues,
+          1: filter
+        })
+        break;
+      case 2:
+        setFilterValues({
+          ...filterValues,
+          2: filter
+        })
+        break;
+      default:
+        setFilterValues({
+          0: '',
+          1: '',
+          2: ''
+        })
+        setClearFilter(true);
+    }
+  }
+
   const handleEdit = (i) => {
     let type;
+    let step; 
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
-    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED' + i);
-    let step;
-    window.localStorage.setItem('EQUIPMENT', i);
-    formSubmitted === "true" ? step = "/sampling" : step = "/cleaning";
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
+    savedItems["dryingFinished"] === "true" ? step = "/sampling" : step = "/cleaning";
 
     Router.push({
       pathname: "/record/" + type + step,
       query: { index: i },
     });
   };
+  
 
   const scrollToToday = () => {
     scrollRef.current.scrollTo({
@@ -179,9 +222,14 @@ export default function ViewSchedule() {
   }
 
   useEffect(() => {
-    let items = window.localStorage.getItem("equipments");
-    setEquipmentData(JSON.parse(items));
+    let items = JSON.parse(window.localStorage.getItem("equipments"));
+    setEquipmentData(items);
+    setSortedData(items);
   }, [])
+
+  useEffect(() => {
+    if (showFilterOptions) toggleShowFilterOptions();
+  }, [index])
 
   return (
     <Layout>
@@ -203,9 +251,9 @@ export default function ViewSchedule() {
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-4 ">
+          <div className="flex items-center gap-4 relative">
             {index == 0 ?
-              actions.map((action, i) => (
+              actions.slice(0, -1).map((action, i) => (
                 <ActionButton
                   key={i}
                   index={i}
@@ -218,11 +266,42 @@ export default function ViewSchedule() {
               ))
               :
               // only filter for off schedule
-              <ActionButton
-                name={actions[2]}
-                onClickAction={handleClickAction}
-                icon={<FilterOutlined />}
-              />
+              <>
+                <ActionButton
+                  name={actions[2]}
+                  onClickAction={toggleShowFilterOptions}
+                  icon={<FilterOutlined />}
+                />
+                {showFilterOptions &&
+                  <div className="absolute w-[200%] top-10 right-0 bg-white pb-2">
+                    <div className="p-2">
+                      <h3 className="px-4 pb-2 font-medium">Filter By</h3>
+                      <hr></hr>
+                    </div>
+                    <div className="px-4">
+                      <Dropdown
+                        placeHolder="Brand"
+                        menuItems={['FUJINON', 'OLYMPUS', 'PENTAX', 'STORZ']}
+                        onClickSelect={(filter) => handleClickFilter(0, filter)}
+                        clearValue={clearFilter}
+                      />
+                      <Dropdown
+                        placeHolder="Scope Type"
+                        menuItems={['OGD', 'OGD THERAPEUTIC', 'COLONOSCOPE', 'TRACHEAL INTUBATION']}
+                        onClickSelect={(filter) => handleClickFilter(1, filter)}
+                        clearValue={clearFilter}
+                      />
+                      <Dropdown
+                        placeHolder="Status"
+                        menuItems={['Regular', 'Loan', 'Post Repair', 'Repeat', 'New']}
+                        onClickSelect={(filter) => handleClickFilter(2, filter)}
+                        clearValue={clearFilter}
+                      />
+                      <button className="rounded-md bg-tts-red text-white w-1/2 mt-2 py-1" onClick={handleClickFilter}>Clear</button>
+                    </div>
+                  </div>
+                }
+              </>
             }
           </div>
         </div>
@@ -230,10 +309,10 @@ export default function ViewSchedule() {
       {index == 0 ?
         view == "View by: Day" ? (
           <div className="bg-gray-300 px-28">
-            <div ref={scrollRef} className="py-4 px-8 bg-tts-background overflow-y-auto max-h-screen">
+            <div ref={scrollRef} className="max-h-screen px-8 py-4 overflow-y-auto bg-tts-background">
               {[...Array(30)].map((e, i) =>
                 <div key={i}>
-                  <div ref={i + 1 == 17 ? todayRef : null} className="w-full my-3 h-3 border-b border-gray-300">
+                  <div ref={i + 1 == 17 ? todayRef : null} className="w-full h-3 my-3 border-b border-gray-300">
                     <div className={`pl-2 pr-4 ml-4 bg-tts-background w-fit ${i + 1 == 17 ? 'text-tts-red font-bold' : ''}`}>{(i + 1 == 16 && 'Yesterday,') || (i + 1 == 17 && 'Today,')} {i + 1} Nov 22</div>
                   </div>
                   <ItemWrapper className="px-4">
@@ -246,8 +325,8 @@ export default function ViewSchedule() {
             </div>
           </div>
         ) : (
-          <div className="pt-2 pb-32 px-40 relative bg-tts-background">
-            <div className="flex gap-10 absolute top-6 ml-4">
+          <div className="relative px-40 pt-2 pb-32 bg-tts-background">
+            <div className="absolute flex gap-10 ml-4 top-6">
               <Badge status="error" text="Awaiting Sample" />
               <Badge status="warning" text="Pending Result" />
               <Badge status="success" text="Regular" />
@@ -258,8 +337,26 @@ export default function ViewSchedule() {
         :
         <ContainerWrapper>
           <ItemWrapper>
-            <EquipmentCard key={1} index={1} equipmentData={equipmentData[1]} onClickCard={handleClickCard} />
-            <EquipmentCard key={2} index={2} equipmentData={equipmentData[2]} onClickCard={handleClickCard} />
+            {sortedData.slice(0, 2).map(
+              (item, i) => {
+                // scope type determines which is scope / washer. Washer does not have scopeType
+                let display = false;
+                // filters
+                if (filterValues[0] || filterValues[1] || filterValues[2]) {
+                  if (
+                    (!filterValues[0] || (filterValues[0] && item.brand == filterValues[0])) &&
+                    (!filterValues[1] || (filterValues[1] && item.scopeType == filterValues[1].toLowerCase())) &&
+                    (!filterValues[2] || (filterValues[2] && item.status == filterValues[2]))
+                  ) {
+                    display = true;
+                  }
+                  else display = false;
+                }
+                else display = true;
+                if (display)
+                  return <EquipmentCard key={i} index={i} equipmentData={sortedData[i]} onClickCard={handleClickCard} />
+              }
+            )}
           </ItemWrapper>
         </ContainerWrapper>
       }

@@ -1,5 +1,6 @@
 import Layout from "../../../layouts/Layout";
 import { useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -7,16 +8,34 @@ import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
 
 export default function Drying() {
+  const router = useRouter();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
-    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
     let items = JSON.parse(window.localStorage.getItem("equipments"));
-    setEquipmentData(items[equipmentIndex]);
+    const item = items[router.query.index];
+    setEquipmentData(item);
   }, [])
+
+  const handleReturn = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/washing",
+      query: { index: i },
+    });
+  };
+
+  const handleDrying = (i) => {
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
+    savedItems["dryingFinished"] = "true";
+    window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));
+  };
 
   return (
     <Layout>
@@ -81,11 +100,15 @@ export default function Drying() {
                 menuItems={["Dryer 1", "Dryer 2", "Dryer 3", "Dryer 4"]}
                 drop="drop"
                 tooltipText="Type of Scope Dryer"
+                saveState="dryScopeDryer"
+                index={router.query.index}
                 />
                 <Dropdown
                 menuHeader="Dryer Level"
                 menuItems={["Level 1", "Level 2", "Level 3", "Level 4"]}
                 tooltipText="Set level indicated on the Dryer"
+                saveState="dryDryerLevel"
+                index={router.query.index}
                 />
 
                 <div className="py-1 input-group">
@@ -100,16 +123,14 @@ export default function Drying() {
               </div>
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/record/scope/washing">
-                    <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
+                    <a onClick={()=> handleReturn(router.query.index)} className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
-                    </Link>
                     <button type="button" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                       Save & Exit
                     </button>
                     <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                      Submit
+                      Submit details
                     </button>
                   </div>
             </form>
@@ -128,13 +149,13 @@ export default function Drying() {
 
           {(showModal ?
             <PopupMessage
-              heading="Submit"
-              description="Are you sure you want to submit?"
+              heading="Submit Details"
+              description="Confirm submission of details? This will set the equipment status to Pending Results."
               leftText="Cancel"
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
               link="/home"
-              equipmentIndex={equipmentIndex}
+              handleDrying={()=> handleDrying(router.query.index)}
             />
           : null)}
 

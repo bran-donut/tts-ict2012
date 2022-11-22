@@ -1,5 +1,6 @@
 import Layout from "../../../layouts/Layout";
 import { useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -7,19 +8,25 @@ import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
+import { savedItems } from '../../../Constants';
 import DisabledDropdown from "../../../components/DisabledDropdown";
 
 export default function Sampling() {
+  const router = useRouter();
   const [charCount, setCharCount] = useState(0);
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
-    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
     let items = JSON.parse(window.localStorage.getItem("equipments"));
-    setEquipmentData(items[equipmentIndex]);
+    const item = items[router.query.index];
+    setEquipmentData(item);
   }, [])
+
+  const handleReset = (i) => {
+    window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));
+  };
 
   return (
     <Layout>
@@ -42,19 +49,27 @@ export default function Sampling() {
                 <DateInput
                 menuHeader="Date of Result"
                 tooltipText="Date of washer sampling result"
+                saveState="sampleDateOfResult"
+                index={router.query.index}
                 />
                 <Dropdown
                 menuHeader="Fluid Result"
                 menuItems={["Growth", "No Growth"]}
                 tooltipText="Result of bacteria growth"
+                saveState="sampleFluidResult"
+                index={router.query.index}
                 />
                 <Input
                 menuHeader="Analysis"
                 status="optional"
+                saveState="sampleAnalysis"
+                index={router.query.index}
                 />
                 <Input
                 menuHeader="Action"
                 status="optional"
+                saveState="sampleAction"
+                index={router.query.index}
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -90,6 +105,8 @@ export default function Sampling() {
                   menuItems={["Janice", "Nina"]}  
                   drop="drop"
                   tooltipText="Personnel who circulated the equipment"
+                  saveState="sampleCirculatedBy"
+                  index={router.query.index}
                   />
                   </div>
                   <div className="mb-10"></div>
@@ -132,7 +149,8 @@ export default function Sampling() {
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
               link="/home"
-              equipmentIndex={equipmentIndex}
+              clearForm={() => handleReset(router.query.index)}
+              index={router.query.index}
             />
           : null)}
 
