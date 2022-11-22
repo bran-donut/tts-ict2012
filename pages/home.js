@@ -18,6 +18,8 @@ const headerDetails = [
 
 export default function Home() {
   const [equipmentData, setEquipmentData] = useState([]);
+  const [sampledEquipmentIndex, setSampledEquipmentIndex] = useState();
+  const [sampledEquipment, setSampledEquipment] = useState({});
 
   const handleEdit = (i) => {
     let type;
@@ -36,8 +38,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    let items = window.localStorage.getItem("equipments");
-    setEquipmentData(JSON.parse(items));
+    let items = JSON.parse(window.localStorage.getItem("equipments"));
+    setEquipmentData(items);
+    // code below is assuming EQUIPMENT is set in localstorage already (uncomment below once is set)
+    // let index = window.localStorage.getItem('EQUIPMENT');
+    let index = 1;
+    setSampledEquipmentIndex(index);
+    setSampledEquipment(items[index]);
   }, [])
 
   return (
@@ -46,7 +53,7 @@ export default function Home() {
       <SubHeader heading="Home" description="This area displays all the essential information relating to the equipment under tracking" />
       <section className="grid min-h-screen grid-cols-1 gap-5 px-8 py-5 md:grid-cols-2">
         <Card title="TO SAMPLE" description="Equipment to be sampled as soon as possible">
-          {equipmentData.slice(0, 3).map((item, i) => {
+          {/* {equipmentData.slice(0, 3).map((item, i) => {
             return (
               <ItemCard
                 key={i}
@@ -59,7 +66,17 @@ export default function Home() {
                 onClickEdit={() => handleEdit(i)}
               />
             );
-          })}
+          })} */}
+          <ItemCard
+            key={sampledEquipmentIndex}
+            index={sampledEquipmentIndex}
+            data={sampledEquipment}
+            titles={["Sample by"]}
+            keys={["sampleDate"]}
+            select={false}
+            edit={true}
+            onClickEdit={() => handleEdit(sampledEquipmentIndex)}
+          />
         </Card>
         <Card title="PENDING RESULTS" description="Equipment that are awaiting swab or fluid results">
           {equipmentData.slice(0, 3).map((item, i) => {
