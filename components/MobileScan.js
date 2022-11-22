@@ -5,9 +5,8 @@ import Tooltip from "../components/Tooltip";
 
 
 export default function MobileScan({ menuHeader, tooltipText, saveState, index }) {
-  const [saveText, setSaveText] = useState({"item":""});
+const [saveText, setSaveText] = useState({"item":""});
 const [selected, setSelected] = useState(false);
-const [text, setText] = useState("");
 const [showModal, setShowModal] = useState(false);
 
 useEffect(() => {
@@ -33,7 +32,7 @@ useEffect(() => {
     </div>
         {showModal ? (
           <>
-            <div onClick={() => (setShowModal(false), setText({item : Math.floor(Math.random() * 100000000)}))}
+            <div onClick={() => (setShowModal(false), setSaveText({item : Math.floor(Math.random() * 100000000)}))}
               className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
             >
               <div className="relative w-auto max-w-3xl mx-auto my-6">

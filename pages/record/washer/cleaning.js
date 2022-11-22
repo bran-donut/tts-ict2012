@@ -100,6 +100,8 @@ export default function Cleaning() {
                 <DateInput
                   menuHeader="Date of Collection"
                   tooltipText="The date that the washer was collected"
+                  saveState="cleanDateOfCollection"
+                  index={router.query.index}
                 />
                 {/* <div className="py-1 input-group">
                     <div className="flex flex-row items-center justify-start pb-1">
@@ -121,12 +123,16 @@ export default function Cleaning() {
                   menuItems={["Janice Ng", "Mandy"]}
                   drop="drop"
                   tooltipText="Personnel who washed the equipment"
+                  saveState="cleanWashedBy"
+                  index={router.query.index}
                 />
                 <Dropdown
                   menuHeader="Collected by"
                   menuItems={["Janice Ng", "Gan"]}
                   drop="drop"
                   tooltipText="Personnel who collected the equipment"
+                  saveState="cleanCollectedBy"
+                  index={router.query.index}
                 />
                 <div className="mb-5"></div>
               </div>
@@ -168,7 +174,6 @@ export default function Cleaning() {
           leftText="Cancel"
           rightText="Save & Continue"
           onClickClose={() => setShowContinueModal(false)}
-          equipmentIndex={router.query.index}
           onClickEdit={() => handleEdit(router.query.index)}
         />
         : null)}

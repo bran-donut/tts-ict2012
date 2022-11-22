@@ -4,6 +4,7 @@ import SubHeader from "../components/SubHeader";
 import { ItemCard } from "../components/EquipmentCard";
 import { useEffect, useState } from "react";
 import Router from "next/router";
+import { equipments, savedItems } from "../Constants";
 
 const headerDetails = [
   {
@@ -20,16 +21,16 @@ export default function Home() {
   const [equipmentData, setEquipmentData] = useState([]);
   const [sampledEquipmentIndex, setSampledEquipmentIndex] = useState();
   const [sampledEquipment, setSampledEquipment] = useState({});
+  const [sampleArray, setSampleArray] = useState([]);
 
   const handleEdit = (i) => {
     let type;
+    let step; 
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
-    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED' + i);
-    let step;
-    window.localStorage.setItem('EQUIPMENT', i);
-    formSubmitted === "true" ? step = "/sampling" : step = "/cleaning";
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
+    savedItems["dryingFinished"] === "true" ? step = "/sampling" : step = "/cleaning";
 
     Router.push({
       pathname: "/record/" + type + step,
@@ -40,12 +41,25 @@ export default function Home() {
   useEffect(() => {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     setEquipmentData(items);
+    for (let i = 0; i < equipments.length; i++) {
+      let checkForSample = JSON.parse(window.localStorage.getItem("savedstate"+i));
+      if (checkForSample["dryingFinished"] === "true")
+      {
+        setSampleArray(sampleArray => [...sampleArray, i]);
+      }
+    }
     // code below is assuming EQUIPMENT is set in localstorage already (uncomment below once is set)
     // let index = window.localStorage.getItem('EQUIPMENT');
-    let index = 1;
-    setSampledEquipmentIndex(index);
-    setSampledEquipment(items[index]);
+
+    // let index = 1;
+    // setSampledEquipmentIndex(index);
+    // setSampledEquipment(items[index]);
   }, [])
+
+  // useEffect(() => {
+  //   setSampledEquipmentIndex([...new Set(sampleArray)]);
+  //   console.log(sampledEquipmentIndex)
+  // }, [sampleArray])
 
   return (
     <Layout>
@@ -67,16 +81,18 @@ export default function Home() {
               />
             );
           })} */}
-          <ItemCard
-            key={sampledEquipmentIndex}
-            index={sampledEquipmentIndex}
-            data={sampledEquipment}
+
+            {sampleArray.map((e, i) => <ItemCard
+            key={i}
+            index={i}
+            data={equipmentData[e]}
             titles={["Sample by"]}
             keys={["sampleDate"]}
             select={false}
             edit={true}
-            onClickEdit={() => handleEdit(sampledEquipmentIndex)}
-          />
+            onClickEdit={() => handleEdit(e)}
+          />)}
+
         </Card>
         <Card title="PENDING RESULTS" description="Equipment that are awaiting swab or fluid results">
           {equipmentData.slice(0, 3).map((item, i) => {

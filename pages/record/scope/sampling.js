@@ -23,7 +23,6 @@ export default function Sampling() {
     const item = items[router.query.index];
     setEquipmentData(item);
   }, [])
-  console.log(router.query.index)
 
   const handleReset = (i) => {
     window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));

@@ -30,6 +30,12 @@ export default function Drying() {
       query: { index: i },
     });
   };
+  
+  const handleDrying = (i) => {
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
+    savedItems["dryingFinished"] = "true";
+    window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));
+  };
 
 
   return (
@@ -95,11 +101,15 @@ export default function Drying() {
                 menuItems={["Dryer 1", "Dryer 2", "Dryer 3", "Dryer 4"]}
                 drop="drop"
                 tooltipText="Type of Scope Dryer"
+                saveState="dryScopeDryer"
+                index={router.query.index}
                 />
                 <Dropdown
                 menuHeader="Dryer Level"
                 menuItems={["Level 1", "Level 2", "Level 3", "Level 4"]}
                 tooltipText="Set level indicated on the Dryer"
+                saveState="dryScopeDryer"
+                index={router.query.index}
                 />
 
                 <div className="py-1 input-group">
@@ -145,8 +155,8 @@ export default function Drying() {
               leftText="Cancel"
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
-              equipmentIndex={router.query.index}
               link="/home"
+              handleDrying={()=> handleDrying(router.query.index)}
             />
           : null)}
 

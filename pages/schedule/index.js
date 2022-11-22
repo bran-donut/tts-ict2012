@@ -153,7 +153,7 @@ export default function ViewSchedule() {
 
   const handleEdit = (i) => {
     let type;
-    let step;
+    let step; 
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 

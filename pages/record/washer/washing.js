@@ -104,16 +104,22 @@ export default function Washing() {
                 menuItems={["RAPICIDE PA PART A & PART B", "ANIOXYDE 1000", "ACECIDE"]}
                 drop="drop"
                 tooltipText="Type of disinfectant used on the washer"
+                saveState="washDisinfectantUsed"
+                index={router.query.index}
                 />
                 <Input
                 menuHeader="Disinfectant LOT Number"
                 status = "required"
                 tooltipText = "The identification LOT number assigned to the disinfectant that can be found on the packaging"
+                saveState="washDisinfectantLOTNumber"
+                index={router.query.index}
                 />
                 <DateInput
                 menuHeader="Disinfectant Changed"
                 status = "required"
                 tooltipText = "Disinfectant change date"
+                saveState="washDisinfectantChanged"
+                index={router.query.index}
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -126,10 +132,14 @@ export default function Washing() {
                 menuItems={["INTERCEPT PLUS", "CIDEZYME DETERGENT", "ENDORAPID"]}
                 drop="drop"
                 tooltipText="Type of detergent used on the washer"
+                saveState="washDetergentUsed"
+                index={router.query.index}
                 />
                 <Input
                 menuHeader="Detergent LOT Number"
                 tooltipText = "The identification number assigned to the detergent that can be found on the packaging"
+                saveState="washDetergentLOTNumber"
+                index={router.query.index}
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -140,6 +150,8 @@ export default function Washing() {
                 <DateInput
                 menuHeader="Date of Filter Changed"
                 tooltipText="The filter change date"
+                saveState="washDateOfFilterChanged"
+                index={router.query.index}
                 />
                 <div className="mb-28"></div>
                 </div>
@@ -180,7 +192,6 @@ export default function Washing() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              equipmentIndex={router.query.index}
               onClickEdit={() => handleEdit(router.query.index)}
             />
           : null)}
