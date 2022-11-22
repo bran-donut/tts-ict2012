@@ -127,7 +127,7 @@ export default function Sampling() {
               leftText="Cancel"
               rightText="Submit"
               onClickClose={()=> setShowModal(false)}
-              link="/schedule"
+              link="/home"
               equipmentIndex={equipmentIndex}
             />
           : null)}
