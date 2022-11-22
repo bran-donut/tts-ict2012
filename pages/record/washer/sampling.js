@@ -60,8 +60,8 @@ export default function Sampling() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DisabledDropdown
                 menuHeader="Quarantine Required"
-                tooltipText="Washer requires quarantine if the fluid result comes back positive"
-                repeatDateTooltip="Date for repeated sampling"
+                tooltipText="The washer is required to be sent for quarantine if the fluid result comes back positive"
+                repeatDateTooltip="Date for repeat sampling"
                 />
                 </div>
 
@@ -85,7 +85,7 @@ export default function Sampling() {
                   menuHeader="Circulated By"
                   menuItems={["Janice", "Nina"]}  
                   drop="drop"
-                  tooltipText="The personnel who circulated the equipment"
+                  tooltipText="Personnel who circulated the equipment"
                   />
                   </div>
                   <div className="mb-10"></div>

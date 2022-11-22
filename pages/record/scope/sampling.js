@@ -75,7 +75,7 @@ export default function Sampling() {
                 <Dropdown
                 menuHeader="Room to Perform"
                 menuItems={["ENDO MS ROOM", "CLEAN", "REPROCESSING ROOM", "2B ENDO", "OTHERS"]}  
-                tooltipText="Location of repeated sampling"   
+                tooltipText="Room location of repeated sampling"   
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -86,9 +86,9 @@ export default function Sampling() {
                   <DisabledDropdown
                     menuHeader="Quarantine Required"
                     borescope="borescope" 
-                    tooltipText="Washer requires quarantine if the fluid result comes back positive"
-                    repeatDateTooltip="Date for repeated sampling"
-                    borescopeTooltip="Borescope is an instrument used to inspect the inside of a structure through a small hole"
+                    tooltipText="The scope is required to be sent for quarantine if the fluid result comes back positive"
+                    repeatDateTooltip="Date for repeat sampling"
+                    borescopeTooltip="Borescope instrument is used to inspect the inside of a structure through a small hole"
                     />
                 </div>
                 <div className="p-5 bg-white">
@@ -100,7 +100,7 @@ export default function Sampling() {
                 menuHeader="Circulated By"
                 menuItems={["Janice", "Nina"]}  
                 drop="drop"
-                tooltipText="The personnel who circulated the equipment"
+                tooltipText="Personnel who circulated the equipment"
                 />
                 </div>
                 <div className="mb-12"></div>

@@ -106,13 +106,13 @@ export default function Cleaning() {
                   menuHeader="Washed by"
                   menuItems={["Janice Ng", "Mandy"]}
                   drop="drop"
-                  tooltipText="The personnel who washed the equipment"
+                  tooltipText="Personnel who washed the equipment"
                 />
                 <Dropdown
                   menuHeader="Collected by"
                   menuItems={["Janice Ng", "Gan"]}
                   drop="drop"
-                  tooltipText="The personnel who collected the equipment"
+                  tooltipText="Personnel who collected the equipment"
                 />
                 <div className="mb-5"></div>
               </div>

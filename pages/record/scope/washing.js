@@ -74,7 +74,7 @@ export default function Washing() {
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <MobileScan
                 menuHeader="AER Serial Number"
-                tooltipText="Serial number for Automated Endoscope Reprocessor"
+                tooltipText="Serial number Automated Endoscope Reprocessor"
                 />
                 <Dropdown
                 menuHeader="AER Model"
@@ -95,11 +95,11 @@ export default function Washing() {
                 />
                 <Input
                 menuHeader="Disinfectant LOT Number"
-                tooltipText = "The identification number assigned to the disinfectant that can be found on the packaging"
+                tooltipText = "The identification LOT number assigned to the disinfectant that can be found on the packaging"
                 />
                 <DateInput
                 menuHeader="Disinfectant Changed"
-                tooltipText = "Date of disinfectant change"
+                tooltipText = "Disinfectant change date"
                 />
                 </div>
                 <div className="p-5 bg-white">
