@@ -17,6 +17,28 @@ export default function AddEquipment() {
     // const [equipmentType, setEquipmentType] = useState("Scope");
     const [index, setIndex] = useState(0);
     const [equipmentData, setEquipmentData] = useState([]);
+    const [formData, setFormData] = useState({
+        brand: "",
+        scopeType: "",
+        modelNumber: "",
+        serialNumber: null,
+        status: "",
+        frequency: null
+    })
+    const [allowSubmit, setAllowSubmit] = useState(false);
+
+    const handleFormChange = (field, text) => {
+        console.log(text);
+        setFormData({
+            ...formData,
+            brand: field == 'brand' ? text : formData.brand,
+            scopeType: field == 'scopeType' ? text : formData.scopeType,
+            modelNumber: field == 'modelNumber' ? text : formData.modelNumber,
+            serialNumber: field == 'serialNumber' ? text : formData.serialNumber,
+            status: field == 'status' ? text : formData.status,
+            frequency: field == 'frequency' ? text : formData.frequency
+        })
+    }
 
     useEffect(() => {
         let items = window.localStorage.getItem("equipments");
@@ -27,6 +49,13 @@ export default function AddEquipment() {
     useEffect(() => {
         router.push("/inventory/add?view=" + tabs[index], undefined, { shallow: true });
     }, [index])
+
+    useEffect(() => {
+        console.log(formData);
+        if (index == 0) {
+            
+        }
+    }, [formData])
 
     return (
         <Layout>
@@ -61,27 +90,33 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="Brand"
                                             menuItems={["Olympus"]}
+                                            onClickSelect={(text) => handleFormChange('brand', text)}
                                         />
                                         <Dropdown
                                             menuHeader="Scope Type"
                                             menuItems={["tracheal intubation"]}
+                                            onClickSelect={(text) => handleFormChange('scopeType', text)}
                                         />
                                         <Dropdown
                                             menuHeader="Model Number"
                                             menuItems={["TJF423"]}
+                                            onClickSelect={(text) => handleFormChange('modelNumber', text)}
                                         />
 
                                         <Input
                                             menuHeader="Frequency"
+                                            onChange={(text) => handleFormChange('frequency', text)}
                                         />
 
                                         <MobileScan
                                             menuHeader="Serial Number"
+                                            onChange={(text) => handleFormChange('serialNumber', text)}
                                         />
 
                                         <Dropdown
                                             menuHeader="Status"
                                             menuItems={["Regular", "Loan"]}
+                                            onClickSelect={(text) => handleFormChange('status', text)}
                                         />
 
                                         <div className="py-1 input-group">
@@ -100,14 +135,17 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="AER Model Number"
                                             menuItems={["Olympus"]}
+                                            onClickSelect={(text) => handleFormChange('modelNumber', text)}
                                         />
 
                                         <Input
                                             menuHeader="Frequency"
+                                            onChange={(text) => handleFormChange('frequency', text)}
                                         />
 
                                         <MobileScan
                                             menuHeader="AER Serial Number"
+                                            onChange={(text) => handleFormChange('serialNumber', text)}
                                         />
                                         <div></div>
                                         <div className="py-1 input-group">

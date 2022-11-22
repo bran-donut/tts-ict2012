@@ -4,7 +4,7 @@ import { MobileOutlined, LoadingOutlined, ScanOutlined, InfoCircleOutlined, Excl
 import Tooltip from "../components/Tooltip";
 
 
-export default function MobileScan({ menuHeader, tooltipText, saveState, index }) {
+export default function MobileScan({ menuHeader, tooltipText, saveState, index, onChange }) {
 const [saveText, setSaveText] = useState({"item":""});
 const [selected, setSelected] = useState(false);
 const [showModal, setShowModal] = useState(false);
@@ -13,6 +13,7 @@ useEffect(() => {
   let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+index));
   saveText.item ? savedItems[saveState] = saveText.item : setSaveText({item: savedItems[saveState]});
   window.localStorage.setItem("savedstate"+index, JSON.stringify(savedItems));
+  onChange ? onChange(saveText.item) : null;
 }, [saveText.item])
 
   return (
