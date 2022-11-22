@@ -297,4 +297,39 @@ export const sampleSchedule = {
   "modelNumber": "TJF403",
   "serialNumber": 21904890,
   "samplingStatus": "Pending Results"
-}
+};
+
+export const savedItems = 
+{
+  "cleanDateOfCollection": "",
+  "cleanScopeStatus":"",
+  "cleanCirculatedBy": "",
+  "cleanWashedBy": "",
+  "cleanCollectedBy":"",
+  "washAERSerialNumber": "",
+  "washAERModel":"",
+  "washDisinfectantUsed":"",
+  "washDisinfectantLOTNumber": "",
+  "washDisinfectantChanged":"",
+  "washDetergentUsed": "",
+  "washDetergentLOTNumber":"",
+  "washDateOfFilterChanged": "",
+  "dryScopeDryer":"",
+  "dryDryerLevel": "",
+  "dryRemarks":"",
+  "sampleDateOfResult": "",
+  "sampleFluidResult":"",
+  "sampleCultureComment": "",
+  "sampleAnalysis": "",
+  "sampleAction":"",
+  "sampleRepeatDateOfResult": "",
+  "sampleRepeatFluidResult":"",
+  "sampleRepeatCultureComment": "",
+  "sampleRepeatAction":"",
+  "sampleRoomToPerform": "",
+  "sampleQuarantineRequired":"",
+  "sampleQuarantineDate": "",
+  "sampleBorescope":"",
+  "sampleCirculatedBy":"",
+  "dryingFinished":"",
+};

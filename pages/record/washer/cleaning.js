@@ -1,5 +1,6 @@
 import Layout from "../../../layouts/Layout";
 import { useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -8,6 +9,7 @@ import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
 
 export default function Cleaning() {
+  const router = useRouter();
   const [accessionNum, setAccessionNum] = useState();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
@@ -15,10 +17,21 @@ export default function Cleaning() {
 
   useEffect(() => {
     setAccessionNum(Math.floor(Math.random() * 100000000));
-    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
     let items = JSON.parse(window.localStorage.getItem("equipments"));
-    setEquipmentData(items[equipmentIndex]);
+    const item = items[router.query.index];
+    setEquipmentData(item);
   }, [])
+
+  const handleEdit = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/washing",
+      query: { index: i },
+    });
+  };
 
   return (
     <Layout>
@@ -155,7 +168,8 @@ export default function Cleaning() {
           leftText="Cancel"
           rightText="Save & Continue"
           onClickClose={() => setShowContinueModal(false)}
-          link="/record/washer/washing"
+          equipmentIndex={router.query.index}
+          onClickEdit={() => handleEdit(router.query.index)}
         />
         : null)}
     </Layout>

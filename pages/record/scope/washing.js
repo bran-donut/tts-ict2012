@@ -1,5 +1,6 @@
 import Layout from "../../../layouts/Layout";
 import { useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -10,15 +11,38 @@ import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
 
 export default function Washing() {
+  const router = useRouter();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
-    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
     let items = JSON.parse(window.localStorage.getItem("equipments"));
-    setEquipmentData(items[equipmentIndex]);
+    const item = items[router.query.index];
+    setEquipmentData(item);
   }, [])
+
+  const handleEdit = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/drying",
+      query: { index: i },
+    });
+  };
+
+  const handleReturn = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/cleaning",
+      query: { index: i },
+    });
+  };
 
   return (
     <Layout>
@@ -79,11 +103,15 @@ export default function Washing() {
                 <MobileScan
                 menuHeader="AER Serial Number"
                 tooltipText="Serial number Automated Endoscope Reprocessor"
+                saveState="washAERSerialNumber"
+                index={router.query.index}
                 />
                 <Dropdown
                 menuHeader="AER Model"
                 menuItems={["MEDIVATOR 1A", "MEDIVATOR 1B", "MEDIVATOR 2A", "MEDIVATOR 2B"]}
                 tooltipText="Model type of Automated Endoscope Reprocessor"
+                saveState="washAERModel"
+                index={router.query.index}
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -96,14 +124,20 @@ export default function Washing() {
                 menuItems={["RAPICIDE PA PART A & PART B", "ANIOXYDE 1000", "ACECIDE"]}
                 drop="drop"
                 tooltipText="Type of disinfectant used on the scope"
+                saveState="washDisinfectantUsed"
+                index={router.query.index}
                 />
                 <Input
                 menuHeader="Disinfectant LOT Number"
                 tooltipText = "The identification LOT number assigned to the disinfectant that can be found on the packaging"
+                saveState="washDisinfectantLOTNumber"
+                index={router.query.index}
                 />
                 <DateInput
                 menuHeader="Disinfectant Changed"
                 tooltipText = "Disinfectant change date"
+                saveState="washDisinfectantChanged"
+                index={router.query.index}  
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -116,10 +150,14 @@ export default function Washing() {
                 menuItems={["INTERCEPT PLUS", "CIDEZYME DETERGENT", "ENDORAPID"]}
                 drop="drop"
                 tooltipText="Type of detergent used on the scope"
+                saveState="washDetergentUsed"
+                index={router.query.index}
                 />
                 <Input
                 menuHeader="Detergent LOT Number"
                 tooltipText = "The identification number assigned to the detergent that can be found on the packaging"
+                saveState="washDetergentLOTNumber"
+                index={router.query.index}
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -130,6 +168,8 @@ export default function Washing() {
                 <DateInput
                 menuHeader="Date of Filter Changed"
                 tooltipText="The filter change date"
+                saveState="washDateOfFilterChanged"
+                index={router.query.index}
                 />
                 <div className="mb-28"></div>
                 </div>
@@ -139,11 +179,9 @@ export default function Washing() {
 
 
                   <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-                    <Link href="/record/scope/cleaning">
-                    <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
+                    <a onClick={()=> handleReturn(router.query.index)} className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Previous Step
                     </a>
-                    </Link>
                     <button type="button" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                       Save & Exit
                     </button>
@@ -172,7 +210,7 @@ export default function Washing() {
               leftText="Cancel"
               rightText="Save & Continue"
               onClickClose={()=> setShowContinueModal(false)}
-              link="/record/scope/drying"
+              onClickEdit={() => handleEdit(router.query.index)}
             />
           : null)}
 
