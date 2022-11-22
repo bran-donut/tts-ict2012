@@ -6,14 +6,18 @@ import SubHeader from "../../../components/SubHeader";
 import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
-import { equipments } from "../../../Constants";
 import Link from "next/link";
 
 export default function Washing() {
-  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
+  const [equipmentData, setEquipmentData] = useState([]);
+
+  useEffect(() => {
+    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
+    let items = JSON.parse(window.localStorage.getItem("equipments"));
+    setEquipmentData(items[equipmentIndex]);
+  }, [])
 
   return (
     <Layout>
