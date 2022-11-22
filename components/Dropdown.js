@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DownOutlined, UpOutlined, ExclamationCircleOutlined, InfoCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import Tooltip from "../components/Tooltip";
-import { useState, useEffect } from "react";
 
-export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, tooltipText, saveState, index }) {
+export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, tooltipText, saveState, index, onClickSelect, clearValue = false }) {
   const [saveText, setSaveText] = useState({"item":""});
   const [selected, setSelected] = useState(false);
   const [text, setText] = useState("");
@@ -11,10 +10,16 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
   const [showModal, setShowModal] = useState(false);
   const [dropItem, setDropItem] = useState(menuItems);
 
+  // clear selected text
   useEffect(() => {
-    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+index));
-    saveText.item ? savedItems[saveState] = saveText.item : setSaveText({item: savedItems[saveState]});
-    window.localStorage.setItem("savedstate"+index, JSON.stringify(savedItems));
+    if (clearValue) setText('');
+  }, [clearValue])
+
+  useEffect(() => {
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || [];
+    saveText.item ? savedItems[saveState] = saveText.item : setSaveText({ item: savedItems[saveState] });
+    window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
+    onClickSelect ? onClickSelect(saveText.item) : null;
   }, [saveText.item])
 
   return (
@@ -41,18 +46,20 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
                   <li className="py-1">
                     <p onClick={() => (setSelected(false), setText({ item }), setSaveText({ item }))} className="items-center inline-block w-full px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
                     <CloseOutlined onClick={() => (delete dropItem[i], setDropItem(dropItem.filter(textItem => textItem != undefined)))} className={`${drop == undefined ? "invisible" : "visible"} absolute mt-[0.60rem] inline right-0 px-2`} style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
-                  </li>
-                </React.Fragment>
-              ))}
+                  </li >
+                </React.Fragment >
+              ))
+}
 
-            </ul>
-            {drop == undefined ? null : (<div className="py-1">
-              <p onClick={() => setShowModal(true)} className="block px-2 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 ">+ Add new</p>
-            </div>)}
-          </div>
-        </div>
-      </div>
-      {showModal ? (
+            </ul >
+  { drop == undefined ? null : (<div className="py-1">
+    <p onClick={() => setShowModal(true)} className="block px-2 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 ">+ Add new</p>
+  </div>)}
+          </div >
+        </div >
+      </div >
+{
+  showModal?(
         <>
           <div
             className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"

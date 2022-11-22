@@ -69,10 +69,10 @@ export const equipments = [
     "sampleDate": "14/09/2022"
   },
   {
-    "brand": "OLYMPUS",
-    "scopeType": "tracheal intubation",
-    "modelNumber": "TJF404",
-    "serialNumber": 21904891,
+    "brand": "FUJINON",
+    "scopeType": "ogd",
+    "modelNumber": "TJF400",
+    "serialNumber": 21904861,
     "status": "New",
     "frequency": 4,
     "samplingStatus": "On Repair",
