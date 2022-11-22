@@ -9,20 +9,33 @@ import { useRouter } from "next/router";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import ActionButton from "../../components/ActionButton";
 import Link from "next/link";
+import Dropdown from "../../components/Dropdown";
 
 const tabs = ["Scope", "Washer (AER)"];
 const actions = ["Filter By", "Sort By"];
+const sortValues = ['Brand', 'Scope Type', 'Model No.', 'Serial No.', 'Status'];
 
 export default function ViewInventory() {
   const router = useRouter();
 
   const [equipmentData, setEquipmentData] = useState([]);
   const [index, setIndex] = useState(0);
+  const [sortIndex, setSortIndex] = useState(0);
   const [actionValues, setActionValues] = useState([]);
+  const [showFilterOptions, setShowFilterOptions] = useState(false);
+  const [showSortOptions, setShowSortOptions] = useState(false);
 
   const handleClickAction = (i) => {
+    setShowFilterOptions(false);
+      setShowSortOptions(false);
     const value = actions[i];
     setActionValues((prev) => prev.concat(value));
+    if (value.includes('Filter')) setShowFilterOptions(true);
+    else if (value.includes('Sort')) setShowSortOptions(true);
+    else {
+      setShowFilterOptions(false);
+      setShowSortOptions(false);
+    }
   };
 
   const handleClickExport = () => {
@@ -78,17 +91,61 @@ export default function ViewInventory() {
                 } mx-10 text-md md:text-base`}
             >{tabs[1]}</button>
           </div>
-          <div className="flex items-center gap-4 ">
+          <div className="flex items-center gap-4 relative">
             {actions.map((action, i) => (
               <ActionButton
                 key={i}
                 index={i}
-                active={actionValues.includes(actions[i])}
+                // active={actionValues.includes(actions[i])}
                 name={action}
                 icon={i == 0 ? <FilterOutlined /> : <AlignLeftOutlined />}
                 onClickAction={handleClickAction}
               />
             ))}
+            {showFilterOptions &&
+              <div className="absolute w-100 top-10 bg-white">
+                <div className="p-5 pb-2">
+                  <h3 className="pb-2 font-medium">Filter By</h3>
+                  <hr></hr>
+                </div>
+                <div className="px-5 py-1">
+                  <Dropdown
+                    placeHolder="Brand"
+                    menuItems={['FUJINON', 'OLYMPUS', 'PENTAX', 'STORZ']}
+                  />
+                </div>
+                <div className="px-5 py-1">
+                  <Dropdown
+                    placeHolder="Scope Type"
+                    menuItems={['OGD', 'OGD THERAPEUTIC', 'COLONOSCOPE']}
+                  />
+                </div>
+                <div className="px-5 py-1">
+                  <Dropdown
+                    placeHolder="Status"
+                    menuItems={['Regular', 'Loan', 'Post Repair', 'Repeat', 'New']}
+                  />
+                </div>
+              </div>
+            }
+            {showSortOptions &&
+              <div className="absolute w-100 top-10 bg-white">
+                <div className="p-5 pb-2">
+                  <h3 className="pb-2 font-medium">Sort By</h3>
+                  <hr></hr>
+                </div>
+                <div className="px-5 py-1">
+                  <div className="flex flex-col items-start gap-2">
+                    {sortValues.map((val, i) =>
+                      <div className="flex items-center gap-2">
+                        <input onClick={() => setSortIndex(i)} type="radio" name={val} value={val} checked={sortIndex == i}></input>
+                        <label for={val}>{val}</label>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            }
           </div>
         </div>
       </SubHeader>
