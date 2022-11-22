@@ -4,10 +4,11 @@ import SubHeader from "../../components/SubHeader";
 import { useEffect, useRef, useState } from "react";
 import { CalendarOutlined, FilterOutlined, FileTextOutlined } from "@ant-design/icons";
 import { sampleSchedule } from "../../Constants";
-import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
-import Router from "next/router";
+import EquipmentCard, { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
+import Router, { useRouter } from "next/router";
 import ActionButton from "../../components/ActionButton";
 import { Calendar, Badge } from "antd";
+import ContainerWrapper from "../../components/ContainerWrapper";
 
 const tabs = ["Sample Schedule", "Off Schedule"];
 const actions = ["Jump to date", "View by: Day", "Filter By"];
@@ -28,6 +29,7 @@ const headerDetails = [
 ];
 
 export default function ViewSchedule() {
+  const router = useRouter();
   const scrollRef = useRef();
   const todayRef = useRef();
 
@@ -127,6 +129,10 @@ export default function ViewSchedule() {
     );
   };
 
+  const handleClickCard = (i) => {
+    router.push("/inventory/details?index=" + i);
+  }
+
   const handleClickAction = (i) => {
     const value = actions[i];
     setActionValues((prev) => prev.concat(value));
@@ -150,13 +156,8 @@ export default function ViewSchedule() {
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
-    let formSubmitted = window.localStorage.getItem('FORM_SUBMITTED' + i);
-    let step;
-    window.localStorage.setItem('EQUIPMENT', i);
-    formSubmitted === "true" ? step = "/sampling" : step = "/cleaning";
-
     Router.push({
-      pathname: "/record/" + type + step,
+      pathname: "/record/" + type + "/cleaning",
       query: { index: i },
     });
   };
@@ -165,6 +166,11 @@ export default function ViewSchedule() {
     scrollRef.current.scrollTo({
       top: todayRef.current.offsetTop - 480
     })
+    // let scrollY = window.scrollY;
+    // todayRef.current.scrollIntoView();
+    // window.scrollTo({
+    //   top: scrollY
+    // });
   }
 
   useEffect(() => {
@@ -193,24 +199,32 @@ export default function ViewSchedule() {
             ))}
           </div>
           <div className="flex items-center gap-4 ">
-            {actions.map((action, i) => (
+            {index == 0 ?
+              actions.map((action, i) => (
+                <ActionButton
+                  key={i}
+                  index={i}
+                  name={action}
+                  // active={actionValues.includes(actions[i])}
+                  onClickAction={handleClickAction}
+                  // icon={i == 0 ? <RightOutlined /> : i == 1 ? <CalendarOutlined /> : <FilterOutlined />} 
+                  icon={(i == 1 && <CalendarOutlined />) || (i == 2 && <FilterOutlined />)} // removed jump to date icon
+                />
+              ))
+              :
+              // only filter for off schedule
               <ActionButton
-                key={i}
-                index={i}
-                name={action}
-                // active={actionValues.includes(actions[i])}
+                name={actions[2]}
                 onClickAction={handleClickAction}
-                // icon={i == 0 ? <RightOutlined /> : i == 1 ? <CalendarOutlined /> : <FilterOutlined />} 
-                icon={(i == 1 && <CalendarOutlined />) || (i == 2 && <FilterOutlined />)} // removed jump to date icon
+                icon={<FilterOutlined />}
               />
-            ))}
+            }
           </div>
         </div>
       </SubHeader>
-
-      {view == "View by: Day" ? (
-        <div className="bg-gray-300 px-28">
-          <div ref={scrollRef} className="py-4 px-8 bg-tts-background overflow-y-auto max-h-screen">
+      {index == 0 ?
+        view == "View by: Day" ? (
+          <ContainerWrapper>
             {[...Array(30)].map((e, i) =>
               <div key={i}>
                 <div ref={i + 1 == 17 ? todayRef : null} className="w-full my-3 h-3 border-b border-gray-300">
@@ -223,19 +237,25 @@ export default function ViewSchedule() {
                 </ItemWrapper>
               </div>
             )}
+          </ContainerWrapper>
+        ) : (
+          <div className="pt-2 pb-32 px-40 relative bg-tts-background">
+            <div className="flex gap-10 absolute top-6 ml-4">
+              <Badge status="error" text="Awaiting Sample" />
+              <Badge status="warning" text="Pending Result" />
+              <Badge status="success" text="Regular" />
+            </div>
+            <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
           </div>
-        </div>
-      ) : (
-        <div className="relative px-40 pt-2 pb-32 bg-tts-background">
-          <div className="absolute flex gap-10 ml-4 top-6">
-            <Badge status="error" text="Awaiting Sample" />
-            <Badge status="warning" text="Pending Result" />
-            <Badge status="success" text="Regular" />
-          </div>
-          <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
-        </div>
-      )}
-
+        )
+        :
+        <ContainerWrapper>
+          <ItemWrapper>
+            <EquipmentCard key={1} index={1} equipmentData={equipmentData[1]} onClickCard={handleClickCard} />
+            <EquipmentCard key={2} index={2} equipmentData={equipmentData[2]} onClickCard={handleClickCard} />
+          </ItemWrapper>
+        </ContainerWrapper>
+      }
     </Layout>
   );
 }
