@@ -38,11 +38,10 @@ export default function Home() {
     });
   };
 
-
-  function removeDuplicates(arr) {
-    return arr.filter((item,
-        index) => arr.indexOf(item) === index);
-  } 
+  // function removeDuplicates(arr) {
+  //   return arr.filter((item,
+  //       index) => arr.indexOf(item) === index);
+  // } 
 
   useEffect(() => {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
@@ -52,7 +51,7 @@ export default function Home() {
       if (checkForSample["dryingFinished"] === "true")
       {
         setSampleArray(sampleArray => [...sampleArray, i]);
-        setSampleArray(removeDuplicates(sampleArray));
+        // setSampleArray(removeDuplicates(sampleArray));
       }
     }
     // code below is assuming EQUIPMENT is set in localstorage already (uncomment below once is set)

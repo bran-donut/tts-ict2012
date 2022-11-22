@@ -20,7 +20,7 @@ export default function Input({ menuHeader, tooltipText, saveState, index }) {
               <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
           </Tooltip>
       </div>
-    <input onChange={e => setSaveText(e.target.value)} value={saveText} className="relative flex items-center w-full p-2 border-2 border-gray-300 rounded-md input-group" type="date" placeholder="Select"/>   
+    <input onChange={e => setSaveText(e.target.value)} defaultValue={saveText} className="relative flex items-center w-full p-2 border-2 border-gray-300 rounded-md input-group" type="date" placeholder="Select"/>   
   </div>
   );
 }

@@ -26,7 +26,7 @@ useEffect(() => {
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-            <input type="text" placeholder="Input" className="w-full outline-none" value={saveText.item}  required />
+            <input type="text" placeholder="Input" className="w-full outline-none" defaultValue={saveText.item}  required />
             <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
         </div>
     </div>

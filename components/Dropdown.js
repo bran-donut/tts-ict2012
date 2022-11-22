@@ -35,7 +35,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-          <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder={placeHolder ? placeHolder : 'Select'} className="w-full outline-none" value={saveText.item} required />
+          <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder={placeHolder ? placeHolder : 'Select'} className="w-full outline-none" defaultValue={saveText.item} required />
           <UpOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "visible" : "hidden"}`} style={{ fontSize: '13px', color: 'rgb(107 114 128)' }} />
           <DownOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "hidden" : "visible"}`} style={{ fontSize: '13px', color: 'rgb(107 114 128)' }} />
           <div className={`${selected === true ? "visible" : "hidden"} absolute right-0 z-10 w-full bg-white divide-y divide-gray-100 rounded shado top-11 border-2 border-gray-100`}>
