@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { DownOutlined, UpOutlined, ExclamationCircleOutlined, InfoCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import Tooltip from "../components/Tooltip";
 
-export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, tooltipText }) {
+export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, tooltipText, onClickSelect, clearValue = false }) {
 
   const [selected, setSelected] = useState(false);
   const [text, setText] = useState("");
   const [addText, setAddText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [dropItem, setDropItem] = useState(menuItems);
+
+  useEffect(() => {
+    onClickSelect(text);
+  }, [text])
+
+  // clear selected text
+  useEffect(() => {
+    if (clearValue) setText('');
+  }, [clearValue])
+
   return (
     <>
       <div className="py-1 input-group">
@@ -23,7 +33,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-          <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder={placeHolder ? placeHolder : 'Select'} className="w-full outline-none" value={text.item} required />
+          <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder={placeHolder ? placeHolder : 'Select'} className="w-full outline-none" value={text} required />
           <UpOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "visible" : "hidden"}`} style={{ fontSize: '13px', color: 'rgb(107 114 128)' }} />
           <DownOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "hidden" : "visible"}`} style={{ fontSize: '13px', color: 'rgb(107 114 128)' }} />
           <div className={`${selected === true ? "visible" : "hidden"} absolute right-0 z-10 w-full bg-white divide-y divide-gray-100 rounded shado top-11 border-2 border-gray-100`}>
@@ -32,7 +42,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
               {dropItem.map((item, i) => (
                 <React.Fragment key={i}>
                   <li className="py-1">
-                    <p onClick={() => (setSelected(false), setText({ item }))} className="items-center inline-block w-full px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
+                    <p onClick={() => (setSelected(false), setText(item))} className="items-center inline-block w-full px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
                     <CloseOutlined onClick={() => (delete dropItem[i], setDropItem(dropItem.filter(textItem => textItem != undefined)))} className={`${drop == undefined ? "invisible" : "visible"} absolute mt-[0.60rem] inline right-0 px-2`} style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
                   </li>
                 </React.Fragment>
