@@ -46,15 +46,10 @@ export default function ViewInventory() {
   useEffect(() => {
     let items = window.localStorage.getItem("equipments");
     setEquipmentData(JSON.parse(items));
+    setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
   }, [])
 
   useEffect(() => {
-    console.log(router.query.view);
-    setIndex(router.query.view ? tabs.indexOf(router.query.view) : 0);
-  }, [router.query.view]);
-
-  useEffect(() => {
-    console.log(index);
     router.push("/inventory?view=" + tabs[index], undefined, { shallow: true });
   }, [index]);
 
@@ -109,7 +104,7 @@ export default function ViewInventory() {
 
       </ContainerWrapper>
       <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
-        <Link href="/inventory/add">
+        <Link href={`/inventory/add?view=${tabs[index]}`}>
           <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Add New</a>
         </Link>
       </div>
