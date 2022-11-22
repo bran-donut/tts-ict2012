@@ -4,15 +4,19 @@ import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
 import PopupMessage from "../../../components/Modal";
-import { equipments } from "../../../Constants";
 import Link from "next/link";
 
 export default function Drying() {
-  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [charCount, setCharCount] = useState(0);
-  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
+  const [equipmentData, setEquipmentData] = useState([]);
+
+  useEffect(() => {
+    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
+    let items = JSON.parse(window.localStorage.getItem("equipments"));
+    setEquipmentData(items[equipmentIndex]);
+  }, [])
 
   return (
     <Layout>

@@ -7,15 +7,19 @@ import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
-import { equipments } from "../../../Constants";
 import DisabledDropdown from "../../../components/DisabledDropdown";
 
 export default function Sampling() {
-  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [charCount, setCharCount] = useState(0);
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [equipmentData, setEquipmentData] = useState(equipments[equipmentIndex]);
+  const [equipmentData, setEquipmentData] = useState([]);
+
+  useEffect(() => {
+    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
+    let items = JSON.parse(window.localStorage.getItem("equipments"));
+    setEquipmentData(items[equipmentIndex]);
+  }, [])
 
   return (
     <Layout>

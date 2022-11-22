@@ -8,20 +8,16 @@ import PopupMessage from "../../../components/Modal";
 import Link from "next/link";
 
 export default function Cleaning() {
-  let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
   const [accessionNum, setAccessionNum] = useState();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showContinueModal, setShowContinueModal] = useState(false);
   const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
-    setAccessionNum(Math.floor(Math.random() * 100000000))
+    setAccessionNum(Math.floor(Math.random() * 100000000));
+    let equipmentIndex = window.localStorage.getItem('EQUIPMENT');
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     setEquipmentData(items[equipmentIndex]);
-  }, [])
-
-  useEffect(() => {
-    setAccessionNum(Math.floor(Math.random() * 100000000))
   }, [])
 
   return (
