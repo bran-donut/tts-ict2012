@@ -11,6 +11,7 @@ export default function Drying() {
   const router = useRouter();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [allowSubmit, setAllowSubmit] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const [equipmentData, setEquipmentData] = useState([]);
 
@@ -31,11 +32,36 @@ export default function Drying() {
     });
   };
 
+  const handleReturnClean = (i) => {
+    let type;
+    if (equipmentData.scopeType) type = "scope";
+    else type = "washer";
+
+    Router.push({
+      pathname: "/record/" + type + "/cleaning",
+      query: { index: i },
+    });
+  };
+
   const handleDrying = (i) => {
     let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
     savedItems["dryingFinished"] = "true";
     window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));
   };
+
+  const handleFormChange = () => {
+    let formData = JSON.parse(window.localStorage.getItem("savedstate"+router.query.index));
+    console.log(formData);
+    let isEmpty = false;
+    for (const [key, value] of Object.entries(formData)) {
+      // exclude optional field
+      if (key !== 'dryRemarks' && key !== 'cleanCirculatedBy' && key !== 'dryingFinished' && !key.includes('sample')) {
+          if (!value) isEmpty = true;
+      }
+    }
+    if (isEmpty) setAllowSubmit(false);
+    else setAllowSubmit(true);
+  }
 
   return (
     <Layout>
@@ -50,10 +76,9 @@ export default function Drying() {
           <ol className="items-center sm:flex ">
               <li className="relative mb-6 w-80 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                    <Link href="/record/scope/cleaning">
-                      <div className="bg-[#1890FF] hover:cursor-pointer hover:bg-[#1890FF]/80 ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+
+                      <div onClick={()=> handleReturnClean(router.query.index)} className="bg-[#1890FF] hover:cursor-pointer hover:bg-[#1890FF]/80 ml-[4.1rem] z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
-                    </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
@@ -63,10 +88,8 @@ export default function Drying() {
               <li className="relative mb-6 w-80 sm:mb-0">
                   <div className="flex items-center ">
                   <div className="bg-[#1890FF] hidden sm:flex w-8 h-0.5"></div>
-                  <Link href="/record/scope/washing">
-                    <div className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                    <div onClick={()=> handleReturn(router.query.index)} className="bg-[#1890FF] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
-                  </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
@@ -102,6 +125,7 @@ export default function Drying() {
                 tooltipText="Type of Scope Dryer"
                 saveState="dryScopeDryer"
                 index={router.query.index}
+                onClickSelect={handleFormChange}
                 />
                 <Dropdown
                 menuHeader="Dryer Level"
@@ -109,10 +133,11 @@ export default function Drying() {
                 tooltipText="Set level indicated on the Dryer"
                 saveState="dryDryerLevel"
                 index={router.query.index}
+                onClickSelect={handleFormChange}
                 />
 
                 <div className="py-1 input-group">
-                  <h4 className="inline pb-1">Remarks</h4><p className="inline px-2 text-gray-400">(optional)</p>
+                  <h4 className="inline pb-1">Remarks</h4>
                   <textarea placeholder="Remarks" maxLength="100" onChange={e => setCharCount(e.target.value.length)} className="w-full p-2 border-2 rounded-md" />
                   <div className="text-right text-gray-300">{charCount} / 100</div>
                 </div>
@@ -129,9 +154,15 @@ export default function Drying() {
                     <button type="button" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                       Save & Exit
                     </button>
-                    <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                      Submit details
-                    </button>
+                    {allowSubmit ?
+                      <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
+                        Submit details
+                      </button>
+                      :
+                      <button type="button" className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
+                        Submit details
+                      </button>
+                    }
                   </div>
             </form>
           </section>

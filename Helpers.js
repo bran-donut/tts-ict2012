@@ -7,6 +7,10 @@ export function getIcons() {
     return images;
 }
 
+export function findIndex(array, uniqueNumber) {
+    return array.findIndex((x) => x.serialNumber == uniqueNumber);
+}
+
 export function convertDate(date, dataToInput) {
     const slash = '/', dash = '-';
     let formattedDate;

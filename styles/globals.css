@@ -8,6 +8,26 @@
     transform: perspective(7px) rotateY(7deg);
 }
 
+.required:before {
+    content:"* ";
+    color: #AB3E3F;
+}
+
+#html5-qrcode-button-camera-permission {
+    background: #AB3E3F;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: white;
+}
+
+#html5qr-code-full-region img[alt~="Info"] {
+    right: 8px !important;
+}
+
+#html5-qrcode-anchor-scan-type-change, #html5-qrcode-button-camera-stop {
+    display: none !important;
+}
+
 .ant-picker-calendar-mode-switch {
     display: none;
 }

@@ -4,7 +4,7 @@ import EquipmentCard, { ItemWrapper } from "../../components/EquipmentCard";
 import MainHeader from "../../components/MainHeader";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
 import { AlignLeftOutlined, FilterOutlined, SortAscendingOutlined, SortDescendingOutlined } from "@ant-design/icons";
-import { exportCSVFile } from "../../Helpers";
+import { exportCSVFile, findIndex } from "../../Helpers";
 import { useRouter } from "next/router";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import ActionButton from "../../components/ActionButton";
@@ -247,17 +247,17 @@ export default function ViewInventory() {
                   else display = false;
                 }
                 else display = true;
-                if (display)
-                  return <EquipmentCard key={i} index={i} equipmentData={sortedData[i]} onClickCard={handleClickCard} />
+                if (display) {
+                  let originalIndex = findIndex(equipmentData, item.serialNumber); 
+                  return <EquipmentCard key={originalIndex} index={originalIndex} equipmentData={sortedData[i]} onClickCard={handleClickCard} />
+                }
               }
             }
           )}
         </ItemWrapper>
       </ContainerWrapper>
       <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
-        <Link href={`/inventory/add?view=${tabs[index]}`}>
-          <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Add New</a>
-        </Link>
+        
       </div>
     </Layout>
   );

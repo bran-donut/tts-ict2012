@@ -4,12 +4,13 @@ import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import MainHeader from "../../components/MainHeader";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
 import { AlignLeftOutlined, FilterOutlined, SortAscendingOutlined, SortDescendingOutlined } from "@ant-design/icons";
-import { exportCSVFile } from "../../Helpers";
+import { exportCSVFile, findIndex } from "../../Helpers";
 import Router, { useRouter } from "next/router";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import PopupMessage, { LoadingMessage, SuccessMessage } from "../../components/Modal";
 import ActionButton from "../../components/ActionButton";
 import Dropdown from "../../components/Dropdown";
+import Link from "next/link";
 
 const tabs = ["Scope", "Washer (AER)"];
 const actions = ["Filter By", "Sort By"];
@@ -306,11 +307,12 @@ export default function ManageInventory() {
                   else display = false;
                 }
                 else display = true;
-                if (display)
+                if (display) {
+                  let originalIndex = findIndex(equipmentData, item.serialNumber); 
                   return (
                     <ItemCard
-                      key={i}
-                      index={i}
+                      key={originalIndex}
+                      index={originalIndex}
                       data={item}
                       edit={mainActionIndex == 0}
                       select={mainActionIndex > 0}
@@ -318,6 +320,7 @@ export default function ManageInventory() {
                       onChangeCheck={handleSelect}
                     />
                   )
+                }
               }
             }
           )}
@@ -328,6 +331,9 @@ export default function ManageInventory() {
         {/* <Link href="/inventory">
           <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">Back</a>
         </Link> */}
+        <Link href={`/inventory/add?view=${tabs[index]}`}>
+          <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Add New</a>
+        </Link>
         {mainActions[mainActionIndex] == 'Remove' && (
           <button
             type="submit"

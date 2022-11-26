@@ -1,6 +1,6 @@
 import Layout from "../../../layouts/Layout";
 import { useEffect, useState } from "react";
-import Router, { useRouter } from "next/router";
+import  { useRouter } from "next/router";
 import Dropdown from "../../../components/Dropdown";
 import MainHeader from "../../../components/MainHeader";
 import SubHeader from "../../../components/SubHeader";
@@ -16,6 +16,7 @@ export default function Sampling() {
   const router = useRouter();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [allowSubmit, setAllowSubmit] = useState(false);
   const [equipmentData, setEquipmentData] = useState([]);
 
   useEffect(() => {
@@ -27,6 +28,27 @@ export default function Sampling() {
   const handleReset = (i) => {
     window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));
   };
+
+  const handleFormChange = () => {
+    let formData = JSON.parse(window.localStorage.getItem("savedstate" + router.query.index));
+    console.log(formData);
+    let isEmpty = false;
+    for (const [key, value] of Object.entries(formData)) {
+      // exclude optional field
+      // if (key !== 'dryRemarks' && key !== 'cleanScopeStatus' && key !== 'cleanCirculatedBy' && !key.includes('washAER') && key !== 'washDisinfectantChanged' && key !== 'dryDryerLevel' && !key.includes('sample')) {
+      if (key == 'sampleDateOfResult' ||
+        key == 'sampleFluidResult' ||
+        key == 'sampleRepeatDateOfResult' ||
+        key == 'sampleRepeatFluidResult' ||
+        key == 'sampleRoomToPerform' ||
+        key == 'sampleQuarantineRequired' ||
+        key == 'sampleCirculatedBy') {
+        if (!value) isEmpty = true;
+      }
+    }
+    if (isEmpty) setAllowSubmit(false);
+    else setAllowSubmit(true);
+  }
 
   return (
     <Layout>
@@ -58,16 +80,19 @@ export default function Sampling() {
                 tooltipText="Result of bacteria growth"
                 saveState="sampleFluidResult"
                 index={router.query.index}
+                onClickSelect={handleFormChange}
                 />
                 <Input
                 menuHeader="Culture Comment"
                 saveState="sampleCultureComment"
                 index={router.query.index}
+                onChange={handleFormChange}
                 />
                 <Input
                 menuHeader="Action"
                 saveState="sampleAction"
                 index={router.query.index}
+                onChange={handleFormChange}
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -86,18 +111,21 @@ export default function Sampling() {
                 menuItems={["Growth", "No Growth"]}
                 tooltipText="Result of bacteria growth"
                 saveState="sampleRepeatFluidResult"
-                index={router.query.index}    
+                index={router.query.index}  
+                onClickSelect={handleFormChange}  
                 />
 
                 <Input
                 menuHeader="Culture Comment"
                 saveState="sampleRepeatCultureComment"
                 index={router.query.index}
+                onChange={handleFormChange}
                 />
                 <Input
                 menuHeader="Action"
                 saveState="sampleRepeatAction"
                 index={router.query.index}
+                onChange={handleFormChange}
                 />
                 <Dropdown
                 menuHeader="Room to Perform"
@@ -105,6 +133,7 @@ export default function Sampling() {
                 tooltipText="Room location of repeated sampling"   
                 saveState="sampleRoomToPerform"
                 index={router.query.index}
+                onClickSelect={handleFormChange}
                 />
                 </div>
                 <div className="p-5 bg-white">
@@ -113,7 +142,9 @@ export default function Sampling() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                   <DisabledDropdown
+                    index={router.query.index}
                     menuHeader="Quarantine Required"
+                    saveState="sampleQuarantineRequired"
                     borescope="borescope" 
                     tooltipText="The scope is required to be sent for quarantine if the fluid result comes back positive"
                     repeatDateTooltip="Date for repeat sampling"
@@ -132,6 +163,7 @@ export default function Sampling() {
                 tooltipText="Personnel who circulated the equipment"
                 saveState="sampleCirculatedBy"
                 index={router.query.index}
+                onClickSelect={handleFormChange}
                 />
                 </div>
                 <div className="mb-12"></div>
@@ -148,9 +180,15 @@ export default function Sampling() {
                     <button type="button" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                       Save & Exit
                     </button>
-                    <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                      Submit
-                    </button>
+                    {allowSubmit ?
+                      <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
+                        Submit details
+                      </button>
+                      :
+                      <button type="button" onClick={handleFormChange} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
+                        Submit details
+                      </button>
+                    }
                   </div>
             </form>
           </section>

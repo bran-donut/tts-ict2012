@@ -7,7 +7,6 @@ import SubHeader from "../../../components/SubHeader";
 import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
-import Link from "next/link";
 
 export default function Washing() {
   const router = useRouter();
@@ -56,10 +55,8 @@ export default function Washing() {
           <ol className="items-center sm:flex ">
               <li className="relative mb-6 w-80 ml-36 sm:mb-0">
                   <div className="flex items-center">
-                  <Link href="/record/washer/cleaning">
-                      <div className="bg-[#1890FF] ml-[4.1rem] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
+                      <div onClick={()=>handleReturn(router.query.index) } className="bg-[#1890FF] ml-[4.1rem] hover:bg-[#1890FF]/80 hover:cursor-pointer z-10 flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white sm:ring-8 shrink-0">
                       </div>
-                  </Link>
                       <div className="bg-[#1890FF] hidden sm:flex w-full h-0.5"></div>
                   </div>
                   <div className="mt-3 sm:pr-8">
