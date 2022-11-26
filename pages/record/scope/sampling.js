@@ -36,17 +36,13 @@ export default function Sampling() {
     for (const [key, value] of Object.entries(formData)) {
       // exclude optional field
       // if (key !== 'dryRemarks' && key !== 'cleanScopeStatus' && key !== 'cleanCirculatedBy' && !key.includes('washAER') && key !== 'washDisinfectantChanged' && key !== 'dryDryerLevel' && !key.includes('sample')) {
-      if (key == 'cleanDateOfCollection' ||
-        key == 'cleanWashedBy' ||
-        key == 'cleanCollectedBy' ||
-        key == 'washDisinfectantUsed' ||
-        key == 'washDisinfectantLOTNumber' ||
-        key == 'washDisinfectantChanged' ||
-        key == 'washDetergentUsed' ||
-        key == 'washDetergentLOTNumber' ||
-        key == 'washDateOfFilterChanged' ||
-        key == 'dryScopeDryer' ||
-        key == 'dryDryerLevel') {
+      if (key == 'sampleDateOfResult' ||
+        key == 'sampleFluidResult' ||
+        key == 'sampleRepeatDateOfResult' ||
+        key == 'sampleRepeatFluidResult' ||
+        key == 'sampleRoomToPerform' ||
+        key == 'sampleQuarantineRequired' ||
+        key == 'sampleCirculatedBy') {
         if (!value) isEmpty = true;
       }
     }
@@ -146,7 +142,9 @@ export default function Sampling() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                   <DisabledDropdown
+                    index={router.query.index}
                     menuHeader="Quarantine Required"
+                    saveState="sampleQuarantineRequired"
                     borescope="borescope" 
                     tooltipText="The scope is required to be sent for quarantine if the fluid result comes back positive"
                     repeatDateTooltip="Date for repeat sampling"
@@ -187,7 +185,7 @@ export default function Sampling() {
                         Submit details
                       </button>
                       :
-                      <button type="button" className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
+                      <button type="button" onClick={handleFormChange} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
                         Submit details
                       </button>
                     }

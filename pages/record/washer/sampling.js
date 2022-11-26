@@ -99,7 +99,9 @@ export default function Sampling() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 px-5 py-1">
                 <DisabledDropdown
+                index={router.query.index}
                 menuHeader="Quarantine Required"
+                saveState="sampleQuarantineRequired"
                 tooltipText="The washer is required to be sent for quarantine if the fluid result comes back positive"
                 repeatDateTooltip="Date for repeat sampling"
                 />
