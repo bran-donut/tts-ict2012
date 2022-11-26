@@ -257,9 +257,7 @@ export default function ViewInventory() {
         </ItemWrapper>
       </ContainerWrapper>
       <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
-        <Link href={`/inventory/add?view=${tabs[index]}`}>
-          <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Add New</a>
-        </Link>
+        
       </div>
     </Layout>
   );

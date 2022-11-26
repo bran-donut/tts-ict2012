@@ -45,13 +45,11 @@ export default function AddEquipment() {
     }
 
     const onNewScanResult = (decodedText, decodedResult) => {
-        console.log(decodedText, decodedResult);
-        if (decodedText) setScannedValue(randomSerial);
+        if (decodedText) {
+            setScannedValue(randomSerial);
+            setShowScanner(false);
+        }
     }
-
-    // const onCloseScan = () => {
-    //     console.log("scanning");
-    // }
 
     useEffect(() => {
         let items = window.localStorage.getItem("equipments");
@@ -155,13 +153,13 @@ export default function AddEquipment() {
                                         />
 
                                         {showScanner &&
-                                        <QrScanner
-                                            fps={10}
-                                            qrbox={250}
-                                            disableFlip={false}
-                                            qrCodeSuccessCallback={onNewScanResult}
-                                            // qrCodeErrorCallback={onCloseScan}
-                                         />
+                                            <QrScanner
+                                                fps={10}
+                                                qrbox={250}
+                                                disableFlip={false}
+                                                qrCodeSuccessCallback={onNewScanResult}
+                                                closeModal={() => setShowScanner(false)}
+                                            />
                                         }
 
                                         <Dropdown
@@ -194,12 +192,11 @@ export default function AddEquipment() {
                                             onChange={(text) => handleFormChange('frequency', text)}
                                         />
 
-                                        <div></div>
-
                                         <MobileScan
                                             menuHeader="AER Serial Number"
                                             onChange={(text) => handleFormChange('serialNumber', text)}
                                         />
+
                                         <div className="py-1 input-group">
                                             <div className="flex flex-row items-center justify-start pb-1">
                                                 <h4 className="mr-2">Scheduling Option</h4>
