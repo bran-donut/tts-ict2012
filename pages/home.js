@@ -48,7 +48,6 @@ export default function Home() {
     setEquipmentData(items);
     for (let i = 0; i < equipments.length; i++) {
       let checkForSample = JSON.parse(window.localStorage.getItem("savedstate"+i));
-      console.log(checkForSample);
       if (checkForSample.length != 0 && checkForSample["dryingFinished"] === "true")
       {
         // setSampleArray(sampleArray => [...sampleArray, i]);

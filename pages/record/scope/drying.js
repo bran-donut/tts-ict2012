@@ -50,22 +50,17 @@ export default function Drying() {
   };
 
   const submitForm = () => {
-    let formData = window.localStorage.getItem("savedstate"+router.query.index);
+    let formData = JSON.parse(window.localStorage.getItem("savedstate"+router.query.index));
     console.log(formData);
     let isEmpty = false;
     for (const [key, value] of Object.entries(formData)) {
       // exclude optional field
-      if (key !== 'dryRemarks') {
+      if (key !== 'dryRemarks' && key !== 'cleanCirculatedBy' && key !== 'dryingFinished' && !key.includes('sample')) {
           if (!value) isEmpty = true;
       }
     }
     if (isEmpty) setAllowSubmit(false);
-    else {
-        setAllowSubmit(true);
-        // const newData = [...equipmentData, formData];
-        // setEquipmentData(newData);
-        // window.localStorage.setItem("equipments", JSON.stringify(newData));
-    }
+    else setAllowSubmit(true);
   }
 
   return (
@@ -162,7 +157,7 @@ export default function Drying() {
                         Submit details
                       </button>
                       :
-                      <button className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
+                      <button type="button" className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
                         Submit details
                       </button>
                     }

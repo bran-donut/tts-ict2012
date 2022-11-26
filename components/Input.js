@@ -4,12 +4,18 @@ import Tooltip from "../components/Tooltip";
 import { useState, useEffect } from "react";
 
 export default function Input({ menuHeader, tooltipText, saveState, index, onChange, inputValue }) {
-  const [saveText, setSaveText] = useState(inputValue ? inputValue : '');
+  const [saveText, setSaveText] = useState('');
 
   useEffect(() => {
-    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+index));
-    saveText ? savedItems[saveState] = saveText : setSaveText(savedItems[saveState]);
-    window.localStorage.setItem("savedstate"+index, JSON.stringify(savedItems));
+    setSaveText(inputValue ? inputValue : '');
+  }, [inputValue])
+
+  useEffect(() => {
+    if (saveState) {
+      let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+index));
+      saveText ? savedItems[saveState] = saveText : setSaveText(savedItems[saveState]);
+      window.localStorage.setItem("savedstate"+index, JSON.stringify(savedItems));
+    }
     onChange ? onChange(saveText) : null;
   }, [saveText])
   return (

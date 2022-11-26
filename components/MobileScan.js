@@ -10,9 +10,11 @@ const [selected, setSelected] = useState(false);
 const [showModal, setShowModal] = useState(false);
 
 useEffect(() => {
-  let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+index));
-  saveText.item ? savedItems[saveState] = saveText.item : setSaveText({item: savedItems[saveState]});
-  window.localStorage.setItem("savedstate"+index, JSON.stringify(savedItems));
+  if (saveState) {
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+index));
+    saveText.item ? savedItems[saveState] = saveText.item : setSaveText({item: savedItems[saveState]});
+    window.localStorage.setItem("savedstate"+index, JSON.stringify(savedItems));
+  }
   onChange ? onChange(saveText.item) : null;
 }, [saveText.item])
 
