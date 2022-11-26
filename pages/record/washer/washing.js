@@ -7,7 +7,6 @@ import SubHeader from "../../../components/SubHeader";
 import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
-import Link from "next/link";
 
 export default function Washing() {
   const router = useRouter();

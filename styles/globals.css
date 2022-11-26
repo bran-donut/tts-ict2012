@@ -8,6 +8,11 @@
     transform: perspective(7px) rotateY(7deg);
 }
 
+.required:before {
+    content:"* ";
+    color: red;
+}
+
 .ant-picker-calendar-mode-switch {
     display: none;
 }

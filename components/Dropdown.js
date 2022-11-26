@@ -26,7 +26,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
     <>
       <div className="py-1 input-group">
         <div className="flex flex-row items-center justify-start pb-1">
-          <h4 className="mr-2">{menuHeader}</h4>
+          <h4 className="mr-2 required">{menuHeader}</h4>
           {tooltipText &&
             <Tooltip tooltipText={tooltipText}>
               <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />

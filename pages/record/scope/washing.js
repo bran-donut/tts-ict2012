@@ -8,7 +8,6 @@ import Input from "../../../components/Input";
 import DateInput from "../../../components/DateInput";
 import MobileScan from "../../../components/MobileScan";
 import PopupMessage from "../../../components/Modal";
-import Link from "next/link";
 
 export default function Washing() {
   const router = useRouter();
