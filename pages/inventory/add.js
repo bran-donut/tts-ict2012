@@ -14,10 +14,12 @@ import QrScanner from "../../components/QrScanner";
 const tabs = ["Scope", "Washer (AER)"];
 
 export default function AddEquipment() {
+    let randomSerial = Math.floor(Math.random() * 100000000);
     const router = useRouter();
 
     // const [equipmentType, setEquipmentType] = useState("Scope");
     const [index, setIndex] = useState(0);
+    const [scannedValue, setScannedValue] = useState();
     const [equipmentData, setEquipmentData] = useState([]);
     const [formData, setFormData] = useState({
         brand: "",
@@ -28,6 +30,7 @@ export default function AddEquipment() {
         frequency: ""
     })
     const [allowSubmit, setAllowSubmit] = useState(false);
+    const [showScanner, setShowScanner] = useState(false);
 
     const handleFormChange = (field, text) => {
         setFormData({
@@ -43,7 +46,12 @@ export default function AddEquipment() {
 
     const onNewScanResult = (decodedText, decodedResult) => {
         console.log(decodedText, decodedResult);
+        if (decodedText) setScannedValue(randomSerial);
     }
+
+    // const onCloseScan = () => {
+    //     console.log("scanning");
+    // }
 
     useEffect(() => {
         let items = window.localStorage.getItem("equipments");
@@ -87,9 +95,9 @@ export default function AddEquipment() {
 
     return (
         <Layout>
-            <Head>
+            {/* <Head>
                 <script src="html5-qrcode.min.js"></script>
-            </Head>
+            </Head> */}
             <MainHeader
                 heading="Inventory"
                 description="View all the equipment and miscellaneous inside the system"
@@ -140,16 +148,21 @@ export default function AddEquipment() {
                                         />
 
                                         <MobileScan
+                                            inputValue={scannedValue}
                                             menuHeader="Serial Number"
-                                            onChange={(text) => handleFormChange('serialNumber', text)}
+                                            // onChange={(text) => handleFormChange('serialNumber', text)}
+                                            openScan={() => setShowScanner(true)}
                                         />
 
+                                        {showScanner &&
                                         <QrScanner
-                                         fps={10}
-                                         qrbox={250}
-                                         disableFlip={false}
-                                         qrCodeSuccessCallback={onNewScanResult}
+                                            fps={10}
+                                            qrbox={250}
+                                            disableFlip={false}
+                                            qrCodeSuccessCallback={onNewScanResult}
+                                            // qrCodeErrorCallback={onCloseScan}
                                          />
+                                        }
 
                                         <Dropdown
                                             menuHeader="Status"
@@ -181,11 +194,12 @@ export default function AddEquipment() {
                                             onChange={(text) => handleFormChange('frequency', text)}
                                         />
 
+                                        <div></div>
+
                                         <MobileScan
                                             menuHeader="AER Serial Number"
                                             onChange={(text) => handleFormChange('serialNumber', text)}
                                         />
-                                        <div></div>
                                         <div className="py-1 input-group">
                                             <div className="flex flex-row items-center justify-start pb-1">
                                                 <h4 className="mr-2">Scheduling Option</h4>

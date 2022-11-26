@@ -4,7 +4,7 @@ import { MobileOutlined, LoadingOutlined, ScanOutlined, InfoCircleOutlined, Excl
 import Tooltip from "../components/Tooltip";
 
 
-export default function MobileScan({ menuHeader, tooltipText, saveState, index, onChange, inputValue }) {
+export default function MobileScan({ menuHeader, tooltipText, saveState, index, onChange, openScan, inputValue }) {
 const [saveText, setSaveText] = useState({"item":""});
 const [selected, setSelected] = useState(false);
 const [showModal, setShowModal] = useState(false);
@@ -34,14 +34,15 @@ useEffect(() => {
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
             <input type="text" placeholder="Input" className="w-full outline-none" value={saveText.item} onChange={(e) => setSaveText({item: e.target.value})} required />
-            <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
+            <ScanOutlined className="" onClick={() => openScan()} style={{fontSize: '22px', color: 'gray-100' }}/>
+            {/* <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/> */}
         </div>
     </div>
         {showModal ? (
           <>
-            <div onClick={() => (setShowModal(false), setSaveText({item : Math.floor(Math.random() * 100000000)}))}
-              className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
-            >
+           
+            {/* <div onClick={() => (setShowModal(false), setSaveText({item : Math.floor(Math.random() * 100000000)}))} */}
+               <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
               <div className="relative w-auto max-w-3xl mx-auto my-6">
                 {/*content*/}
                 <div className="relative flex flex-col w-full bg-white border-0 rounded-md shadow-lg outline-none focus:outline-none">
