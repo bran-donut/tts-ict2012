@@ -29,12 +29,12 @@ useEffect(() => {
             <h4 className="mr-2 required">{menuHeader}</h4>
             <Tooltip tooltipText={tooltipText}>
               <InfoCircleOutlined style={{fontSize: '16px', color: 'rgb(107 114 128)' }}/>
-          </Tooltip>
+            </Tooltip>
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
             <input type="text" placeholder="Input" className="w-full outline-none" value={saveText.item} onChange={(e) => setSaveText({item: e.target.value})} required />
-            <ScanOutlined className="" onClick={() => openScan()} style={{fontSize: '22px', color: 'gray-100' }}/>
+            <ScanOutlined className="" onClick={() => openScan ? openScan() : null} style={{fontSize: '22px', color: 'gray-100' }}/>
             {/* <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/> */}
         </div>
     </div>
