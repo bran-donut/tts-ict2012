@@ -5,7 +5,7 @@ import Tooltip from "../components/Tooltip";
 
 
 export default function MobileScan({ menuHeader, tooltipText, saveState, index, onChange, inputValue }) {
-const [saveText, setSaveText] = useState({"item":inputValue ? inputValue : ""});
+const [saveText, setSaveText] = useState({"item":""});
 const [selected, setSelected] = useState(false);
 const [showModal, setShowModal] = useState(false);
 
@@ -15,6 +15,10 @@ useEffect(() => {
   window.localStorage.setItem("savedstate"+index, JSON.stringify(savedItems));
   onChange ? onChange(saveText.item) : null;
 }, [saveText.item])
+
+useEffect(() => {
+  setSaveText({item: inputValue ? inputValue : ''});
+}, [inputValue])
 
   return (
     <>

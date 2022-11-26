@@ -8,6 +8,8 @@ import MobileScan from "../../components/MobileScan";
 import Input from "../../components/Input";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import QrScanner from "../../components/QrScanner";
 
 const tabs = ["Scope", "Washer (AER)"];
 
@@ -37,6 +39,10 @@ export default function AddEquipment() {
             status: field == 'status' ? text : formData.status,
             frequency: field == 'frequency' ? text : formData.frequency
         })
+    }
+
+    const onNewScanResult = (decodedText, decodedResult) => {
+        console.log(decodedText, decodedResult);
     }
 
     useEffect(() => {
@@ -81,6 +87,9 @@ export default function AddEquipment() {
 
     return (
         <Layout>
+            <Head>
+                <script src="html5-qrcode.min.js"></script>
+            </Head>
             <MainHeader
                 heading="Inventory"
                 description="View all the equipment and miscellaneous inside the system"
@@ -134,6 +143,13 @@ export default function AddEquipment() {
                                             menuHeader="Serial Number"
                                             onChange={(text) => handleFormChange('serialNumber', text)}
                                         />
+
+                                        <QrScanner
+                                         fps={10}
+                                         qrbox={250}
+                                         disableFlip={false}
+                                         qrCodeSuccessCallback={onNewScanResult}
+                                         />
 
                                         <Dropdown
                                             menuHeader="Status"

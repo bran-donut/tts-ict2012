@@ -11,6 +11,7 @@ export default function Drying() {
   const router = useRouter();
   const [showExitModal, setShowExitModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [allowSubmit, setAllowSubmit] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const [equipmentData, setEquipmentData] = useState([]);
 
@@ -47,6 +48,25 @@ export default function Drying() {
     savedItems["dryingFinished"] = "true";
     window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));
   };
+
+  const submitForm = () => {
+    let formData = window.localStorage.getItem("savedstate"+router.query.index);
+    console.log(formData);
+    let isEmpty = false;
+    for (const [key, value] of Object.entries(formData)) {
+      // exclude optional field
+      if (key !== 'dryRemarks') {
+          if (!value) isEmpty = true;
+      }
+    }
+    if (isEmpty) setAllowSubmit(false);
+    else {
+        setAllowSubmit(true);
+        // const newData = [...equipmentData, formData];
+        // setEquipmentData(newData);
+        // window.localStorage.setItem("equipments", JSON.stringify(newData));
+    }
+  }
 
   return (
     <Layout>
@@ -137,9 +157,15 @@ export default function Drying() {
                     <button type="button" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">
                       Save & Exit
                     </button>
-                    <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                      Submit details
-                    </button>
+                    {allowSubmit ?
+                      <button type="button" onClick={() => {setShowModal(true); submitForm()}} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
+                        Submit details
+                      </button>
+                      :
+                      <button className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
+                        Submit details
+                      </button>
+                    }
                   </div>
             </form>
           </section>

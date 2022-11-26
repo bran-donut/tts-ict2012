@@ -23,7 +23,8 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
     let savedItems = [];
     savedItems[saveState] = saveText;
     window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
-    onClickSelect ? onClickSelect(save) : null;
+    console.log(savedItems);
+    onClickSelect ? onClickSelect(saveText) : null;
   }, [saveText])
 
   useEffect(() => {
