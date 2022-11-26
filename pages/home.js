@@ -47,8 +47,9 @@ export default function Home() {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     setEquipmentData(items);
     for (let i = 0; i < equipments.length; i++) {
-      let checkForSample = JSON.parse(window.localStorage.getItem("savedstate"+i)) || {};
-      if (Object.keys(checkForSample).length != 0 && checkForSample["dryingFinished"] === "true")
+      let checkForSample = JSON.parse(window.localStorage.getItem("savedstate"+i));
+      console.log(checkForSample);
+      if (checkForSample.length != 0 && checkForSample["dryingFinished"] === "true")
       {
         // setSampleArray(sampleArray => [...sampleArray, i]);
         let arr = [...sampleArray, i];

@@ -14,29 +14,29 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
     if (clearValue) setSaveText('');
   }, [clearValue])
 
-  useEffect(() => {
-    let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || {};
-    if (Object.keys(savedItems).length != 0) setSaveText(savedItems[saveState]);
-  }, [])
+  // useEffect(() => {
+  //   let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index));
+  //   if (Object.keys(savedItems).length != 0) setSaveText(savedItems[saveState]);
+  // }, [])
 
-  useEffect(() => {
-    let savedItems = [];
-    savedItems[saveState] = saveText;
-    window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
-    console.log(savedItems);
-    onClickSelect ? onClickSelect(saveText) : null;
-  }, [saveText])
+  // useEffect(() => {
+  //   let savedItems = [];
+  //   savedItems[saveState] = saveText;
+  //   window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
+  //   console.log(savedItems);
+  //   onClickSelect ? onClickSelect(saveText) : null;
+  // }, [saveText])
 
   useEffect(() => {
     setSaveText(inputValue ? inputValue : '');
   }, [inputValue])
 
-  // useEffect(() => {
-  //   let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || {};
-  //   saveText ? savedItems[saveState] = saveText : setSaveText(savedItems[saveState]);
-  //   window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
-  //   onClickSelect ? onClickSelect(saveText) : null;
-  // }, [saveText])
+  useEffect(() => {
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || {};
+    saveText ? savedItems[saveState] = saveText : setSaveText(savedItems[saveState]);
+    window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
+    onClickSelect ? onClickSelect(saveText) : null;
+  }, [saveText])
 
   return (
     <>
