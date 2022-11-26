@@ -111,7 +111,7 @@ export default function AddEquipment() {
                                     <>
                                         <Dropdown
                                             menuHeader="Brand"
-                                            menuItems={["Olympus"]}
+                                            menuItems={["OLYMPUS"]}
                                             onClickSelect={(text) => handleFormChange('brand', text)}
                                         />
                                         <Dropdown
@@ -156,7 +156,7 @@ export default function AddEquipment() {
                                     <>
                                         <Dropdown
                                             menuHeader="AER Model Number"
-                                            menuItems={["Olympus"]}
+                                            menuItems={["MEDIVATOR 1A"]}
                                             onClickSelect={(text) => handleFormChange('modelNumber', text)}
                                         />
 

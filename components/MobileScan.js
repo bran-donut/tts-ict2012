@@ -4,8 +4,8 @@ import { MobileOutlined, LoadingOutlined, ScanOutlined, InfoCircleOutlined, Excl
 import Tooltip from "../components/Tooltip";
 
 
-export default function MobileScan({ menuHeader, tooltipText, saveState, index, onChange }) {
-const [saveText, setSaveText] = useState({"item":""});
+export default function MobileScan({ menuHeader, tooltipText, saveState, index, onChange, inputValue }) {
+const [saveText, setSaveText] = useState({"item":inputValue ? inputValue : ""});
 const [selected, setSelected] = useState(false);
 const [showModal, setShowModal] = useState(false);
 
@@ -27,7 +27,7 @@ useEffect(() => {
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-            <input type="text" placeholder="Input" className="w-full outline-none" defaultValue={saveText.item}  required />
+            <input type="text" placeholder="Input" className="w-full outline-none" value={saveText.item} onChange={(e) => setSaveText({item: e.target.value})} required />
             <ScanOutlined className="" onClick={() => selected === true ? setShowModal(false) : setShowModal(true)} style={{fontSize: '22px', color: 'gray-100' }}/>
         </div>
     </div>

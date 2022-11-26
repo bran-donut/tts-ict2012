@@ -43,7 +43,7 @@ export default function EditEquipment() {
                     <Dropdown
                       inputValue={selectedItem.brand}
                       menuHeader="Brand"
-                      menuItems={["Olympus"]}
+                      menuItems={["OLYMPUS"]}
                     />
                     <Dropdown
                       inputValue={selectedItem.scopeType}
@@ -92,7 +92,7 @@ export default function EditEquipment() {
                     <Dropdown
                       inputValue={selectedItem.modelNumber}
                       menuHeader="AER Model Number"
-                      menuItems={["Olympus"]}
+                      menuItems={["MEDIVATOR 1A"]}
                     />
                     {/* <div className="py-1 input-group">
                       <div className="flex flex-row items-center justify-start pb-1">

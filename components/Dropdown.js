@@ -2,31 +2,44 @@ import React, { useState, useEffect } from "react";
 import { DownOutlined, UpOutlined, ExclamationCircleOutlined, InfoCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import Tooltip from "../components/Tooltip";
 
-export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, tooltipText, saveState, index, onClickSelect, clearValue = false }) {
-  const [saveText, setSaveText] = useState({"item":""});
+export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, tooltipText, saveState, index, onClickSelect, inputValue, clearValue = false }) {
+  const [saveText, setSaveText] = useState({item :inputValue ? inputValue : ''});
   const [selected, setSelected] = useState(false);
-  const [text, setText] = useState("");
   const [addText, setAddText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [dropItem, setDropItem] = useState(menuItems);
 
   // clear selected text
   useEffect(() => {
-    if (clearValue) setText('');
+    if (clearValue) setSaveText({item: ''});
   }, [clearValue])
 
   useEffect(() => {
     let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || [];
-    saveText.item ? savedItems[saveState] = saveText.item : setSaveText({ item: savedItems[saveState] });
+    if (savedItems.length) setSaveText({ item: savedItems[saveState] });
+  }, [])
+
+  useEffect(() => {
+    let savedItems = [];
+    savedItems[saveState] = saveText.item;
     window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
     onClickSelect ? onClickSelect(saveText.item) : null;
   }, [saveText.item])
+
+  // useEffect(() => {
+  //   let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || [];
+  //   saveText.item ? savedItems[saveState] = saveText.item : setSaveText({ item: savedItems[saveState] });
+  //   if (savedItems)
+
+  //   window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
+  //   onClickSelect ? onClickSelect(saveText.item) : null;
+  // }, [saveText.item])
 
   return (
     <>
       <div className="py-1 input-group">
         <div className="flex flex-row items-center justify-start pb-1">
-          <h4 className="mr-2 required">{menuHeader}</h4>
+          <h4 className={"mr-2 " + (menuHeader ? 'required' : '')}>{menuHeader}</h4>
           {tooltipText &&
             <Tooltip tooltipText={tooltipText}>
               <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
@@ -35,7 +48,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-          <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder={placeHolder ? placeHolder : 'Select'} className="w-full outline-none" defaultValue={saveText.item} required />
+          <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder={placeHolder ? placeHolder : 'Select'} className="w-full outline-none" value={saveText.item} onChange={(e) => setSaveText({item: e.target.value})} required />
           <UpOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "visible" : "hidden"}`} style={{ fontSize: '13px', color: 'rgb(107 114 128)' }} />
           <DownOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "hidden" : "visible"}`} style={{ fontSize: '13px', color: 'rgb(107 114 128)' }} />
           <div className={`${selected === true ? "visible" : "hidden"} absolute right-0 z-10 w-full bg-white divide-y divide-gray-100 rounded shado top-11 border-2 border-gray-100`}>
@@ -44,7 +57,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
               {dropItem.map((item, i) => (
                 <React.Fragment key={i}>
                   <li className="py-1">
-                    <p onClick={() => (setSelected(false), setText({ item }), setSaveText({ item }))} className="items-center inline-block w-full px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
+                    <p onClick={() => (setSelected(false), setSaveText({ item: item }))} className="items-center inline-block w-full px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
                     <CloseOutlined onClick={() => (delete dropItem[i], setDropItem(dropItem.filter(textItem => textItem != undefined)))} className={`${drop == undefined ? "invisible" : "visible"} absolute mt-[0.60rem] inline right-0 px-2`} style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
                   </li >
                 </React.Fragment >
@@ -80,7 +93,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
                       Key in a new value
                     </p>
                   </div>
-                  <input onChange={e => setAddText(e.target.value)} type="text" placeholder="Input" className="p-2 border-2 rounded-sm ml-9 w-72" required />
+                  <input onChange={e => setAddText(e.target.value)} value={addText} type="text" placeholder="Input" className="p-2 border-2 rounded-sm ml-9 w-72" required />
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end px-6 pb-6">

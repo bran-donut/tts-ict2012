@@ -3,8 +3,8 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import Tooltip from "../components/Tooltip";
 import { useState, useEffect } from "react";
 
-export default function Input({ menuHeader, tooltipText, saveState, index, onChange }) {
-  const [saveText, setSaveText] = useState();
+export default function Input({ menuHeader, tooltipText, saveState, index, onChange, inputValue }) {
+  const [saveText, setSaveText] = useState(inputValue ? inputValue : '');
 
   useEffect(() => {
     let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+index));
@@ -22,7 +22,7 @@ export default function Input({ menuHeader, tooltipText, saveState, index, onCha
             </Tooltip>) : ''}
         </div>
       <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-      {tooltipText ? (<input onChange={e => setSaveText(e.target.value)} defaultValue={saveText} type="text" placeholder="Input" className="w-full outline-none" required />) : (<input defaultValue={saveText} onChange={e => setSaveText(e.target.value)} type="text" placeholder="Input" className="w-full outline-none"/>)}
+      {tooltipText ? (<input onChange={e => setSaveText(e.target.value)} value={saveText} type="text" placeholder="Input" className="w-full outline-none" required />) : (<input value={saveText} onChange={e => setSaveText(e.target.value)} type="text" placeholder="Input" className="w-full outline-none"/>)}
       </div>
   </div>
   );

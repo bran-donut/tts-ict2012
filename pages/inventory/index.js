@@ -4,7 +4,7 @@ import EquipmentCard, { ItemWrapper } from "../../components/EquipmentCard";
 import MainHeader from "../../components/MainHeader";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
 import { AlignLeftOutlined, FilterOutlined, SortAscendingOutlined, SortDescendingOutlined } from "@ant-design/icons";
-import { exportCSVFile } from "../../Helpers";
+import { exportCSVFile, findIndex } from "../../Helpers";
 import { useRouter } from "next/router";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import ActionButton from "../../components/ActionButton";
@@ -247,8 +247,10 @@ export default function ViewInventory() {
                   else display = false;
                 }
                 else display = true;
-                if (display)
-                  return <EquipmentCard key={i} index={i} equipmentData={sortedData[i]} onClickCard={handleClickCard} />
+                if (display) {
+                  let originalIndex = findIndex(equipmentData, item.serialNumber); 
+                  return <EquipmentCard key={originalIndex} index={originalIndex} equipmentData={sortedData[i]} onClickCard={handleClickCard} />
+                }
               }
             }
           )}

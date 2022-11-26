@@ -4,7 +4,7 @@ import { ItemCard, ItemWrapper } from "../../components/EquipmentCard";
 import MainHeader from "../../components/MainHeader";
 import SubHeader, { SubHeaderButton } from "../../components/SubHeader";
 import { AlignLeftOutlined, FilterOutlined, SortAscendingOutlined, SortDescendingOutlined } from "@ant-design/icons";
-import { exportCSVFile } from "../../Helpers";
+import { exportCSVFile, findIndex } from "../../Helpers";
 import Router, { useRouter } from "next/router";
 import ContainerWrapper from "../../components/ContainerWrapper";
 import PopupMessage, { LoadingMessage, SuccessMessage } from "../../components/Modal";
@@ -306,11 +306,12 @@ export default function ManageInventory() {
                   else display = false;
                 }
                 else display = true;
-                if (display)
+                if (display) {
+                  let originalIndex = findIndex(equipmentData, item.serialNumber); 
                   return (
                     <ItemCard
-                      key={i}
-                      index={i}
+                      key={originalIndex}
+                      index={originalIndex}
                       data={item}
                       edit={mainActionIndex == 0}
                       select={mainActionIndex > 0}
@@ -318,6 +319,7 @@ export default function ManageInventory() {
                       onChangeCheck={handleSelect}
                     />
                   )
+                }
               }
             }
           )}
