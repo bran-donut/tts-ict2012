@@ -21,14 +21,13 @@ export default function AddEquipment() {
         brand: "",
         scopeType: "",
         modelNumber: "",
-        serialNumber: null,
+        serialNumber: "",
         status: "",
-        frequency: null
+        frequency: ""
     })
     const [allowSubmit, setAllowSubmit] = useState(false);
 
     const handleFormChange = (field, text) => {
-        console.log(text);
         setFormData({
             ...formData,
             brand: field == 'brand' ? text : formData.brand,
@@ -52,8 +51,31 @@ export default function AddEquipment() {
 
     useEffect(() => {
         console.log(formData);
+        let isEmpty = false;
         if (index == 0) {
-            
+            // check for empty field
+            for (const [key, value] of Object.entries(formData)) {
+                // exclude optional field
+                if (key !== 'frequency') {
+                    if (!value) isEmpty = true;
+                }
+            }
+        }
+        else {
+            // check for empty field
+            for (const [key, value] of Object.entries(formData)) {
+                // exclude optional field and include washer compulsory fields
+                if (key !== 'frequency' && (key == 'modelNumber' || key == 'serialNumber')) {
+                    if (!value) isEmpty = true;
+                }
+            }
+        }
+        if (isEmpty) setAllowSubmit(false);
+        else {
+            setAllowSubmit(true);
+            const newData = [...equipmentData, formData];
+            setEquipmentData(newData);
+            window.localStorage.setItem("equipments", JSON.stringify(newData));
         }
     }, [formData])
 
@@ -77,11 +99,11 @@ export default function AddEquipment() {
                                 <h3 className="pb-3 font-medium">Equipment Type</h3>
                                 <span>
                                     <input onClick={() => setIndex(0)} type="radio" name="equipment" value="Scope" checked={index == 0}></input>
-                                    <label for="equipment"> Scope </label>
+                                    <label htmlFor="equipment"> Scope </label>
                                 </span>
                                 <span className="ml-2">
                                     <input onClick={() => setIndex(1)} type="radio" name="equipment" value="Washer" checked={index == 1}></input>
-                                    <label for="equipment"> Washer (AER) </label>
+                                    <label htmlFor="equipment"> Washer (AER) </label>
                                 </span>
                             </div>
                             <div className="grid grid-cols-2 gap-4 px-5 py-1">
@@ -170,11 +192,15 @@ export default function AddEquipment() {
                                 Back
                             </a>
                         </Link>
-                        <Link href="/inventory">
-                            <a className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
-                                Save
-                            </a>
-                        </Link>
+                        {allowSubmit ?
+                            <Link href={`/inventory?view=${tabs[index]}`}>
+                                <a className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
+                                    Save
+                                </a>
+                            </Link>
+                            :
+                            <div className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">Save</div>
+                        }
                     </div>
                 </form>
             </section>
