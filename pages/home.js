@@ -4,7 +4,6 @@ import SubHeader from "../components/SubHeader";
 import { ItemCard } from "../components/EquipmentCard";
 import { useEffect, useState } from "react";
 import Router from "next/router";
-import { equipments, savedItems } from "../Constants";
 
 const headerDetails = [
   {
@@ -46,20 +45,28 @@ export default function Home() {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     let sampleItems = JSON.parse(window.localStorage.getItem("toSampleEquipments"));
     setEquipmentData(items);
-    // setToSampleData(sampleItems);
-    for (let i = 0; i < equipments.length; i++) {
+    setToSampleData(sampleItems);
+    for (let i = 0; i < sampleItems.length; i++) {
       let checkForSample = JSON.parse(window.localStorage.getItem("savedstate"+i));
-      if (checkForSample.length != 0 && checkForSample["dryingFinished"] === "true")
+      // console.log(checkForSample);
+      if (checkForSample["dryingFinished"] == "true")
       {
-        if (sampleArray.includes(i) == false)
-        {
-          delete toSampleData[i];
-        }
-        let arr = [...sampleArray, i];
-        setSampleArray(removeDuplicates(arr));
+        // check for unique number, not index!
+        let updatedItems = sampleItems.filter((val) => val.serialNumber !== items[i].serialNumber);
+        setToSampleData(updatedItems);
+        setSampleArray([items[i]]);
+        window.localStorage.setItem("toSampleEquipments", JSON.stringify(updatedItems));
+        // if (sampleArray.includes(i) == false)
+        // {
+        //   delete sampleItems[i];
+        // }
+        // let arr = [...sampleArray, i];
+        // console.log(arr);
+        // setSampleArray(removeDuplicates(arr));
 
-        console.log(toSampleData);
-        // window.localStorage.setItem("toSampleEquipments", JSON.stringify(toSampleData));
+        // console.log(sampleItems);
+        // setToSampleData(sampleItems);
+        // window.localStorage.setItem("toSampleEquipments", JSON.stringify(sampleItems));
       }
     }
     // code below is assuming EQUIPMENT is set in localstorage already (uncomment below once is set)
@@ -80,7 +87,7 @@ export default function Home() {
       <SubHeader heading="Home" description="This area displays all the essential information relating to the equipment under tracking" />
       <section className="grid min-h-screen grid-cols-1 gap-5 px-8 py-5 md:grid-cols-2">
         <Card title="TO SAMPLE" description="Equipment to be sampled as soon as possible">
-          {toSampleData.slice(0, 3).map((item, i) => {
+          {toSampleData.map((item, i) => {
             return (
               <ItemCard
                 key={i}
@@ -125,12 +132,12 @@ export default function Home() {
           {sampleArray.map((e, i) => <ItemCard
             key={i}
             index={i}
-            data={equipmentData[e]}
+            data={e}
             titles={["Sample by"]}
             keys={["sampleDate"]}
             select={false}
             edit={true}
-            onClickEdit={() => handleEdit(e)}
+            onClickEdit={() => handleEdit(i)}
           />)}
         </Card>
         <Card title="SAMPLED RESULTS" description="Showing the most recent sampled results" big={true}>
