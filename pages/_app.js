@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps }) {
     let data = window.localStorage.getItem("equipments");
     // only set storage when empty
     if (!data) window.localStorage.setItem("equipments", JSON.stringify(equipments));
+    if (!data) window.localStorage.setItem("toSampleEquipments", JSON.stringify(equipments));
     // let test;
     // test = JSON.parse(window.localStorage.getItem("scopestate"));
     for (let i = 0; i < equipments.length; i++) {
