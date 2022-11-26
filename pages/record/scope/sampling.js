@@ -151,6 +151,8 @@ export default function Sampling() {
                     tooltipText="The scope is required to be sent for quarantine if the fluid result comes back positive"
                     repeatDateTooltip="Date for repeat sampling"
                     borescopeTooltip="Borescope instrument is used to inspect the inside of a structure through a small hole"
+                    saveState="sampleQuarantineRequired"
+                    index={router.query.index}
                     />
                 </div>
                 <div className="p-5 bg-white">
@@ -187,7 +189,7 @@ export default function Sampling() {
                         Submit details
                       </button>
                       :
-                      <button type="button" className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
+                      <button type="button" className="px-10 py-2 text-white transition-colors duration-150 bg-gray-400 border-2 border-gray-400 rounded-sm">
                         Submit details
                       </button>
                     }

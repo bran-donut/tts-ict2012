@@ -1,16 +1,28 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DownOutlined, UpOutlined, InfoCircleOutlined} from "@ant-design/icons";
 import Tooltip from "../components/Tooltip";
 
-export default function DisabledDropdown({ menuHeader, borescope, tooltipText, repeatDateTooltip, borescopeTooltip }) {
-
+export default function DisabledDropdown({ menuHeader, borescope, tooltipText, repeatDateTooltip, borescopeTooltip, index, saveState, inputValue, onClickSelect }) {
 const [selectedQuarantine, setSelectedQuarantine] = useState(false);
 const [selectedBorescope, setSelectedBorescope] = useState(false);
 const [textQuarantine, setTextQuarantine] = useState("");
 const [textBorescope, setTextBorescope] = useState("");
 const [dropItem, setDropItem] = useState(["Yes", "No"]);
 const [choice, setChoice] = useState(["Yes", "No"]);
+
+useEffect(() => {
+  setTextQuarantine(inputValue ? inputValue : '');
+}, [inputValue])
+
+useEffect(() => {
+  if (saveState) {
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || {};
+    textQuarantine.item ? savedItems[saveState] = textQuarantine : setTextQuarantine(savedItems[saveState]);
+    window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
+  }
+  onClickSelect ? onClickSelect(textQuarantine) : null;
+}, [textQuarantine])
 
   return (
     <>

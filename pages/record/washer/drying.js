@@ -172,7 +172,7 @@ export default function Drying() {
                 Submit details
               </button>
               :
-              <button type="button" className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">
+              <button type="button" className="px-10 py-2 text-white transition-colors duration-150 bg-gray-400 border-2 border-gray-400 rounded-sm">
                 Submit details
               </button>
             }
