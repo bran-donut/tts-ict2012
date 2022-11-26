@@ -96,9 +96,9 @@ export default function Home() {
       }
       if (checkForSample["sampleFluidResult"] == "Growth" || checkForSample["sampleFluidResult"] == "No Growth")
       {
-        let updatedItems = sampleItems.filter((val) => val.serialNumber !== items[i].serialNumber);
-        setSampledResults(updatedItems);
-        window.localStorage.setItem("dashboardSampledResults", JSON.stringify(updatedItems));
+        let arr = [...onQuarantine, i];
+        setSampledResults(removeDuplicates(arr));
+        window.localStorage.setItem("dashboardSampledResults", JSON.stringify(sampledResults));
       }
       if (checkForSample["sampleQuarantineRequired"]["item"] == "Yes")
       {
@@ -172,18 +172,21 @@ export default function Home() {
           />)}
         </Card>
         <Card title="SAMPLED RESULTS" description="Showing the most recent sampled results" big={true}>
-          {sampledResults ? sampledResults.slice(0, 2).map((item, i) => {
-            return (
-              <ItemCard
-                key={i}
-                index={i}
-                data={item}
-                titles={["Fluid Result", "Swab Result"]}
-                keys={["fluidResult", "swabResult"]}
-                select={false}
-                edit={false}
-              />
-            );
+          {sampledResults ? equipmentData.map((item, i) => {
+              if (item == equipmentData[sampledResults])
+              {
+                return (
+                  <ItemCard
+                    key={i}
+                    index={i}
+                    data={item}
+                    titles={["Fluid Result", "Swab Result"]}
+                    keys={["fluidResult", "swabResult"]}
+                    select={false}
+                    edit={false}
+                  />
+                );
+              }
           }): null} 
         </Card>
         <Card title="ON QUARANTINE" description="Equipment that are on quarantine">
