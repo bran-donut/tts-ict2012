@@ -10,6 +10,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import QrScanner from "../../components/QrScanner";
+import Tooltip from "../../components/Tooltip";
+import { SuccessMessage } from "../../components/Modal";
 
 const tabs = ["Scope", "Washer (AER)"];
 
@@ -20,6 +22,7 @@ export default function AddEquipment() {
     // const [equipmentType, setEquipmentType] = useState("Scope");
     const [index, setIndex] = useState(0);
     const [scannedValue, setScannedValue] = useState();
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [equipmentData, setEquipmentData] = useState([]);
     const [formData, setFormData] = useState({
         brand: "",
@@ -44,10 +47,16 @@ export default function AddEquipment() {
         })
     }
 
-    const onNewScanResult = (decodedText, decodedResult) => {
+    const handleCloseSuccessModal = () => {
+        setShowSuccessModal(false);
+        setShowScanner(false);
+    }
+
+    const handleScanResult = (decodedText, decodedResult) => {
         if (decodedText) {
             setScannedValue(randomSerial);
-            setShowScanner(false);
+            // setShowScanner(false);
+            setShowSuccessModal(true);
         }
     }
 
@@ -148,7 +157,8 @@ export default function AddEquipment() {
                                         <MobileScan
                                             inputValue={scannedValue}
                                             menuHeader="Serial Number"
-                                            // onChange={(text) => handleFormChange('serialNumber', text)}
+                                            tooltipText="Unique number of the equipment"
+                                            onChange={(text) => handleFormChange('serialNumber', text)}
                                             openScan={() => setShowScanner(true)}
                                         />
 
@@ -157,9 +167,13 @@ export default function AddEquipment() {
                                                 fps={10}
                                                 qrbox={250}
                                                 disableFlip={false}
-                                                qrCodeSuccessCallback={onNewScanResult}
+                                                qrCodeSuccessCallback={handleScanResult}
                                                 closeModal={() => setShowScanner(false)}
                                             />
+                                        }
+
+                                        {showSuccessModal &&
+                                            <SuccessMessage text="Serial Number has been added" onClose={handleCloseSuccessModal} />
                                         }
 
                                         <Dropdown
@@ -171,7 +185,9 @@ export default function AddEquipment() {
                                         <div className="py-1 input-group">
                                             <div className="flex flex-row items-center justify-start pb-1">
                                                 <h4 className="mr-2">Scheduling Option</h4>
-                                                <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+                                                <Tooltip tooltipText="Include into Sample Scheduling">
+                                                    <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+                                                </Tooltip>
                                             </div>
                                             <div className="relative flex items-center w-full p-2 align-middle rounded-md input-group">
                                                 <input type="checkbox" className="float-left outline-none" required />
@@ -200,7 +216,9 @@ export default function AddEquipment() {
                                         <div className="py-1 input-group">
                                             <div className="flex flex-row items-center justify-start pb-1">
                                                 <h4 className="mr-2">Scheduling Option</h4>
-                                                <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+                                                <Tooltip tooltipText="Include into Sample Scheduling">
+                                                    <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+                                                </Tooltip>
                                             </div>
                                             <div className="relative flex items-center w-full p-2 align-middle rounded-md input-group">
                                                 <input type="checkbox" className="float-left outline-none" required />

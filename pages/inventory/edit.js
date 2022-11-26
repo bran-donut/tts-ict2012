@@ -8,6 +8,7 @@ import MobileScan from "../../components/MobileScan";
 import Input from "../../components/Input";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Tooltip from "../../components/Tooltip";
 
 export default function EditEquipment() {
   const router = useRouter();
@@ -151,7 +152,9 @@ export default function EditEquipment() {
                     <div className="py-1 input-group">
                       <div className="flex flex-row items-center justify-start pb-1">
                         <h4 className="mr-2">Scheduling Option</h4>
-                        <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+                        <Tooltip tooltipText="Include into Sample Scheduling">
+                          <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+                        </Tooltip>
                       </div>
                       <div className="relative flex items-center w-full p-2 align-middle rounded-md input-group">
                         <input type="checkbox" className="float-left outline-none" required />
@@ -195,7 +198,9 @@ export default function EditEquipment() {
                     <div className="py-1 input-group">
                       <div className="flex flex-row items-center justify-start pb-1">
                         <h4 className="mr-2">Scheduling Option</h4>
-                        <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+                        <Tooltip tooltipText="Include into Sample Scheduling">
+                          <InfoCircleOutlined style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
+                        </Tooltip>
                       </div>
                       <div className="relative flex items-center w-full p-2 align-middle rounded-md input-group">
                         <input type="checkbox" className="float-left outline-none" required />
