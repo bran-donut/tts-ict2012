@@ -49,7 +49,7 @@ export default function Drying() {
     window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));
   };
 
-  const submitForm = () => {
+  const handleFormChange = () => {
     let formData = JSON.parse(window.localStorage.getItem("savedstate"+router.query.index));
     console.log(formData);
     let isEmpty = false;
@@ -125,6 +125,7 @@ export default function Drying() {
                 tooltipText="Type of Scope Dryer"
                 saveState="dryScopeDryer"
                 index={router.query.index}
+                onClickSelect={handleFormChange}
                 />
                 <Dropdown
                 menuHeader="Dryer Level"
@@ -132,6 +133,7 @@ export default function Drying() {
                 tooltipText="Set level indicated on the Dryer"
                 saveState="dryDryerLevel"
                 index={router.query.index}
+                onClickSelect={handleFormChange}
                 />
 
                 <div className="py-1 input-group">
@@ -153,7 +155,7 @@ export default function Drying() {
                       Save & Exit
                     </button>
                     {allowSubmit ?
-                      <button type="button" onClick={() => {setShowModal(true); submitForm()}} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
+                      <button type="button" onClick={() => setShowModal(true)} className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">
                         Submit details
                       </button>
                       :

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import NotificationList from "./Notification";
 
-import { SearchOutlined, BellOutlined, UserOutlined, ScanOutlined } from "@ant-design/icons";
+import { SearchOutlined, UserOutlined, ScanOutlined } from "@ant-design/icons";
 import QrScanner from "./QrScanner";
 import { SuccessMessage } from "./Modal";
 import { useState } from "react";
