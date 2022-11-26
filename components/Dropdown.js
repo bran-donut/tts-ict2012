@@ -3,7 +3,7 @@ import { DownOutlined, UpOutlined, ExclamationCircleOutlined, InfoCircleOutlined
 import Tooltip from "../components/Tooltip";
 
 export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, tooltipText, saveState, index, onClickSelect, inputValue, clearValue = false }) {
-  const [saveText, setSaveText] = useState({item :inputValue ? inputValue : ''});
+  const [saveText, setSaveText] = useState('');
   const [selected, setSelected] = useState(false);
   const [addText, setAddText] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -11,29 +11,31 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
 
   // clear selected text
   useEffect(() => {
-    if (clearValue) setSaveText({item: ''});
+    if (clearValue) setSaveText('');
   }, [clearValue])
 
   useEffect(() => {
-    let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || [];
-    if (savedItems.length) setSaveText({ item: savedItems[saveState] });
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || {};
+    if (Object.keys(savedItems).length != 0) setSaveText(savedItems[saveState]);
   }, [])
 
   useEffect(() => {
     let savedItems = [];
-    savedItems[saveState] = saveText.item;
+    savedItems[saveState] = saveText;
     window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
-    onClickSelect ? onClickSelect(saveText.item) : null;
-  }, [saveText.item])
+    onClickSelect ? onClickSelect(save) : null;
+  }, [saveText])
+
+  useEffect(() => {
+    setSaveText(inputValue ? inputValue : '');
+  }, [inputValue])
 
   // useEffect(() => {
-  //   let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || [];
-  //   saveText.item ? savedItems[saveState] = saveText.item : setSaveText({ item: savedItems[saveState] });
-  //   if (savedItems)
-
+  //   let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + index)) || {};
+  //   saveText ? savedItems[saveState] = saveText : setSaveText(savedItems[saveState]);
   //   window.localStorage.setItem("savedstate" + index, JSON.stringify(savedItems));
-  //   onClickSelect ? onClickSelect(saveText.item) : null;
-  // }, [saveText.item])
+  //   onClickSelect ? onClickSelect(saveText) : null;
+  // }, [saveText])
 
   return (
     <>
@@ -48,7 +50,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
         </div>
 
         <div className="relative flex items-center w-full p-2 border-2 rounded-md input-group">
-          <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder={placeHolder ? placeHolder : 'Select'} className="w-full outline-none" value={saveText.item} onChange={(e) => setSaveText({item: e.target.value})} required />
+          <input onClick={() => selected === true ? setSelected(false) : setSelected(true)} type="text" placeholder={placeHolder ? placeHolder : 'Select'} className="w-full outline-none" value={saveText} onChange={(e) => setSaveText(e.target.value)} required />
           <UpOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "visible" : "hidden"}`} style={{ fontSize: '13px', color: 'rgb(107 114 128)' }} />
           <DownOutlined onClick={() => selected === true ? setSelected(false) : setSelected(true)} className={`${selected === true ? "hidden" : "visible"}`} style={{ fontSize: '13px', color: 'rgb(107 114 128)' }} />
           <div className={`${selected === true ? "visible" : "hidden"} absolute right-0 z-10 w-full bg-white divide-y divide-gray-100 rounded shado top-11 border-2 border-gray-100`}>
@@ -57,7 +59,7 @@ export default function Dropdown({ menuHeader, menuItems, drop, placeHolder, too
               {dropItem.map((item, i) => (
                 <React.Fragment key={i}>
                   <li className="py-1">
-                    <p onClick={() => (setSelected(false), setSaveText({ item: item }))} className="items-center inline-block w-full px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
+                    <p onClick={() => (setSelected(false), setSaveText(item))} className="items-center inline-block w-full px-2 py-2 cursor-pointer hover:bg-gray-100">{item}</p>
                     <CloseOutlined onClick={() => (delete dropItem[i], setDropItem(dropItem.filter(textItem => textItem != undefined)))} className={`${drop == undefined ? "invisible" : "visible"} absolute mt-[0.60rem] inline right-0 px-2`} style={{ fontSize: '16px', color: 'rgb(107 114 128)' }} />
                   </li >
                 </React.Fragment >
