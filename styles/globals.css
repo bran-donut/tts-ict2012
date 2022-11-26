@@ -13,6 +13,10 @@
     color: #AB3E3F;
 }
 
+.hidden {
+    display: none;
+}
+
 #html5-qrcode-button-camera-permission {
     background: #AB3E3F;
     padding: 5px 10px;
