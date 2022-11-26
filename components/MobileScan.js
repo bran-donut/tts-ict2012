@@ -4,7 +4,7 @@ import { MobileOutlined, LoadingOutlined, ScanOutlined, InfoCircleOutlined, Excl
 import Tooltip from "../components/Tooltip";
 
 
-export default function MobileScan({ menuHeader, tooltipText, saveState, index, onChange, openScan, inputValue }) {
+export default function MobileScan({ menuHeader, tooltipText, saveState, index, onChange, openScan, inputValue, clearValue = false }) {
 const [saveText, setSaveText] = useState({"item":""});
 const [selected, setSelected] = useState(false);
 const [showModal, setShowModal] = useState(false);
@@ -21,6 +21,11 @@ useEffect(() => {
 useEffect(() => {
   setSaveText({item: inputValue ? inputValue : ''});
 }, [inputValue])
+
+// clear selected text
+useEffect(() => {
+  if (clearValue) setSaveText({item: ''});
+}, [clearValue])
 
   return (
     <>

@@ -8,7 +8,6 @@ import MobileScan from "../../components/MobileScan";
 import Input from "../../components/Input";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import QrScanner from "../../components/QrScanner";
 import Tooltip from "../../components/Tooltip";
 import { SuccessMessage } from "../../components/Modal";
@@ -19,23 +18,25 @@ export default function AddEquipment() {
     let randomSerial = Math.floor(Math.random() * 100000000);
     const router = useRouter();
 
-    // const [equipmentType, setEquipmentType] = useState("Scope");
-    const [index, setIndex] = useState(0);
-    const [scannedValue, setScannedValue] = useState();
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [equipmentData, setEquipmentData] = useState([]);
-    const [formData, setFormData] = useState({
+    const emptyForm = {
         brand: "",
         scopeType: "",
         modelNumber: "",
         serialNumber: "",
         status: "",
         frequency: ""
-    })
+    };
+    const [index, setIndex] = useState(0);
+    const [scannedValue, setScannedValue] = useState();
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [clearForm, setClearForm] = useState(false);
     const [allowSubmit, setAllowSubmit] = useState(false);
     const [showScanner, setShowScanner] = useState(false);
+    const [equipmentData, setEquipmentData] = useState([]);
+    const [formData, setFormData] = useState(emptyForm)
 
     const handleFormChange = (field, text) => {
+        if (text) setClearForm(false);
         setFormData({
             ...formData,
             brand: field == 'brand' ? text : formData.brand,
@@ -44,7 +45,7 @@ export default function AddEquipment() {
             serialNumber: field == 'serialNumber' ? text : formData.serialNumber,
             status: field == 'status' ? text : formData.status,
             frequency: field == 'frequency' ? text : formData.frequency
-        })
+        });
     }
 
     const handleCloseSuccessModal = () => {
@@ -55,7 +56,6 @@ export default function AddEquipment() {
     const handleScanResult = (decodedText, decodedResult) => {
         if (decodedText) {
             setScannedValue(randomSerial);
-            // setShowScanner(false);
             setShowSuccessModal(true);
         }
     }
@@ -68,7 +68,12 @@ export default function AddEquipment() {
 
     useEffect(() => {
         router.push("/inventory/add?view=" + tabs[index], undefined, { shallow: true });
+        setClearForm(true);
     }, [index])
+
+    useEffect(() => {
+        if (clearForm) setFormData(emptyForm);
+    }, [clearForm])
 
     useEffect(() => {
         console.log(formData);
@@ -102,9 +107,6 @@ export default function AddEquipment() {
 
     return (
         <Layout>
-            {/* <Head>
-                <script src="html5-qrcode.min.js"></script>
-            </Head> */}
             <MainHeader
                 heading="Inventory"
                 description="View all the equipment and miscellaneous inside the system"
@@ -136,21 +138,26 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="Brand"
                                             menuItems={["OLYMPUS"]}
+                                            clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('brand', text)}
                                         />
                                         <Dropdown
                                             menuHeader="Scope Type"
                                             menuItems={["tracheal intubation"]}
+                                            clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('scopeType', text)}
                                         />
                                         <Dropdown
                                             menuHeader="Model Number"
                                             menuItems={["TJF423"]}
+                                            clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('modelNumber', text)}
                                         />
 
                                         <Input
+                                            inputValue={clearForm}
                                             menuHeader="Frequency"
+                                            clearValue={clearForm}
                                             onChange={(text) => handleFormChange('frequency', text)}
                                         />
 
@@ -158,6 +165,7 @@ export default function AddEquipment() {
                                             inputValue={scannedValue}
                                             menuHeader="Serial Number"
                                             tooltipText="Unique number of the equipment"
+                                            clearValue={clearForm}
                                             onChange={(text) => handleFormChange('serialNumber', text)}
                                             openScan={() => setShowScanner(true)}
                                         />
@@ -179,6 +187,7 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="Status"
                                             menuItems={["Regular", "Loan"]}
+                                            clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('status', text)}
                                         />
 
@@ -200,18 +209,38 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="AER Model Number"
                                             menuItems={["MEDIVATOR 1A"]}
+                                            clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('modelNumber', text)}
                                         />
 
                                         <Input
                                             menuHeader="Frequency"
+                                            clearValue={clearForm}
                                             onChange={(text) => handleFormChange('frequency', text)}
                                         />
 
                                         <MobileScan
+                                            inputValue={scannedValue}
                                             menuHeader="AER Serial Number"
+                                            tooltipText="Unique number of the equipment"
+                                            clearValue={clearForm}
                                             onChange={(text) => handleFormChange('serialNumber', text)}
+                                            openScan={() => setShowScanner(true)}
                                         />
+
+                                        {showScanner &&
+                                            <QrScanner
+                                                fps={10}
+                                                qrbox={250}
+                                                disableFlip={false}
+                                                qrCodeSuccessCallback={handleScanResult}
+                                                closeModal={() => setShowScanner(false)}
+                                            />
+                                        }
+
+                                        {showSuccessModal &&
+                                            <SuccessMessage text="Serial Number has been added" onClose={handleCloseSuccessModal} />
+                                        }
 
                                         <div className="py-1 input-group">
                                             <div className="flex flex-row items-center justify-start pb-1">

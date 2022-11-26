@@ -9,21 +9,28 @@ import Input from "../../components/Input";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Tooltip from "../../components/Tooltip";
+import QrScanner from "../../components/QrScanner";
+import { SuccessMessage } from "../../components/Modal";
 
 export default function EditEquipment() {
+  let randomSerial = Math.floor(Math.random() * 100000000);
   const router = useRouter();
 
-  const [equipmentData, setEquipmentData] = useState([]);
-  const [selectedItem, setSelectedItem] = useState({});
-  const [formData, setFormData] = useState({
+  const emptyForm = {
     brand: "",
     scopeType: "",
     modelNumber: "",
     serialNumber: "",
     status: "",
     frequency: ""
-  })
+  };
+  const [equipmentData, setEquipmentData] = useState([]);
+  const [selectedItem, setSelectedItem] = useState({});
+  const [formData, setFormData] = useState(emptyForm);
+  const [scannedValue, setScannedValue] = useState();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [allowSubmit, setAllowSubmit] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
 
   const handleFormChange = (field, text) => {
     setFormData({
@@ -35,6 +42,18 @@ export default function EditEquipment() {
       status: field == 'status' ? text : formData.status,
       frequency: field == 'frequency' ? text : formData.frequency
     })
+  }
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    setShowScanner(false);
+  }
+
+  const handleScanResult = (decodedText, decodedResult) => {
+    if (decodedText) {
+      setScannedValue(randomSerial);
+      setShowSuccessModal(true);
+    }
   }
 
   useEffect(() => {
@@ -137,10 +156,26 @@ export default function EditEquipment() {
                     />
 
                     <MobileScan
-                      inputValue={selectedItem.serialNumber}
+                      inputValue={scannedValue || selectedItem.serialNumber}
                       menuHeader="Serial Number"
+                      tooltipText="Unique number of the equipment"
                       onChange={(text) => handleFormChange('serialNumber', text)}
+                      openScan={() => setShowScanner(true)}
                     />
+
+                    {showScanner &&
+                      <QrScanner
+                        fps={10}
+                        qrbox={250}
+                        disableFlip={false}
+                        qrCodeSuccessCallback={handleScanResult}
+                        closeModal={() => setShowScanner(false)}
+                      />
+                    }
+
+                    {showSuccessModal &&
+                      <SuccessMessage text="Serial Number has been added" onClose={handleCloseSuccessModal} />
+                    }
 
                     <Dropdown
                       inputValue={selectedItem.status}
@@ -190,11 +225,27 @@ export default function EditEquipment() {
                     />
 
                     <MobileScan
-                      inputValue={selectedItem.serialNumber}
+                      inputValue={scannedValue || selectedItem.serialNumber}
                       menuHeader="AER Serial Number"
+                      tooltipText="Unique number of the equipment"
                       onChange={(text) => handleFormChange('serialNumber', text)}
+                      openScan={() => setShowScanner(true)}
                     />
-                    <div></div>
+                    
+                    {showScanner &&
+                      <QrScanner
+                        fps={10}
+                        qrbox={250}
+                        disableFlip={false}
+                        qrCodeSuccessCallback={handleScanResult}
+                        closeModal={() => setShowScanner(false)}
+                      />
+                    }
+
+                    {showSuccessModal &&
+                      <SuccessMessage text="Serial Number has been added" onClose={handleCloseSuccessModal} />
+                    }
+
                     <div className="py-1 input-group">
                       <div className="flex flex-row items-center justify-start pb-1">
                         <h4 className="mr-2">Scheduling Option</h4>

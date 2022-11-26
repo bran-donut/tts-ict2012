@@ -3,12 +3,17 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import Tooltip from "../components/Tooltip";
 import { useState, useEffect } from "react";
 
-export default function Input({ menuHeader, tooltipText, saveState, index, onChange, inputValue }) {
+export default function Input({ menuHeader, tooltipText, saveState, index, onChange, inputValue, clearValue = false }) {
   const [saveText, setSaveText] = useState('');
 
   useEffect(() => {
     setSaveText(inputValue ? inputValue : '');
   }, [inputValue])
+
+  // clear selected text
+  useEffect(() => {
+    if (clearValue) setSaveText('');
+  }, [clearValue])
 
   useEffect(() => {
     if (saveState) {
