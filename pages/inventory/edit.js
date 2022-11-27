@@ -135,12 +135,14 @@ export default function EditEquipment() {
                       menuHeader="Brand"
                       menuItems={["OLYMPUS"]}
                       onClickSelect={(text) => handleFormChange('brand', text)}
+                      drop = "drop"
                     />
                     <Dropdown
                       inputValue={selectedItem.scopeType}
                       menuHeader="Scope Type"
                       menuItems={["tracheal intubation"]}
                       onClickSelect={(text) => handleFormChange('scopeType', text)}
+                      drop = "drop"
                     />
                     <Dropdown
                       inputValue={selectedItem.modelNumber}
