@@ -134,6 +134,7 @@ export default function EditEquipment() {
                       inputValue={selectedItem.brand}
                       menuHeader="Brand"
                       menuItems={["OLYMPUS"]}
+                      tooltipText="Brand of the equipment"
                       onClickSelect={(text) => handleFormChange('brand', text)}
                       drop = "drop"
                     />
@@ -141,6 +142,7 @@ export default function EditEquipment() {
                       inputValue={selectedItem.scopeType}
                       menuHeader="Scope Type"
                       menuItems={["tracheal intubation"]}
+                      tooltipText="Scope type of the equipment"
                       onClickSelect={(text) => handleFormChange('scopeType', text)}
                       drop = "drop"
                     />
@@ -148,12 +150,14 @@ export default function EditEquipment() {
                       inputValue={selectedItem.modelNumber}
                       menuHeader="Model Number"
                       menuItems={["TJF423"]}
+                      tooltipText="Model number of the equipment"
                       onClickSelect={(text) => handleFormChange('modelNumber', text)}
                     />
 
                     <Input
                       inputValue={selectedItem.frequency}
                       menuHeader="Frequency"
+                      tooltipText="Frequency of sampling"
                       onChange={(text) => handleFormChange('frequency', text)}
                     />
 
@@ -183,6 +187,7 @@ export default function EditEquipment() {
                       inputValue={selectedItem.status}
                       menuHeader="Status"
                       menuItems={["Regular", "Loan"]}
+                      tooltipText="Status of the equipment"
                       onClickSelect={(text) => handleFormChange('status', text)}
                     />
 
@@ -209,6 +214,7 @@ export default function EditEquipment() {
                       inputValue={selectedItem.modelNumber}
                       menuHeader="AER Model Number"
                       menuItems={["MEDIVATOR 1A"]}
+                      tooltipText="Model number of the equipment"
                       onClickSelect={(text) => handleFormChange('modelNumber', text)}
                     />
                     {/* <div className="py-1 input-group">
@@ -223,6 +229,7 @@ export default function EditEquipment() {
                     <Input
                       inputValue={selectedItem.frequency}
                       menuHeader="Frequency"
+                      tooltipText="Frequency of sampling"
                       onChange={(text) => handleFormChange('frequency', text)}
                     />
 
