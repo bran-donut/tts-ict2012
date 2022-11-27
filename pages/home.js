@@ -19,6 +19,30 @@ const headerDetails = [
 export default function Home() {
   const [equipmentData, setEquipmentData] = useState([]);
   const [toSampleData, setToSampleData] = useState([]);
+  const [sampledResults, setSampledResults] = useState([]);
+  const [onQuarantine, setOnQuarantine] = useState([]);
+  const [onRepair, setOnRepair] = useState([
+    {
+      "brand": "OLYMPUS",
+      "scopeType": "tracheal intubation",
+      "modelNumber": "TJF407",
+      "serialNumber": 21904894,
+      "status": "Regular",
+      "frequency": 4,
+      "samplingStatus": "On Repair",
+      "sampleDate": "14/09/2022"
+    },
+    {
+      "brand": "OLYMPUS",
+      "scopeType": "tracheal intubation",
+      "modelNumber": "TJF419",
+      "serialNumber": 21904906,
+      "status": "Post Repair",
+      "frequency": 5,
+      "samplingStatus": "On Repair",
+      "sampleDate": "15/09/2022"
+    } 
+  ]);
   const [sampleArray, setSampleArray] = useState([]);
 
   const handleEdit = (i) => {
@@ -39,13 +63,15 @@ export default function Home() {
   function removeDuplicates(arr) {
     return arr.filter((item,
         index) => arr.indexOf(item) === index);
-  } 
+  }
 
   useEffect(() => {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     let sampleItems = JSON.parse(window.localStorage.getItem("toSampleEquipments"));
+    let dashboardResults = JSON.parse(window.localStorage.getItem("dashboardSampledResults"));
     setEquipmentData(items);
     setToSampleData(sampleItems);
+    setSampledResults(dashboardResults);
     for (let i = 0; i < sampleItems.length; i++) {
       let checkForSample = JSON.parse(window.localStorage.getItem("savedstate"+i));
       // console.log(checkForSample);
@@ -68,19 +94,24 @@ export default function Home() {
         // setToSampleData(sampleItems);
         // window.localStorage.setItem("toSampleEquipments", JSON.stringify(sampleItems));
       }
+      if (checkForSample["sampleFluidResult"] == "Growth" || checkForSample["sampleFluidResult"] == "No Growth")
+      {
+        let arr = [...onQuarantine, i];
+        setSampledResults(removeDuplicates(arr));
+        window.localStorage.setItem("dashboardSampledResults", JSON.stringify(sampledResults));
+      }
+      if (checkForSample["sampleQuarantineRequired"]["item"] == "Yes")
+      {
+        let arr = [...onQuarantine, i];
+        setOnQuarantine(removeDuplicates(arr));
+      }
     }
-    // code below is assuming EQUIPMENT is set in localstorage already (uncomment below once is set)
-    // let index = window.localStorage.getItem('EQUIPMENT');
-
-    // let index = 1;
-    // setSampledEquipmentIndex(index);
-    // setSampledEquipment(items[index]);
   }, [])
   // useEffect(() => {
   //   setSampledEquipmentIndex([...new Set(sampleArray)]);
   //   console.log(sampledEquipmentIndex)
   // }, [sampleArray])
-
+  console.log(onQuarantine);
   return (
     <Layout>
       <MainHeader heading="Welcome back, Janice Ng" description="What would you like to do today?" details={headerDetails} />
@@ -141,22 +172,56 @@ export default function Home() {
           />)}
         </Card>
         <Card title="SAMPLED RESULTS" description="Showing the most recent sampled results" big={true}>
-          {equipmentData.slice(0, 2).map((item, i) => {
+          {sampledResults ? equipmentData.map((item, i) => {
+              if (item == equipmentData[sampledResults])
+              {
+                return (
+                  <ItemCard
+                    key={i}
+                    index={i}
+                    data={item}
+                    titles={["Fluid Result", "Swab Result"]}
+                    keys={["fluidResult", "swabResult"]}
+                    select={false}
+                    edit={false}
+                  />
+                );
+              }
+          }): null} 
+        </Card>
+        <Card title="ON QUARANTINE" description="Equipment that are on quarantine">
+          {onQuarantine ? equipmentData.map((item, i) => {
+              if (item == equipmentData[onQuarantine])
+              {
+                return (
+                  <ItemCard
+                    key={i}
+                    index={i}
+                    data={item}
+                    titles={["Sample by"]}
+                    keys={["sampleDate"]}
+                    select={false}
+                    edit={false}
+                  />
+                );
+              }
+          }): null} 
+        </Card>
+        <Card title="ON REPAIR" description="Equipment that are sent for repair">
+        {onRepair ? onRepair.map((item, i) => {
             return (
               <ItemCard
                 key={i}
                 index={i}
                 data={item}
-                titles={["Fluid Result", "Swab Result"]}
-                keys={["fluidResult", "swabResult"]}
+                titles={["Sample by"]}
+                keys={["sampleDate"]}
                 select={false}
                 edit={false}
               />
             );
-          })}
+          }): null} 
         </Card>
-        <Card title="ON QUARANTINE" description="Equipment that are on quarantine"></Card>
-        <Card title="ON REPAIR" description="Equipment that are sent for repair"></Card>
       </section>
       {/*<NavBar />*/}
     </Layout>

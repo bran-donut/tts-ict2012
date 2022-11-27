@@ -104,6 +104,8 @@ export default function Sampling() {
                 saveState="sampleQuarantineRequired"
                 tooltipText="The washer is required to be sent for quarantine if the fluid result comes back positive"
                 repeatDateTooltip="Date for repeat sampling"
+                saveState="sampleQuarantineRequired"
+                index={router.query.index}
                 />
                 </div>
 
