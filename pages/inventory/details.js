@@ -69,7 +69,6 @@ export default function InventoryDetails() {
         setRepairStatus(!repairStatus);
         if (!repairStatus == 1) {
             // do something...
-            alert('wait for backend');
         }
     }
 
@@ -183,7 +182,7 @@ export default function InventoryDetails() {
 
             {showLoadingModal && <LoadingMessage onClose={() => setShowLoadingModal(false)} />}
 
-            {showSuccessModal && <SuccessMessage text="1 Item has been set on repair" onClose={handleCloseSuccessModal} />}
+            {showSuccessModal && <SuccessMessage text="Changes has been made" onClose={handleCloseSuccessModal} />}
         </Layout>
     )
 }

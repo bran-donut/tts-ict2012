@@ -266,10 +266,10 @@ export default function ManageInventory() {
             }
             {showSortOptions &&
               <div className="absolute w-full top-10 bg-white pb-2">
-                <div className="p-2 px-4 flex items-center gap-1">
+                <div className="p-2 px-4 flex items-center justify-between">
                   <h3 className="font-medium">Sort By</h3>
                   <button className="flex" onClick={toggleAscending}>
-                    {ascending ? <SortAscendingOutlined style={{ color: 'gray' }} /> : <SortDescendingOutlined style={{ color: 'gray' }} />}
+                  {ascending ? <SortAscendingOutlined style={{ fontSize: '20px', color: 'gray' }} /> : <SortDescendingOutlined style={{ fontSize: '20px', color: 'gray' }} />}
                   </button>
                 </div>
                 <hr></hr>
@@ -352,7 +352,7 @@ export default function ManageInventory() {
 
       {showRemoveModal &&
         <PopupMessage
-          heading="Are you sure delete?"
+          heading="Are you sure you want to delete?"
           description={`Selected ${removeItem.length} items`}
           leftText="No"
           rightText="Yes"
@@ -362,7 +362,7 @@ export default function ManageInventory() {
 
       {showLoadingModal && <LoadingMessage onClose={() => setShowLoadingModal(false)} />}
 
-      {showSuccessModal && <SuccessMessage text={`${removeItem.length} Item has been added`} onClose={handleCloseSuccessModal} />}
+      {showSuccessModal && <SuccessMessage text={`${removeItem.length} Item has been removed`} onClose={handleCloseSuccessModal} />}
     </Layout>
   );
 }
