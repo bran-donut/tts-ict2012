@@ -157,8 +157,8 @@ export default function Drying() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
-            <a onClick={() => handleReturn(router.query.index)} className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
+          <div className="flex flex-col items-center justify-end w-full gap-3 px-14 py-5 bg-white md:flex-row">
+            <a onClick={() => handleReturn(router.query.index)} className="mr-4 text-black hover:text-black/80 hover:cursor-pointer hover:underline">
               Previous Step
             </a>
             <button type="button" onClick={() => setShowExitModal(true)} className="px-10 py-2 ml-4 transition-colors duration-150 bg-white border-2 rounded-sm text-tts-red hover:bg-tts-red/80 border-tts-red">

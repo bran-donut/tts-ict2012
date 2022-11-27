@@ -205,10 +205,10 @@ export default function ViewInventory() {
             }
             {showSortOptions &&
               <div className="absolute w-full top-10 bg-white pb-2">
-                <div className="p-2 px-4 flex items-center gap-1">
+                <div className="p-2 px-4 flex items-center justify-between">
                   <h3 className="font-medium">Sort By</h3>
-                  <button className="flex" onClick={toggleAscending}>
-                    {ascending ? <SortAscendingOutlined style={{ color: 'gray' }} /> : <SortDescendingOutlined style={{ color: 'gray' }} />}
+                  <button className="flex shadow-xl" onClick={toggleAscending}>
+                    {ascending ? <SortAscendingOutlined style={{ fontSize: '20px', color: 'gray' }} /> : <SortDescendingOutlined style={{ fontSize: '20px', color: 'gray' }} />}
                   </button>
                 </div>
                 <hr></hr>
@@ -256,7 +256,7 @@ export default function ViewInventory() {
           )}
         </ItemWrapper>
       </ContainerWrapper>
-      <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
+      <div className="flex flex-col items-center justify-end w-full gap-10 px-14 py-5 bg-white md:flex-row">
         
       </div>
     </Layout>

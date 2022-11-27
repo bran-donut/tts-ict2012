@@ -127,6 +127,7 @@ export default function ManageInventory() {
   const handleCloseSuccessModal = () => {
     setShowSuccessModal(false);
     setRemoveItem([]);
+    setMainActionIndex(0);
   }
 
   const handleClickExport = () => {
@@ -265,10 +266,10 @@ export default function ManageInventory() {
             }
             {showSortOptions &&
               <div className="absolute w-full top-10 bg-white pb-2">
-                <div className="p-2 px-4 flex items-center gap-1">
+                <div className="p-2 px-4 flex items-center justify-between">
                   <h3 className="font-medium">Sort By</h3>
                   <button className="flex" onClick={toggleAscending}>
-                    {ascending ? <SortAscendingOutlined style={{ color: 'gray' }} /> : <SortDescendingOutlined style={{ color: 'gray' }} />}
+                  {ascending ? <SortAscendingOutlined style={{ fontSize: '20px', color: 'gray' }} /> : <SortDescendingOutlined style={{ fontSize: '20px', color: 'gray' }} />}
                   </button>
                 </div>
                 <hr></hr>
@@ -317,6 +318,7 @@ export default function ManageInventory() {
                       edit={mainActionIndex == 0}
                       select={mainActionIndex > 0}
                       onClickEdit={handleEdit}
+                      resetCheck={mainActionIndex}
                       onChangeCheck={handleSelect}
                     />
                   )
@@ -327,14 +329,12 @@ export default function ManageInventory() {
         </ItemWrapper>
 
       </ContainerWrapper>
-      <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
+      <div className="flex flex-col items-center justify-end w-full gap-14 px-14 py-5 bg-white md:flex-row">
         {/* <Link href="/inventory">
           <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">Back</a>
         </Link> */}
-        <Link href={`/inventory/add?view=${tabs[index]}`}>
-          <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Add New</a>
-        </Link>
-        {mainActions[mainActionIndex] == 'Remove' && (
+        
+        {mainActions[mainActionIndex] == 'Remove' ?
           <button
             type="submit"
             onClick={() => (removeItem.length ? setShowRemoveModal(true) : null)}
@@ -343,12 +343,16 @@ export default function ManageInventory() {
           >
             Remove
           </button>
-        )}
+          :
+          <Link href={`/inventory/add?view=${tabs[index]}`}>
+            <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Add New</a>
+          </Link>
+        }
       </div>
 
       {showRemoveModal &&
         <PopupMessage
-          heading="Are you sure delete?"
+          heading="Are you sure you want to delete?"
           description={`Selected ${removeItem.length} items`}
           leftText="No"
           rightText="Yes"
@@ -358,7 +362,7 @@ export default function ManageInventory() {
 
       {showLoadingModal && <LoadingMessage onClose={() => setShowLoadingModal(false)} />}
 
-      {showSuccessModal && <SuccessMessage text={`${removeItem.length} Item has been added`} onClose={handleCloseSuccessModal} />}
+      {showSuccessModal && <SuccessMessage text={`${removeItem.length} Item has been removed`} onClose={handleCloseSuccessModal} />}
     </Layout>
   );
 }

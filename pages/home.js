@@ -204,8 +204,6 @@ export default function Home() {
               key={i}
               index={i}
               data={item}
-              titles={["Sample by"]}
-              keys={["sampleDate"]}
               select={false}
               edit={false}
               noGrow={true}
@@ -219,8 +217,6 @@ export default function Home() {
                 key={i}
                 index={i}
                 data={item}
-                titles={["Sample by"]}
-                keys={["sampleDate"]}
                 select={false}
                 edit={false}
                 noGrow={true}

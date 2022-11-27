@@ -12,7 +12,7 @@ import ContainerWrapper from "../../components/ContainerWrapper";
 import Dropdown from "../../components/Dropdown";
 
 const tabs = ["Sample Schedule", "Off Schedule"];
-const actions = ["Jump to date", "View by: Day", "Filter By"];
+const actions = ["Jump to today", "View by: Day", "Filter By"];
 
 const headerDetails = [
   {
@@ -196,11 +196,11 @@ export default function ViewSchedule() {
 
   const handleEdit = (i) => {
     let type;
-    let step; 
+    let step;
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
-    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + i));
     savedItems["dryingFinished"] === "true" ? step = "/sampling" : step = "/cleaning";
 
     Router.push({
@@ -208,7 +208,7 @@ export default function ViewSchedule() {
       query: { index: i },
     });
   };
-  
+
 
   const scrollToToday = () => {
     scrollRef.current.scrollTo({
@@ -225,6 +225,7 @@ export default function ViewSchedule() {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     setEquipmentData(items);
     setSortedData(items);
+    scrollToToday();
   }, [])
 
   useEffect(() => {
@@ -253,17 +254,29 @@ export default function ViewSchedule() {
           </div>
           <div className="flex items-center gap-4 relative">
             {index == 0 ?
-              actions.slice(0, -1).map((action, i) => (
+              (view.includes('Day') ?
+                actions.slice(0, -1).map((action, i) => (
+                  <ActionButton
+                    key={i}
+                    index={i}
+                    name={action}
+                    // active={actionValues.includes(actions[i])}
+                    onClickAction={handleClickAction}
+                    // icon={i == 0 ? <RightOutlined /> : i == 1 ? <CalendarOutlined /> : <FilterOutlined />} 
+                    icon={(i == 1 && <CalendarOutlined />) || (i == 2 && <FilterOutlined />)} // removed jump to today icon
+                  />
+                ))
+                :
                 <ActionButton
-                  key={i}
-                  index={i}
-                  name={action}
+                  key={1}
+                  index={1}
+                  name={actions[1]}
                   // active={actionValues.includes(actions[i])}
                   onClickAction={handleClickAction}
                   // icon={i == 0 ? <RightOutlined /> : i == 1 ? <CalendarOutlined /> : <FilterOutlined />} 
-                  icon={(i == 1 && <CalendarOutlined />) || (i == 2 && <FilterOutlined />)} // removed jump to date icon
+                  icon={<CalendarOutlined />} // removed jump to today icon
                 />
-              ))
+              )
               :
               // only filter for off schedule
               <>
@@ -311,13 +324,14 @@ export default function ViewSchedule() {
           <div className="bg-gray-300 px-28">
             <div ref={scrollRef} className="max-h-screen px-8 py-4 overflow-y-auto bg-tts-background">
               {[...Array(30)].map((e, i) =>
+               // i + 1 == 17 is today
                 <div key={i}>
                   <div ref={i + 1 == 17 ? todayRef : null} className="w-full h-3 my-3 border-b border-gray-300">
                     <div className={`pl-2 pr-4 ml-4 bg-tts-background w-fit ${i + 1 == 17 ? 'text-tts-red font-bold' : ''}`}>{(i + 1 == 16 && 'Yesterday,') || (i + 1 == 17 && 'Today,')} {i + 1} Nov 22</div>
                   </div>
                   <ItemWrapper className="px-4">
-                    {[...Array(4)].map((e, i) =>
-                      <ItemCard data={sampleSchedule} key={i} isSchedule={true} icon={<FileTextOutlined />} onClickEdit={() => handleEdit(1)} />
+                    {[...Array(4)].map((e, x) =>
+                      <ItemCard data={sampleSchedule} key={x} isSchedule={true} icon={i + 1 <= 17 && <FileTextOutlined />} onClickEdit={() => handleEdit(1)} />
                     )}
                   </ItemWrapper>
                 </div>
