@@ -69,47 +69,37 @@ export default function Home() {
   useEffect(() => {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     let sampleItems = JSON.parse(window.localStorage.getItem("toSampleEquipments"));
-    let dashboardResults = JSON.parse(window.localStorage.getItem("dashboardSampledResults"));
+    // let dashboardResults = JSON.parse(window.localStorage.getItem("dashboardSampledResults"));
     setEquipmentData(items);
     setToSampleData(sampleItems);
-    setSampledResults(dashboardResults);
+    // setSampledResults(dashboardResults);
     for (let i = 0; i < sampleItems.length; i++) {
       let checkForSample = JSON.parse(window.localStorage.getItem("savedstate" + i));
-      // console.log(checkForSample);
+      let completeSample = JSON.parse(window.localStorage.getItem("sampled" + i)) || {};
       if (checkForSample["dryingFinished"] == "true") {
         // check for unique number, not index!
         let updatedItems = sampleItems.filter((val) => val.serialNumber !== items[i].serialNumber);
         setToSampleData(updatedItems);
         setSampleArray([items[i]]);
         window.localStorage.setItem("toSampleEquipments", JSON.stringify(updatedItems));
-        // if (sampleArray.includes(i) == false)
-        // {
-        //   delete sampleItems[i];
-        // }
-        // let arr = [...sampleArray, i];
-        // console.log(arr);
-        // setSampleArray(removeDuplicates(arr));
-
-        // console.log(sampleItems);
-        // setToSampleData(sampleItems);
-        // window.localStorage.setItem("toSampleEquipments", JSON.stringify(sampleItems));
       }
-      if (checkForSample["sampleFluidResult"] == "Growth" || checkForSample["sampleFluidResult"] == "No Growth") {
-        let arr = [...onQuarantine, i];
-        setSampledResults(removeDuplicates(arr));
-        window.localStorage.setItem("dashboardSampledResults", JSON.stringify(sampledResults));
+      // if not empty
+      if (Object.keys(completeSample).length) {
+        items[i].fluidResult = completeSample.sampleFluidResult;
+        setSampledResults(items[i]);
       }
-      if (checkForSample["sampleQuarantineRequired"]["item"] == "Yes") {
-        let arr = [...onQuarantine, i];
-        setOnQuarantine(removeDuplicates(arr));
-      }
+      // if (checkForSample["sampleFluidResult"] == "Growth" || checkForSample["sampleFluidResult"] == "No Growth") {
+      //   let arr = [...onQuarantine, i];
+      //   setSampledResults(removeDuplicates(arr));
+      //   window.localStorage.setItem("dashboardSampledResults", JSON.stringify(sampledResults));
+      // }
+      // if (checkForSample["sampleQuarantineRequired"]["item"] == "Yes") {
+      //   let arr = [...onQuarantine, i];
+      //   setOnQuarantine(removeDuplicates(arr));
+      // }
     }
   }, [])
-  // useEffect(() => {
-  //   setSampledEquipmentIndex([...new Set(sampleArray)]);
-  //   console.log(sampledEquipmentIndex)
-  // }, [sampleArray])
-  console.log(onQuarantine);
+
   return (
     <Layout>
       <MainHeader heading="Welcome back, Janice Ng" description="What would you like to do today?" details={headerDetails} />
@@ -127,6 +117,8 @@ export default function Home() {
                 select={false}
                 edit={true}
                 onClickEdit={() => handleEdit(i)}
+                noGrow={true}
+                addStatus="Pending sampling"
               />
             );
           })}
@@ -168,13 +160,15 @@ export default function Home() {
               select={false}
               edit={true}
               onClickEdit={() => handleEdit(i)}
+              noGrow={true}
+              addStatus="Pending results"
             />)
             :
             null
           }
         </Card>
         <Card title="SAMPLED RESULTS" description="Showing the most recent sampled results" big={true}>
-          {sampledResults ? equipmentData.map((item, i) => {
+          {/* {sampledResults ? equipmentData.map((item, i) => {
             if (item == equipmentData[sampledResults]) {
               return (
                 <ItemCard
@@ -185,10 +179,24 @@ export default function Home() {
                   keys={["fluidResult", "swabResult"]}
                   select={false}
                   edit={false}
+                  noGrow={true}
                 />
               );
             }
-          }) : null}
+          }) : null} */}
+          {Object.keys(sampledResults).length && 
+            <ItemCard
+              key={sampledResults.index}
+              index={sampledResults.index}
+              data={sampledResults}
+              titles={["Fluid Result"]}
+              keys={["fluidResult"]}
+              select={false}
+              edit={false}
+              noGrow={true}
+              addStatus="Finished"
+            />
+          }
         </Card>
         <Card title="ON QUARANTINE" description="Equipment that are on quarantine">
           {equipmentData.slice(-2).map((item, i) => (
@@ -200,6 +208,7 @@ export default function Home() {
               keys={["sampleDate"]}
               select={false}
               edit={false}
+              noGrow={true}
             />
           ))}
         </Card>
@@ -214,6 +223,7 @@ export default function Home() {
                 keys={["sampleDate"]}
                 select={false}
                 edit={false}
+                noGrow={true}
               />
             );
           }) : null}

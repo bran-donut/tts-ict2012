@@ -49,7 +49,7 @@ export function ItemWrapper({ className, children }) {
   );
 }
 
-export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, onClickEdit, onChangeCheck, onClickCard, isSchedule, icon }) {
+export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, onClickEdit, onChangeCheck, onClickCard, isSchedule, addStatus, icon, noGrow = false }) {
   const displayIcon = edit || select;
   {
     /* keys refer to the keys in the data array, used to retrieve specific additional values for the card */
@@ -69,7 +69,7 @@ export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, 
   }, [resetCheck])
 
   return (
-    <div className="flex flex-row items-center flex-grow h-20 gap-2 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start" onClick={() => onClickCard ? onClickCard(index) : null}>
+    <div className={"flex flex-row items-center h-20 gap-2 p-5 m-2 mt-5 bg-white rounded-md shadow-md text-start " + (noGrow ? '' : 'flew-grow')} onClick={() => onClickCard ? onClickCard(index) : null}>
       <div className="flex-grow">
         {scopeType ? (
           <>
@@ -81,12 +81,18 @@ export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, 
               <span className="text-xs text-gray-400">{modelNumber}</span>
               <span className="ml-3 text-xs text-gray-400">•</span>
               <span className="ml-3 text-xs text-gray-400">{serialNumber}</span>
-              {isSchedule ? (
+              {isSchedule &&
                 <>
                   <span className="ml-3 text-xs text-gray-400">•</span>
                   <span className="ml-3 text-xs text-gray-400">{samplingStatus}</span>
                 </>
-              ) : null}
+              }
+              {addStatus &&
+                <>
+                  <span className="ml-3 text-xs text-gray-400">•</span>
+                  <span className="ml-3 text-xs text-gray-400">{addStatus}</span>
+                </>
+              }
             </div>
           </>
         ) : (
@@ -96,12 +102,18 @@ export function ItemCard({ index, data, titles, keys, edit, select, resetCheck, 
             </div>
             <div>
               <span className="text-xs text-gray-400">{serialNumber}</span>
-              {isSchedule ? (
+              {isSchedule &&
                 <>
                   <span className="ml-3 text-xs text-gray-400">•</span>
                   <span className="ml-3 text-xs text-gray-400">{samplingStatus}</span>
                 </>
-              ) : null}
+              }
+              {addStatus &&
+                <>
+                  <span className="ml-3 text-xs text-gray-400">•</span>
+                  <span className="ml-3 text-xs text-gray-400">{addStatus}</span>
+                </>
+              }
             </div>
           </>
         )}
