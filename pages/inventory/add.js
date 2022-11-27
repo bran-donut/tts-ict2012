@@ -138,6 +138,7 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="Brand"
                                             menuItems={["OLYMPUS"]}
+                                            tooltipText="brand of the equipment"
                                             clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('brand', text)}
                                             drop = "drop"
@@ -145,6 +146,7 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="Scope Type"
                                             menuItems={["tracheal intubation"]}
+                                            tooltipText="Scope type of the equipment"
                                             clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('scopeType', text)}
                                             drop = "drop"
@@ -152,6 +154,7 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="Model Number"
                                             menuItems={["TJF423"]}
+                                            tooltipText="Model number of the equipment"
                                             clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('modelNumber', text)}
                                         />
@@ -159,6 +162,7 @@ export default function AddEquipment() {
                                         <Input
                                             inputValue={clearForm}
                                             menuHeader="Frequency"
+                                            tooltipText="Frequency of sampling"
                                             clearValue={clearForm}
                                             onChange={(text) => handleFormChange('frequency', text)}
                                         />
@@ -189,6 +193,7 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="Status"
                                             menuItems={["Regular", "Loan"]}
+                                            tooltipText="Status of the equipment"
                                             clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('status', text)}
                                         />
@@ -211,12 +216,14 @@ export default function AddEquipment() {
                                         <Dropdown
                                             menuHeader="AER Model Number"
                                             menuItems={["MEDIVATOR 1A"]}
+                                            tooltipText="Model number of the equipment"
                                             clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('modelNumber', text)}
                                         />
 
                                         <Input
                                             menuHeader="Frequency"
+                                            tooltipText="Frequency of sampling"
                                             clearValue={clearForm}
                                             onChange={(text) => handleFormChange('frequency', text)}
                                         />
