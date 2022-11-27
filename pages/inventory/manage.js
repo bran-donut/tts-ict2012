@@ -329,7 +329,7 @@ export default function ManageInventory() {
         </ItemWrapper>
 
       </ContainerWrapper>
-      <div className="flex flex-col items-center justify-end w-full gap-10 px-5 py-5 bg-white md:flex-row">
+      <div className="flex flex-col items-center justify-end w-full gap-14 px-14 py-5 bg-white md:flex-row">
         {/* <Link href="/inventory">
           <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">Back</a>
         </Link> */}

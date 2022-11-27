@@ -262,7 +262,7 @@ export default function AddEquipment() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
+                    <div className="flex flex-col items-center justify-end w-full gap-10 px-14 py-5 bg-white md:flex-row">
                         <Link href={`/inventory?view=${tabs[index]}`}>
                             <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                                 Back

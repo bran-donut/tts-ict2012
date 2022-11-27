@@ -265,7 +265,7 @@ export default function EditEquipment() {
               </div>
             }
 
-            <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
+            <div className="flex flex-col items-center justify-end w-full gap-10 px-14 py-5 bg-white md:flex-row">
               <div className="text-black hover:text-black/80 hover:cursor-pointer hover:underline" onClick={() => router.back()}>Back</div>
               <Link href="/inventory">
                 <a className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">

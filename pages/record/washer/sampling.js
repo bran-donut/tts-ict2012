@@ -142,9 +142,9 @@ export default function Sampling() {
                 </div>
             
             
-                  <div className="flex flex-col items-center justify-end w-full gap-0 px-5 py-5 bg-white md:flex-row md:gap-3">
+                  <div className="flex flex-col items-center justify-end w-full gap-3 px-14 py-5 bg-white md:flex-row">
                     <Link href="/schedule">
-                    <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">
+                    <a className="mr-4 text-black hover:text-black/80 hover:cursor-pointer hover:underline">
                       Back
                     </a>
                     </Link>
