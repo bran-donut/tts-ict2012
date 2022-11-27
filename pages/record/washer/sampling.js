@@ -26,6 +26,8 @@ export default function Sampling() {
   }, [])
 
   const handleReset = (i) => {
+    let completedSample = JSON.parse(window.localStorage.getItem("savedstate" + i));
+    window.localStorage.setItem("sampled"+i, JSON.stringify(completedSample));
     window.localStorage.setItem("savedstate"+i, JSON.stringify(savedItems));
   };
 

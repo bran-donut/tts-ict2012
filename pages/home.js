@@ -4,6 +4,7 @@ import SubHeader from "../components/SubHeader";
 import { ItemCard } from "../components/EquipmentCard";
 import { useEffect, useState } from "react";
 import Router from "next/router";
+import { InfoCircleFilled } from "@ant-design/icons";
 
 const headerDetails = [
   {
@@ -41,17 +42,17 @@ export default function Home() {
       "frequency": 5,
       "samplingStatus": "On Repair",
       "sampleDate": "15/09/2022"
-    } 
+    }
   ]);
   const [sampleArray, setSampleArray] = useState([]);
 
   const handleEdit = (i) => {
     let type;
-    let step; 
+    let step;
     if (equipmentData[i].scopeType) type = "scope";
     else type = "washer";
 
-    let savedItems = JSON.parse(window.localStorage.getItem("savedstate"+i));
+    let savedItems = JSON.parse(window.localStorage.getItem("savedstate" + i));
     savedItems["dryingFinished"] === "true" ? step = "/sampling" : step = "/cleaning";
 
     Router.push({
@@ -62,56 +63,43 @@ export default function Home() {
 
   function removeDuplicates(arr) {
     return arr.filter((item,
-        index) => arr.indexOf(item) === index);
+      index) => arr.indexOf(item) === index);
   }
 
   useEffect(() => {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     let sampleItems = JSON.parse(window.localStorage.getItem("toSampleEquipments"));
-    let dashboardResults = JSON.parse(window.localStorage.getItem("dashboardSampledResults"));
+    // let dashboardResults = JSON.parse(window.localStorage.getItem("dashboardSampledResults"));
     setEquipmentData(items);
     setToSampleData(sampleItems);
-    setSampledResults(dashboardResults);
+    // setSampledResults(dashboardResults);
     for (let i = 0; i < sampleItems.length; i++) {
-      let checkForSample = JSON.parse(window.localStorage.getItem("savedstate"+i));
-      // console.log(checkForSample);
-      if (checkForSample["dryingFinished"] == "true")
-      {
+      let checkForSample = JSON.parse(window.localStorage.getItem("savedstate" + i));
+      let completeSample = JSON.parse(window.localStorage.getItem("sampled" + i)) || {};
+      if (checkForSample["dryingFinished"] == "true") {
         // check for unique number, not index!
         let updatedItems = sampleItems.filter((val) => val.serialNumber !== items[i].serialNumber);
         setToSampleData(updatedItems);
         setSampleArray([items[i]]);
         window.localStorage.setItem("toSampleEquipments", JSON.stringify(updatedItems));
-        // if (sampleArray.includes(i) == false)
-        // {
-        //   delete sampleItems[i];
-        // }
-        // let arr = [...sampleArray, i];
-        // console.log(arr);
-        // setSampleArray(removeDuplicates(arr));
-
-        // console.log(sampleItems);
-        // setToSampleData(sampleItems);
-        // window.localStorage.setItem("toSampleEquipments", JSON.stringify(sampleItems));
       }
-      if (checkForSample["sampleFluidResult"] == "Growth" || checkForSample["sampleFluidResult"] == "No Growth")
-      {
-        let arr = [...onQuarantine, i];
-        setSampledResults(removeDuplicates(arr));
-        window.localStorage.setItem("dashboardSampledResults", JSON.stringify(sampledResults));
+      // if not empty
+      if (Object.keys(completeSample).length) {
+        items[i].fluidResult = completeSample.sampleFluidResult;
+        setSampledResults(items[i]);
       }
-      if (checkForSample["sampleQuarantineRequired"]["item"] == "Yes")
-      {
-        let arr = [...onQuarantine, i];
-        setOnQuarantine(removeDuplicates(arr));
-      }
+      // if (checkForSample["sampleFluidResult"] == "Growth" || checkForSample["sampleFluidResult"] == "No Growth") {
+      //   let arr = [...onQuarantine, i];
+      //   setSampledResults(removeDuplicates(arr));
+      //   window.localStorage.setItem("dashboardSampledResults", JSON.stringify(sampledResults));
+      // }
+      // if (checkForSample["sampleQuarantineRequired"]["item"] == "Yes") {
+      //   let arr = [...onQuarantine, i];
+      //   setOnQuarantine(removeDuplicates(arr));
+      // }
     }
   }, [])
-  // useEffect(() => {
-  //   setSampledEquipmentIndex([...new Set(sampleArray)]);
-  //   console.log(sampledEquipmentIndex)
-  // }, [sampleArray])
-  console.log(onQuarantine);
+
   return (
     <Layout>
       <MainHeader heading="Welcome back, Janice Ng" description="What would you like to do today?" details={headerDetails} />
@@ -129,11 +117,13 @@ export default function Home() {
                 select={false}
                 edit={true}
                 onClickEdit={() => handleEdit(i)}
+                noGrow={true}
+                addStatus="Pending sampling"
               />
             );
           })}
 
-            {/* {sampleArray.map((e, i) => <ItemCard
+          {/* {sampleArray.map((e, i) => <ItemCard
             key={i}
             index={i}
             data={equipmentData[e]}
@@ -160,55 +150,70 @@ export default function Home() {
               />
             );
           })} */}
-          {sampleArray.map((e, i) => <ItemCard
-            key={i}
-            index={i}
-            data={e}
-            titles={["Sample by"]}
-            keys={["sampleDate"]}
-            select={false}
-            edit={true}
-            onClickEdit={() => handleEdit(i)}
-          />)}
+          {sampleArray.length ?
+            sampleArray.map((e, i) => <ItemCard
+              key={i}
+              index={i}
+              data={e}
+              titles={["Sample by"]}
+              keys={["sampleDate"]}
+              select={false}
+              edit={true}
+              onClickEdit={() => handleEdit(i)}
+              noGrow={true}
+              addStatus="Pending results"
+            />)
+            :
+            null
+          }
         </Card>
         <Card title="SAMPLED RESULTS" description="Showing the most recent sampled results" big={true}>
-          {sampledResults ? equipmentData.map((item, i) => {
-              if (item == equipmentData[sampledResults])
-              {
-                return (
-                  <ItemCard
-                    key={i}
-                    index={i}
-                    data={item}
-                    titles={["Fluid Result", "Swab Result"]}
-                    keys={["fluidResult", "swabResult"]}
-                    select={false}
-                    edit={false}
-                  />
-                );
-              }
-          }): null} 
+          {/* {sampledResults ? equipmentData.map((item, i) => {
+            if (item == equipmentData[sampledResults]) {
+              return (
+                <ItemCard
+                  key={i}
+                  index={i}
+                  data={item}
+                  titles={["Fluid Result", "Swab Result"]}
+                  keys={["fluidResult", "swabResult"]}
+                  select={false}
+                  edit={false}
+                  noGrow={true}
+                />
+              );
+            }
+          }) : null} */}
+          {Object.keys(sampledResults).length && 
+            <ItemCard
+              key={sampledResults.index}
+              index={sampledResults.index}
+              data={sampledResults}
+              titles={["Fluid Result"]}
+              keys={["fluidResult"]}
+              select={false}
+              edit={false}
+              noGrow={true}
+              addStatus="Finished"
+            />
+          }
         </Card>
         <Card title="ON QUARANTINE" description="Equipment that are on quarantine">
-          {onQuarantine ? equipmentData.map((item, i) => {
-              if (item == equipmentData[onQuarantine])
-              {
-                return (
-                  <ItemCard
-                    key={i}
-                    index={i}
-                    data={item}
-                    titles={["Sample by"]}
-                    keys={["sampleDate"]}
-                    select={false}
-                    edit={false}
-                  />
-                );
-              }
-          }): null} 
+          {equipmentData.slice(-2).map((item, i) => (
+            <ItemCard
+              key={i}
+              index={i}
+              data={item}
+              titles={["Sample by"]}
+              keys={["sampleDate"]}
+              select={false}
+              edit={false}
+              noGrow={true}
+            />
+          ))}
         </Card>
         <Card title="ON REPAIR" description="Equipment that are sent for repair">
-        {onRepair ? onRepair.map((item, i) => {
+          {onRepair ? onRepair.map((item, i) => {
             return (
               <ItemCard
                 key={i}
@@ -218,9 +223,10 @@ export default function Home() {
                 keys={["sampleDate"]}
                 select={false}
                 edit={false}
+                noGrow={true}
               />
             );
-          }): null} 
+          }) : null}
         </Card>
       </section>
       {/*<NavBar />*/}
@@ -230,10 +236,17 @@ export default function Home() {
 
 export function Card(props) {
   return (
-    <div className={`p-5 bg-white ${props.big ? `md:col-span-2` : `col-span-1`}`}>
+    <div className={`p-5 bg-white min-h-[300px] flex flex-col ${props.big ? `md:col-span-2` : `col-span-1`}`}>
       <h4 className="font-bold">{props.title}</h4>
-      <p className="text-sm text-gray-400">{props.description}</p>
-      {props.children}
+      <p className="text-sm text-gray-400 justify-self-start">{props.description}</p>
+      {props.children ? props.children :
+        <div className="flex items-center h-full">
+          <div className="flex items-center w-full gap-2.5 px-4 py-2 border">
+            <InfoCircleFilled style={{ color: 'grey' }} />
+            <div className="text-gray-500">Nothing to display</div>
+          </div>
+        </div>
+      }
     </div>
   );
 }

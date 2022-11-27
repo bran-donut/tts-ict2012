@@ -76,7 +76,7 @@ export default function Drying() {
 
   return (
     <Layout>
-      <MainHeader heading="Record" description="Equipment Sampling Record" />
+      <MainHeader heading="Record Detail" description="Equipment Sampling Record" />
       <SubHeader
         heading={equipmentData.brand + " " + equipmentData.modelNumber}
         description="Record the details of equipment sampling"

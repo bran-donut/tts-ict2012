@@ -35,7 +35,7 @@ export default function Cleaning() {
 
   return (
     <Layout>
-      <MainHeader heading="Record" description="Equipment Sampling Record" />
+      <MainHeader heading="Record Detail" description="Equipment Sampling Record" />
       <SubHeader
         heading={equipmentData.brand + " " + equipmentData.modelNumber + " " + equipmentData.serialNumber}
         description="Record the details of equipment sampling"
