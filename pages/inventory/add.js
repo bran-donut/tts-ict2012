@@ -140,12 +140,14 @@ export default function AddEquipment() {
                                             menuItems={["OLYMPUS"]}
                                             clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('brand', text)}
+                                            drop = "drop"
                                         />
                                         <Dropdown
                                             menuHeader="Scope Type"
                                             menuItems={["tracheal intubation"]}
                                             clearValue={clearForm}
                                             onClickSelect={(text) => handleFormChange('scopeType', text)}
+                                            drop = "drop"
                                         />
                                         <Dropdown
                                             menuHeader="Model Number"
@@ -273,7 +275,7 @@ export default function AddEquipment() {
                                 </a>
                             </Link>
                             :
-                            <div className="px-10 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-gray-400 border-gray-400">Save</div>
+                            <div className="px-10 py-2 text-white transition-colors duration-150 bg-gray-400 border-2 border-gray-400 rounded-sm">Save</div>
                         }
                     </div>
                 </form>
