@@ -127,6 +127,7 @@ export default function ManageInventory() {
   const handleCloseSuccessModal = () => {
     setShowSuccessModal(false);
     setRemoveItem([]);
+    setMainActionIndex(0);
   }
 
   const handleClickExport = () => {
@@ -317,6 +318,7 @@ export default function ManageInventory() {
                       edit={mainActionIndex == 0}
                       select={mainActionIndex > 0}
                       onClickEdit={handleEdit}
+                      resetCheck={mainActionIndex}
                       onChangeCheck={handleSelect}
                     />
                   )
@@ -331,10 +333,8 @@ export default function ManageInventory() {
         {/* <Link href="/inventory">
           <a className="text-black hover:text-black/80 hover:cursor-pointer hover:underline">Back</a>
         </Link> */}
-        <Link href={`/inventory/add?view=${tabs[index]}`}>
-          <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Add New</a>
-        </Link>
-        {mainActions[mainActionIndex] == 'Remove' && (
+        
+        {mainActions[mainActionIndex] == 'Remove' ?
           <button
             type="submit"
             onClick={() => (removeItem.length ? setShowRemoveModal(true) : null)}
@@ -343,7 +343,11 @@ export default function ManageInventory() {
           >
             Remove
           </button>
-        )}
+          :
+          <Link href={`/inventory/add?view=${tabs[index]}`}>
+            <a className="px-5 py-2 text-white transition-colors duration-150 border-2 rounded-sm bg-tts-red hover:bg-tts-red/80 border-tts-red">Add New</a>
+          </Link>
+        }
       </div>
 
       {showRemoveModal &&
