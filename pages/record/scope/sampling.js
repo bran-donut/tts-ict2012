@@ -9,6 +9,7 @@ import DateInput from "../../../components/DateInput";
 import PopupMessage from "../../../components/Modal";
 import { savedItems } from '../../../Constants';
 import Link from "next/link";
+
 import DisabledDropdown from "../../../components/DisabledDropdown";
 
 export default function Sampling() {
@@ -18,12 +19,11 @@ export default function Sampling() {
   const [allowSubmit, setAllowSubmit] = useState(false);
   const [equipmentData, setEquipmentData] = useState([]);
 
-  // Fixing the warning by adding router.query.index to the dependencies
   useEffect(() => {
     let items = JSON.parse(window.localStorage.getItem("equipments"));
     const item = items[router.query.index];
     setEquipmentData(item);
-  }, [router.query.index]);  // <- Added the missing dependency
+  }, [router.query.index]);
 
   const handleReset = (i) => {
     let completedSample = JSON.parse(window.localStorage.getItem("savedstate" + i));
@@ -47,7 +47,7 @@ export default function Sampling() {
       }
     }
     setAllowSubmit(!isEmpty);
-  };
+  }
 
   return (
     <Layout>
@@ -79,7 +79,7 @@ export default function Sampling() {
                   tooltipText="Result of bacteria growth"
                   saveState="sampleFluidResult"
                   index={router.query.index}
-                  onClickSelect={handleFormChange}  // Remove any duplicate props here
+                  onClickSelect={handleFormChange}
                 />
                 <Input
                   menuHeader="Culture Comment"
@@ -112,7 +112,7 @@ export default function Sampling() {
                   tooltipText="Result of bacteria growth"
                   saveState="sampleRepeatFluidResult"
                   index={router.query.index}
-                  onClickSelect={handleFormChange}  // Ensure this is only passed once
+                  onClickSelect={handleFormChange}
                 />
                 <Input
                   menuHeader="Culture Comment"
@@ -132,7 +132,7 @@ export default function Sampling() {
                   tooltipText="Room location of repeated sampling"
                   saveState="sampleRoomToPerform"
                   index={router.query.index}
-                  onClickSelect={handleFormChange}  // Ensure no duplicate props here as well
+                  onClickSelect={handleFormChange}
                 />
               </div>
 
@@ -163,7 +163,7 @@ export default function Sampling() {
                   tooltipText="Personnel who circulated the equipment"
                   saveState="sampleCirculatedBy"
                   index={router.query.index}
-                  onClickSelect={handleFormChange}  // Ensure this is only passed once
+                  onClickSelect={handleFormChange}
                 />
               </div>
             </div>
